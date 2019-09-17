@@ -1,12 +1,10 @@
 # Zygote Plugin Active Campaign
 
----
-
 This plugin is the integration of Zygote and Active Campaign
 
 ---
 
-# Additional Docs
+## Additional Docs
 
 :loudspeaker: [Active Campaign Documentation](https://developers.activecampaign.com/reference#overview)
 
