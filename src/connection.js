@@ -1,42 +1,20 @@
 import fetch from 'isomorphic-fetch'
+import { createCustomer } from './utils/apiRequests'
+import { EcomCustomer } from './utils/dataFormatter'
 
-
-
-const preInfo = (data) => {
-    console.log(`DATA FROM PREINFO in ac plugin: `, data)
+const postInfo = async (data) => {
+    console.log(`DATA FROM POSTINFO in ac plugin: `, data)
+    console.log(`created user`, user)
+    
+    createCustomer(`John Smith`)
 
     // this will get passed on
     return data
 }
 
-const preOrder = (data) => {
+const preOrder = async (data) => {
     console.log(`preOrder: `, data)
     return data
 }
 
-const connectionObj = {
-    "connection": {
-      "service": "Zygote",
-      "externalid": "victory-tailgate",
-      "name": "Victory Tailgate",
-      "logoUrl": "http://example.com/i/foo.png",
-      "linkUrl": "http://example.com/foo/"
-    }
-}
-
-// Creates connection
-// Connection: 
-const connection = async (url, key, data) => {
-
-    return fetch(url, {
-        method: `GET`,
-        body: data,
-        headers: {
-            "Api-Token": key
-        }
-    })
-    .then(res => res)
-    
-}
-
-export { preOrder, preInfo, connection }
+export { preOrder, postInfo }

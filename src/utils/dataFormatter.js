@@ -2,7 +2,7 @@
 // > Deep Data Formatting
 
 // Formats for creating a connection
-export function formatConnection(data) {
+function formatConnection(data) {
     return {
         connection: {
           service: "Zygote Cart",
@@ -15,7 +15,7 @@ export function formatConnection(data) {
 }
 
 // Formats customer to match format for Active Campaign
-export function formatEcomCustomer(customer) {
+function formatEcomCustomer(customer) {
 	return {
         ecomCustomer: {
           connectionid: "1",
@@ -25,5 +25,6 @@ export function formatEcomCustomer(customer) {
         }
     }
 }
-
 // < Deep Data Formatting
+
+export { formatConnection, formatEcomCustomer }
