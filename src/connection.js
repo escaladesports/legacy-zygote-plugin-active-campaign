@@ -4,7 +4,6 @@ import { EcomCustomer } from './utils/dataFormatter'
 
 const postInfo = async (data) => {
     console.log(`DATA FROM POSTINFO in ac plugin: `, data)
-    console.log(`created user`, user)
     
     createCustomer(`John Smith`)
 
