@@ -7,11 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
+    "git": "git",
     "url": "git+https://github.com/escaladesports/zygote-plugin-active-campaign.git"
   },
+  "files": ["src/*"],
   "keywords": [
-    "zygote"
+    "zygote",
+    "active campaign"
   ],
   "author": "Pedro Sivero <psivero@escaladesports.com.>",
   "license": "MIT",
@@ -20,11 +22,9 @@
   },
   "homepage": "https://github.com/escaladesports/zygote-plugin-active-campaign#readme",
   "dependencies": {
-    "@escaladesports/zygote-cart": "^3.0.23",
     "isomorphic-fetch": "^2.2.1"
   },
   "peerDependencies": {
-    "@escaladesports/zygote-cart": "^3.0.0",
     "react": "^16.7.0"
   }
 }
