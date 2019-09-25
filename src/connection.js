@@ -1,19 +1,28 @@
 import fetch from 'isomorphic-fetch'
-import { createCustomer } from './utils/apiRequests'
-import { EcomCustomer } from './utils/dataFormatter'
 
-const postInfo = async (data) => {
-    console.log(`DATA FROM POSTINFO in ac plugin: `, data)
-    
-    createCustomer(`John Smith`)
-
-    // this will get passed on
-    return data
+// GET all connections
+const getAllConnections = async () => {
+    return fetch( `/api/3/connections`, {
+        method: `GET`
+    })
+    .then(res => console.log(`getAllConnections res: `, res))
 }
 
-const preOrder = async (data) => {
-    console.log(`preOrder: `, data)
-    return data
+// GET filtered connections
+const getFilteredConnections = async (filter, value) => {
+    return fetch(`/api/3/connections?filters[${filter}]=${value}`,{
+        method: `GET`
+    })
+    .then(res => console.log(`getFilteredConnections res: `, res))
 }
 
-export { preOrder, postInfo }
+// POST new connection
+const createConnection = async (data) => {
+    return fetch(`/api/3/connections`, {
+        method: `POST`,
+        body: JSON.stringify(data)
+    })
+    .then(res => console.log(`createConnection res: `, res))
+}
+
+export { getAllConnections, getFilteredConnections, createConnection }
