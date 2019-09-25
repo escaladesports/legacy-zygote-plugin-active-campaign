@@ -1,6 +1,6 @@
 {
   "name": "zygote-plugin-active-campaign",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Integration for Zygote and Active Campaign",
   "main": "./src/index.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "git": "git",
     "url": "git+https://github.com/escaladesports/zygote-plugin-active-campaign.git"
   },
-  "files": ["src/*"],
+  "files": [
+    "src/*"
+  ],
   "keywords": [
     "zygote",
     "active campaign"
