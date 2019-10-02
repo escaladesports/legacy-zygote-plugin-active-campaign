@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 // GET all connections
 const getAllConnections = async () => {
-    return fetch( `/api/3/connections`, {
+    return fetch( `/api/3/c/connections`, {
         method: `GET`
     })
     .then(res => console.log(`getAllConnections res: `, res))
@@ -10,7 +10,7 @@ const getAllConnections = async () => {
 
 // GET filtered connections
 const getFilteredConnections = async (filter, value) => {
-    return fetch(`/api/3/connections?filters[${filter}]=${value}`,{
+    return fetch(`/api/3/c/connections?filters[${filter}]=${value}`,{
         method: `GET`
     })
     .then(res => console.log(`getFilteredConnections res: `, res))
@@ -18,7 +18,7 @@ const getFilteredConnections = async (filter, value) => {
 
 // POST new connection
 const createConnection = async (data) => {
-    return fetch(`/api/3/connections`, {
+    return fetch(`/api/3/c/connections`, {
         method: `POST`,
         body: JSON.stringify(data)
     })

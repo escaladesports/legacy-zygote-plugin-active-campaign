@@ -3,7 +3,7 @@ function createConnectionObj() {
     return {
         connection: {
           service: "Zygote Cart",
-          externalid: "test123",
+          externalid: Math.floor(Math.random() * Math.floor(100000000)).toString(),
           name: "Test 123",
           logoUrl: "http://example.com/i/foo.png",
           linkUrl: "http://example.com/foo/"
