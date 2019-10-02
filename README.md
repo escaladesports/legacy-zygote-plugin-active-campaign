@@ -2,7 +2,23 @@
 
 This plugin is the integration of Zygote and Active Campaign
 
-:construction: UNDER DEVELOPMENT :construction:
+## :construction: UNDER DEVELOPMENT :construction:
+
+---
+
+## Installation
+
+With npm:
+
+```bash
+npm install --save zygote-plugin-active-campaign
+```
+
+Or with Yarn:
+
+```bash
+yarn add zygote-plugin-active-campaign
+```
 
 ---
 
@@ -17,7 +33,7 @@ Add the following to your `netlify.toml` file:
 
 ```toml
 [[redirects]]
-  from = "/api/3/*"
+  from = "/api/3/:params"
   to = "https://<account-name>.api-us1.com/api/3/:params"
   status = 200
   force = true

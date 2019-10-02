@@ -27,7 +27,11 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
   },
+  "devDependencies": {
+    "eslint-config-escalade-sports": "^1.0.2"
+  },
   "peerDependencies": {
+    "@escaladesports/zygote-cart": "^3.0.0",
     "react": "^16.7.0"
   }
 }
