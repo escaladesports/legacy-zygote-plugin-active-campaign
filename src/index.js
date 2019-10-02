@@ -1,1 +1,1 @@
-export { postInfo } from './info'
+export { preInfo, postInfo } from './info'

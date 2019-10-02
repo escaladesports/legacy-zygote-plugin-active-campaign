@@ -25,4 +25,16 @@ const createConnection = async (data) => {
     .then(res => console.log(`createConnection res: `, res))
 }
 
-export { getAllConnections, getFilteredConnections, createConnection }
+// POST new connection
+const testCreateConnectionJSON = async (data) => {
+    return fetch(`/api/3/c/connections`, {
+        method: `POST`,
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(data)
+    })
+    .then(res => console.log(`createConnection res: `, res))
+}
+
+export { getAllConnections, getFilteredConnections, createConnection, testCreateConnectionJSON }
