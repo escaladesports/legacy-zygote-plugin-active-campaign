@@ -1,12 +1,36 @@
-import fetch from 'isomorphic-fetch'
+import { createEcomCusObj } from '../utils/dataFormatter'
+import { getFilteredACItem, postACItem } from '../utils/requests'
 
-// POST new ecom customer
-const createEcomCus = async (data) => {
-    return await fetch(`/api/3/ecomCustomers`, {
-        method: `POST`,
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createEcomCus res: `, res))
+
+const createEcomCus = async (connectionid, acceptsMarketing, data) => {
+    let customer = createEcomCusObj(connectionid, ``, )
+    return await postACItem(`ecomCustomers`, customer)
 }
 
-export { createEcomCus }
+const getEcomCus = async (connectionid, email) => {
+    // filters for getting customer
+    let filters = [
+        { filter: `connectionid`, value: connectionid },
+        { filter: `email`, value: email }
+    ]
+
+    await getFilteredACItem(`ecomCustomers`, filters)
+        .then(res => res.ecomCustomers.length ? res.ecomCustomers : null)
+
+}
+
+// Always returns a customer resource
+const handleEcomCus = (connectionid, acceptsMarketing, info) => {
+    
+    // try gets customer
+    let eComCustomer = getEcomCus(connectionid, info.infoEmail)
+    
+    // if customer resource does not exist
+    if(!eComCustomer) {
+        eComCustomer = createEcomCus(connectionid, info.infoEmail, `0`)
+    }
+
+    return eComCustomer
+}
+
+export { createEcomCus, getEcomCus }

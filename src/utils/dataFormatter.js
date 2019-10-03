@@ -30,7 +30,7 @@ function createEcomCusObj(connectionid, externalid = ``, email = ``, acceptsMark
       connectionid,
       externalid,
       email,
-      acceptsMarketing // default accepting marketing to false
+      acceptsMarketing // TODO: update to allow the opt in on form
     }
   }
 }
@@ -43,6 +43,10 @@ function getFirstName(fullName) {
 function getLastName(fullName) {
   if(fullName.indexOf(` `) > 0) return fullName.split(` `)[fullName.split(` `).length - 1]
   return ` `
+}
+
+const buildFiltersString = filters => {
+  return `?${filters.map(({filter, value}) => `&filters[${filter}]=${value}`).join('').substr(1)}`
 }
 
 // > Order Objects
@@ -98,4 +102,4 @@ function createEcomProduct() {
 
 // < Order Objects
 
-export { createConnectionObj, createContactObj, getFirstName, getLasttName, createEcomOrder, createEcomCusObj }
+export { createConnectionObj, createContactObj, getFirstName, getLasttName, buildFiltersString, createEcomOrder, createEcomCusObj }

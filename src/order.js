@@ -1,8 +1,7 @@
 // import { createEcomOrder } from './eComOrder/eComOrder'
 
 const postOrder = async ({response, info, preFetchData}) => {
-    // 1. Update the order status
-    // createEcomOrder()
+    // TODO: Handle the order update and remove cart flag
 
 
     return response

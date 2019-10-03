@@ -1,28 +1,26 @@
-import fetch from 'isomorphic-fetch'
+import { createConnectionObj } from './utils/dataFormatter'
+import { getFilteredACItem, postACItem } from './utils/requests'
 
-// GET all connections
-const getAllConnections = async () => {
-    return await fetch( `/api/3/connections`, {
-        method: `GET`
-    })
-    .then(res => console.log(`getAllConnections res: `, res))
+
+const createConnection = async () => {
+    let connection = createConnectionObj(window.location.host, window.location.origin)
+    return await postACItem(`connections`, connection)
+        .then(res => {
+            return res.connection.id
+        })
 }
 
-// GET filtered connections
-const getFilteredConnections = async (filter, value) => {
-    return await fetch(`/api/3/connections?filters[${filter}]=${value}`,{
-        method: `GET`
-    })
-    .then(res => console.log(`getFilteredConnections res: `, res))
+const getConnectionByExternalId = async () => {
+    let filter = [{
+        filter: `externalid`,
+        value: window.location.host
+    }]
+    return await getFilteredACItem(`connections`, filter)
+                    .then(res => {
+                        if(res.connection) {
+                            return res[0].externalid
+                        }
+                    })
 }
 
-// POST new connection
-const createConnection = async (data) => {
-    return await fetch(`/api/3/connections`, {
-        method: `POST`,
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createConnection res: `, res))
-}
-
-export { getAllConnections, getFilteredConnections, createConnection, testCreateConnectionJSON }
+export { createConnection, getConnectionByExternalId }

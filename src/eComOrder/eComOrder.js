@@ -1,12 +1,14 @@
-import fetch from 'isomorphic-fetch'
+import { createEcomOrder } from '../utils/dataFormatter'
+import { postACItem } from '../utils/requests'
 
-// POST new ecom customer
-const createEcomOrder = async (data) => {
-    return await fetch(`/api/3/ecomOrders`, {
-        method: `POST`,
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createEcomOrder res: `, res))
+// Builds order
+const buildOrder = () => {
+    let order = createEcomOrder()
 }
 
-export { createEcomCus }
+const postEcomOrder = async (data) => {
+    // Update the abandoned order created
+}
+
+
+export { postEcomOrder }

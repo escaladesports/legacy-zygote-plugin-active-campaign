@@ -1,20 +1,17 @@
 import fetch from 'isomorphic-fetch'
+import { getFirstName, getLastName,createContactObj } from '../utils/dataFormatter'
+import { postACItem } from '../utils/requests'
 
-// GET all contacts
-const getAllContacts = async () => {
-    return await fetch( `/api/3/contacts`, {
-        method: `GET`
-    })
-    .then(res => console.log(`getAllContacts res: `, res))
+
+const createContact = info => {
+    let contact = createContactObj(info.infoEmail, getFirstName(info.infoName), getLastName(info.infoName), info.infoPhone)
+    postACItem(`contacts`, contact)
 }
 
-// POST new contacts
-const createContact = async (data) => {
-    return await fetch(`/api/3/contacts`, {
-        method: `POST`,
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createContacts res: `, res))
-}
+// TODO: create get contact function
+const getContact = () => {}
 
-export { getAllContacts, createContact }
+// TODO: create the contact handling function to be called instead on postInfo
+const handleContact = () => {}
+
+export { createContact, getContact, handleContact }
