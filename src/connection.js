@@ -25,4 +25,4 @@ const createConnection = async (data) => {
     .then(res => console.log(`createConnection res: `, res))
 }
 
-export { getAllConnections, getFilteredConnections, createConnection }
+export { getAllConnections, getFilteredConnections, createConnection, testCreateConnectionJSON }

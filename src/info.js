@@ -3,6 +3,18 @@ import { createContact } from './contacts/contacts'
 import { createConnectionObj, getFirstName, getLastName, createEcomCusObj } from './utils/dataFormatter'
 import { createEcomCus } from './eComOrder/eComOrder'
 
+const preInfo = async ({response, info, preFetchData}) => {
+    
+    await getAllConnections()
+
+    await createConnection(createConnectionObj())
+    
+    await testCreateConnectionJSON(createConnectionObj())
+
+    await getFilteredConnections(`externalid`, `test555`)
+    
+    return response
+}
 
 const postInfo = async ({response, info, preFetchData}) => {
     
@@ -10,7 +22,9 @@ const postInfo = async ({response, info, preFetchData}) => {
 
     createConnection(createConnectionObj())
 
-    getFilteredConnections(`externalid`, `test555`)
+    await testCreateConnectionJSON(createConnectionObj())
+
+    await getFilteredConnections(`externalid`, `test555`)
     
     // 1. Handle contact and customer data
         // a. Create the contact
@@ -58,4 +72,4 @@ const postInfo = async ({response, info, preFetchData}) => {
     return response
 }
 
-export { postInfo }
+export { preInfo, postInfo }
