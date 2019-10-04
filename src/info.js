@@ -4,20 +4,30 @@ import { handleEcomCus } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'
 
 
-const postInfo = async ({response, info, preFetchData}) => {
+const preInfo = async ({ preFetchData, info }) => {
 
-    // Check connection
-    let connectionid = handleConnection()
+    try {
+        // Check connection
+        let connectionid = await handleConnection()
+        console.log(`connection handled: `, connectionid)
+        if (!connectionid) return info
 
-    // create the contact
-    createContact(info)
+        // create the contact
+        await createContact(info)
+        console.log(`createContact has run`)
 
-    let eComCustomer = handleEcomCus(connectionid, `0`,info)
+        let eComCustomer = await handleEcomCus(connectionid, `0`, info)
+        console.log(`eComCustomer has run`)
+        if (!eComCustomer) return info
     
-    // Create the abandoned eComOrder
-    createAbandonedOrder(info, connectionid, eComCustomer.id)
+        // Create the abandoned eComOrder
+        await createAbandonedOrder(info, connectionid, eComCustomer.id)
+        console.log(`createAbandonedOrder has run`)
+    } catch (ex) {
+        console.log(`Error!: `, ex)
+    } 
 
-    return response
+    return info
 }
 
-export { postInfo }
+export { preInfo }

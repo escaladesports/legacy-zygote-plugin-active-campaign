@@ -36,3 +36,4 @@ netlify.toml.bak
 # Temporary
 temp
 temp-*
+package-lock.json

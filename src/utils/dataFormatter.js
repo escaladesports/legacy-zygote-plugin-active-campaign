@@ -51,7 +51,7 @@ const buildFiltersString = filters => {
 
 // > Order Objects
 
-function createEcomOrder(data, connectionid, customerid) {
+async function createEcomOrder(data, connectionid, customerid) {
   // TODO: Review order creation object
   // Update all default values and review IDs
   let order =  {
@@ -92,13 +92,13 @@ function createEcomOrder(data, connectionid, customerid) {
   return order
 }
 
-function addCartAbandoned(order) {
-    // TODO: Review the id and date
-    // Add externalcheckoutid and abandoned_date to make cart abandonded
-    order.externalcheckoutid = `${data.totals.subtotal}-${customerid}-${connectionid}`
-    order.abandoned_date = `2019-09-30T17:41:39-04:00`
+function addCartAbandoned(order, customerid, connectionid) {
+  // TODO: Review the id and date
+  // Add externalcheckoutid and abandoned_date to make cart abandonded
+  order.externalcheckoutid = `${order.totalPrice}-${customerid}-${connectionid}`
+  order.abandoned_date = `2019-09-30T17:41:39-04:00`
 
-    return order
+  return order
 }
 
 function removeCartAbandonment(order, orderid){

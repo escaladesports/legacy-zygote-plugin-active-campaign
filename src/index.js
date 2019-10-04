@@ -1,2 +1,2 @@
-export { postInfo } from './info'
+export { preInfo } from './info'
 export { postOrder } from './order'
