@@ -1,5 +1,5 @@
-import { createEcomCusObj } from '../utils/dataFormatter'
-import { getFilteredACItem, postACItem } from '../utils/requests'
+import { createEcomCusObj } from './utils/dataFormatter'
+import { getFilteredACItem, postACItem } from './utils/requests'
 
 
 const createEcomCus = async (connectionid, acceptsMarketing, data) => {
@@ -14,15 +14,18 @@ const getEcomCus = async (connectionid, email) => {
         { filter: `email`, value: email }
     ]
 
-    await getFilteredACItem(`ecomCustomers`, filters)
-        .then(res => res.ecomCustomers.length ? res.ecomCustomers : null)
+    let customer = await getFilteredACItem(`ecomCustomers`, filters)
+
+    customer = ecomCustomers.length ? res.ecomCustomers : null
+
+    return customer
 
 }
 
 // Always returns a customer resource
 const handleEcomCus = (connectionid, acceptsMarketing, info) => {
     
-    // try gets customer
+    // try get customer
     let eComCustomer = getEcomCus(connectionid, info.infoEmail)
     
     // if customer resource does not exist
@@ -33,4 +36,4 @@ const handleEcomCus = (connectionid, acceptsMarketing, info) => {
     return eComCustomer
 }
 
-export { createEcomCus, getEcomCus }
+export { createEcomCus, getEcomCus, handleEcomCus}

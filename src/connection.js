@@ -3,11 +3,11 @@ import { getFilteredACItem, postACItem } from './utils/requests'
 
 
 const createConnection = async () => {
-    let connection = createConnectionObj(window.location.host, window.location.origin)
-    return await postACItem(`connections`, connection)
-        .then(res => {
-            return res.connection.id
-        })
+    let connectionItem = createConnectionObj(window.location.host, window.location.origin)
+    
+    let connection = await postACItem(`connections`, connectionItem)
+    
+    return connection.id
 }
 
 const getConnectionByExternalId = async () => {
@@ -15,12 +15,20 @@ const getConnectionByExternalId = async () => {
         filter: `externalid`,
         value: window.location.host
     }]
-    return await getFilteredACItem(`connections`, filter)
-                    .then(res => {
-                        if(res.connection) {
-                            return res[0].externalid
-                        }
-                    })
+
+    let data = await getFilteredACItem(`connections`, filter)
+
+    if (data.connections.length) return data.connections[0].externalid
+    return null
 }
 
-export { createConnection, getConnectionByExternalId }
+const handleConnection = () => {
+    // Check connection
+    let connectionid = getConnectionByExternalId()
+    // if we dont have a connection - create one
+    connectionid = connectionid ? connectionid : createConnection()
+
+    return connectionid
+}
+
+export { createConnection, getConnectionByExternalId, handleConnection }
