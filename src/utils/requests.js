@@ -15,10 +15,10 @@ const getACItem = async type => {
         return null
     }
 
-    let data = await response.json()
-    console.log(`response from getACItem: `, data)
+    let res = await response.json()
+    console.log(`response from getACItem: `, res)
 
-    return data
+    return res
 }
 
 const getACItemById = async (type, id) => {
@@ -35,10 +35,10 @@ const getACItemById = async (type, id) => {
         return null
     }
 
-    let data = await response.json()
-    console.log(`response from getACItemById: `, data)
+    let res = await response.json()
+    console.log(`response from getACItemById: `, res)
 
-    return data
+    return res
 }
 
 const getFilteredACItem = async (type, filters) => {
@@ -54,10 +54,10 @@ const getFilteredACItem = async (type, filters) => {
         return null
     }
 
-    let data = await response.json()
-    console.log(`response from getFilteredACItem: `, data)
+    let res = await response.json()
+    console.log(`response from getFilteredACItem: `, res)
     
-    return data
+    return res
 }
 
 const postACItem = async (type, data) => {
@@ -77,10 +77,10 @@ const postACItem = async (type, data) => {
         return null
     }
 
-    let data = await response.json()
-    console.log(`response from postACItem: `, data)
+    let res = await response.json()
+    console.log(`response from postACItem: `, res)
 
-    return data
+    return res
 }
 
 
