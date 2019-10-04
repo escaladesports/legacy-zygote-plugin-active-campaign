@@ -1,4 +1,4 @@
-import { createConnection, getConnectionByExternalId, handleConnection } from './connection'
+import { handleConnection } from './connection'
 import { createContact } from './contacts'
 import { handleEcomCus } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'

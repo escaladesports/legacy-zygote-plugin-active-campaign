@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import buildFiltersString from './dataFormatter'
+import { buildFiltersString } from './dataFormatter'
 
 const getACItem = async type => {
     let response

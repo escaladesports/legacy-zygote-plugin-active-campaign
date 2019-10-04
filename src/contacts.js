@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import { getFirstName, getLastName,createContactObj } from './utils/dataFormatter'
 import { postACItem } from './utils/requests'
 

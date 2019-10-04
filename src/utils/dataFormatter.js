@@ -114,4 +114,4 @@ function removeCartAbandonment(order, orderid){
 
 // < Order Objects
 
-export { createConnectionObj, createContactObj, getFirstName, getLasttName, buildFiltersString, createEcomOrder, createEcomCusObj, addCartAbandoned, removeCartAbandonment }
+export { createConnectionObj, createContactObj, getFirstName, getLastName, buildFiltersString, createEcomOrder, createEcomCusObj, addCartAbandoned, removeCartAbandonment }
