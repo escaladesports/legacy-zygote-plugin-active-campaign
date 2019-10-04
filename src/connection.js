@@ -1,40 +1,34 @@
-import fetch from 'isomorphic-fetch'
+import { createConnectionObj } from './utils/dataFormatter'
+import { getFilteredACItem, postACItem } from './utils/requests'
 
-// GET all connections
-const getAllConnections = async () => {
-    return fetch( `/api/3/c/connections`, {
-        method: `GET`
-    })
-    .then(res => console.log(`getAllConnections res: `, res))
+
+const createConnection = async () => {
+    let connectionItem = createConnectionObj(window.location.host, window.location.origin)
+    
+    let connection = await postACItem(`connections`, connectionItem)
+    
+    return connection.id
 }
 
-// GET filtered connections
-const getFilteredConnections = async (filter, value) => {
-    return fetch(`/api/3/c/connections?filters[${filter}]=${value}`,{
-        method: `GET`
-    })
-    .then(res => console.log(`getFilteredConnections res: `, res))
+const getConnectionByExternalId = async () => {
+    let filter = [{
+        filter: `externalid`,
+        value: window.location.host
+    }]
+
+    let data = await getFilteredACItem(`connections`, filter)
+
+    if (data.connections.length) return data.connections[0].externalid
+    return null
 }
 
-// POST new connection
-const createConnection = async (data) => {
-    return fetch(`/api/3/c/connections`, {
-        method: `POST`,
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createConnection res: `, res))
+const handleConnection = () => {
+    // Check connection
+    let connectionid = getConnectionByExternalId()
+    // if we dont have a connection - create one
+    connectionid = connectionid ? connectionid : createConnection()
+
+    return connectionid
 }
 
-// POST new connection
-const testCreateConnectionJSON = async (data) => {
-    return fetch(`/api/3/c/connections`, {
-        method: `POST`,
-        headers: {
-            'Content-Type': 'application/json'
-          },
-        body: JSON.stringify(data)
-    })
-    .then(res => console.log(`createConnection res: `, res))
-}
-
-export { getAllConnections, getFilteredConnections, createConnection, testCreateConnectionJSON }
+export { createConnection, getConnectionByExternalId, handleConnection }

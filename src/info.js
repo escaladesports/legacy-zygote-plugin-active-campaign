@@ -1,30 +1,23 @@
-import { getAllConnections, getFilteredConnections, createConnection } from './connection'
-import { createConnectionObj } from './utils/dataFormatter'
+import { createConnection, getConnectionByExternalId, handleConnection } from './connection'
+import { createContact } from './contacts'
+import { handleEcomCus } from './eComCustomer'
+import { createAbandonedOrder } from './eComOrder'
 
-const preInfo = async ({response, info, preFetchData}) => {
-    
-    await getAllConnections()
-
-    await createConnection(createConnectionObj())
-    
-    await testCreateConnectionJSON(createConnectionObj())
-
-    await getFilteredConnections(`externalid`, `test555`)
-    
-    return response
-}
 
 const postInfo = async ({response, info, preFetchData}) => {
+
+    // Check connection
+    let connectionid = handleConnection()
+
+    // create the contact
+    createContact(info)
+
+    let eComCustomer = handleEcomCus(connectionid, `0`,info)
     
-    await getAllConnections()
+    // Create the abandoned eComOrder
+    createAbandonedOrder(info, connectionid, eComCustomer.id)
 
-    await createConnection(createConnectionObj())
-
-    await testCreateConnectionJSON(createConnectionObj())
-
-    await getFilteredConnections(`externalid`, `test555`)
-    
     return response
 }
 
-export { preInfo, postInfo }
+export { postInfo }

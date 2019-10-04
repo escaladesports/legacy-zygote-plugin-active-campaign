@@ -1,6 +1,6 @@
 {
   "name": "zygote-plugin-active-campaign",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Integration for Zygote and Active Campaign",
   "main": "src/index.js",
   "public": true,
@@ -27,7 +27,11 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
   },
+  "devDependencies": {
+    "eslint-config-escalade-sports": "^1.0.2"
+  },
   "peerDependencies": {
+    "@escaladesports/zygote-cart": "^3.0.0",
     "react": "^16.7.0"
   }
 }
