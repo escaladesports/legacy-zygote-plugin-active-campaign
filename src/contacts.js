@@ -2,10 +2,10 @@ import { getFirstName, getLastName, createContactObj } from './utils/dataFormatt
 import { postACItem } from './utils/requests'
 
 
-const createContact = async (info) => {
-    let contact = createContactObj(info.infoEmail, getFirstName(info.infoName), getLastName(info.infoName), info.infoPhone)
-    return await postACItem(`contact/sync`, contact)
+const upsertContact = async (info) => {
+	console.log(`attempting to create contact`)
+	let contact = createContactObj(info.infoEmail, getFirstName(info.infoName), getLastName(info.infoName), info.infoPhone)
+	return await postACItem(`contact/sync`, contact)
 }
 
-
-export { createContact }
+export { upsertContact }
