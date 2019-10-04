@@ -18,15 +18,18 @@ const getConnectionByExternalId = async () => {
 
     let data = await getFilteredACItem(`connections`, filter)
 
-    if (data.connections.length) return data.connections[0].externalid
+    if (data.connections.length) return data.connections[0].id
     return null
 }
 
-const handleConnection = () => {
+const handleConnection = async () => {
     // Check connection
-    let connectionid = getConnectionByExternalId()
+    console.log(`attempting to get connectionid`)
+    let connectionid = await getConnectionByExternalId()
+    console.log(`connectionid: `, connectionid)
     // if we dont have a connection - create one
-    connectionid = connectionid ? connectionid : createConnection()
+    connectionid = connectionid ? connectionid : await createConnection()
+    console.log(`connectionid final: `, connectionid)
 
     return connectionid
 }
