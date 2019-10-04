@@ -1,14 +1,14 @@
 // Creates connection object
 function createConnectionObj(sitename, linkUrl) {
-    return {
-        connection: {
-          service: `Zygote Cart`,
-          externalid: sitename,
-          name: sitename,
-          logoUrl: ``, // TODO: logourl update
-          linkUrl
-        }
+  return {
+    connection: {
+      service: `Zygote Cart`,
+      externalid: sitename,
+      name: sitename,
+      logoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`, // TODO: logourl update
+      linkUrl
     }
+  }
 }
 
 // Creates contact object
@@ -36,17 +36,17 @@ function createEcomCusObj(connectionid, externalid = ``, email = ``, acceptsMark
 }
 
 function getFirstName(fullName) {
-  if(fullName.indexOf(` `) > 0) return fullName.split(` `)[0]
+  if (fullName.indexOf(` `) > 0) return fullName.split(` `)[0]
   return ` `
 }
 
 function getLastName(fullName) {
-  if(fullName.indexOf(` `) > 0) return fullName.split(` `)[fullName.split(` `).length - 1]
+  if (fullName.indexOf(` `) > 0) return fullName.split(` `)[fullName.split(` `).length - 1]
   return ` `
 }
 
 const buildFiltersString = filters => {
-  return `?${filters.map(({filter, value}) => `&filters[${filter}]=${value}`).join('').substr(1)}`
+  return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
 }
 
 // > Order Objects
@@ -54,7 +54,7 @@ const buildFiltersString = filters => {
 async function createEcomOrder(data, connectionid, customerid) {
   // TODO: Review order creation object
   // Update all default values and review IDs
-  let order =  {
+  let order = {
     ecomOrder: {
       externalid: `3246315233`,
       source: `1`, // The order source code (0 - will not trigger automations, 1 - will trigger automations)
@@ -73,7 +73,7 @@ async function createEcomOrder(data, connectionid, customerid) {
       customerid
     }
   }
-  
+
   // add each product to order
   order.ecomOrder.orderProducts = data.products.map(product => {
     return {
@@ -101,14 +101,14 @@ function addCartAbandoned(order, customerid, connectionid) {
   return order
 }
 
-function removeCartAbandonment(order, orderid){
-    // remove order 
-    delete order.externalcheckoutid
-    delete order.abandoned_date
+function removeCartAbandonment(order, orderid) {
+  // remove order 
+  delete order.externalcheckoutid
+  delete order.abandoned_date
 
-    order.externalid = `2019-09-30T17:41:39-04:00`
+  order.externalid = `2019-09-30T17:41:39-04:00`
 
-    return order
+  return order
 }
 
 
