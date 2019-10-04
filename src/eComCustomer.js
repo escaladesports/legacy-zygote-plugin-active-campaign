@@ -23,14 +23,14 @@ const getEcomCus = async (connectionid, email) => {
 }
 
 // Always returns a customer resource
-const handleEcomCus = (connectionid, acceptsMarketing, info) => {
+const handleEcomCus = async (connectionid, acceptsMarketing, info) => {
     
     // try get customer
-    let eComCustomer = getEcomCus(connectionid, info.infoEmail)
+    let eComCustomer = await getEcomCus(connectionid, info.infoEmail)
     
     // if customer resource does not exist
     if(!eComCustomer) {
-        eComCustomer = createEcomCus(connectionid, info.infoEmail, `0`)
+        eComCustomer = await createEcomCus(connectionid, info.infoEmail, `0`)
     }
 
     return eComCustomer

@@ -5,7 +5,7 @@ const getACItem = async type => {
     let response
     
     try {
-        let response = await fetch(`/api/3/${type}`, {
+        response = await fetch(`/api/3/${type}`, {
             method: `GET`,
             body: JSON.stringify(data)
         })
@@ -25,7 +25,7 @@ const getACItemById = async (type, id) => {
     let response
 
     try {
-        let response = await fetch(`/api/3/${type}/${id}`, {
+        response = await fetch(`/api/3/${type}/${id}`, {
             method: `GET`,
             body: JSON.stringify(data)
         })
