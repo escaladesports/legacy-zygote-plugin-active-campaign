@@ -45,6 +45,15 @@ const getFilteredACItem = async (type, filters) => {
 	let response
 
 	try {
+		/* fetch(`/api/3/${type}${buildFiltersString(filters)}`)
+			.then(function (response) {
+				if (response.status >= 400)
+					throw new Error("Bad response from server")
+				return response.json();
+			})
+			.then(function (stories) {
+				console.log(stories);
+			}); */
 		response = await fetch(`/api/3/${type}${buildFiltersString(filters)}`, {
 			method: `GET`
 		})

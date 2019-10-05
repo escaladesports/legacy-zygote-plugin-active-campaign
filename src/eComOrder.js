@@ -12,7 +12,9 @@ const createAbandonedOrder = async (data, connectionid, customerid) => {
 
 const updateAbandonedOrder = async (order) => {
 	order = removeCartAbandonment(order)
-	return await postACItem(`ecomOrderId`, order)
+	let updatedOrder = await postACItem(`ecomOrderId`, order)
+	console.log(`updatedOrder final: `, updatedOrder)
+	return updatedOrder
 }
 
 
