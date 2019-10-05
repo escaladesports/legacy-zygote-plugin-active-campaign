@@ -123,7 +123,7 @@ function createEcomOrder(info, connectionid, customerid) {
 function addCartAbandoned(ecomOrder, customerid, connectionid) {
   // TODO: Review the id and date
   // Add externalcheckoutid and abandoned_date to make cart abandonded
-  ecomOrder.externalcheckoutid = `${order.totalPrice}-${customerid}-${connectionid}`
+  ecomOrder.externalcheckoutid = `${ecomOrder.totalPrice}-${customerid}-${connectionid}`
   ecomOrder.abandoned_date = `2019-09-30T17:41:39-04:00`
 
   return ecomOrder
