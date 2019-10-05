@@ -29,8 +29,9 @@ const preInfo = async ({ preFetchData, info }) => {
 
 		// init an active campaign e-commerce customer
 		const acCustomer = await ActiveCampaignEComCustomer.init(
-			info,
 			acConnection.id,
+			info.infoEmail,
+			info.infoEmail,
 			acceptsMarketing
 		)
 		console.log(`acCustomer: `, acCustomer)

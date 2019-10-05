@@ -39,9 +39,10 @@ export class ActiveCampaignContact {
 	phone
 
 	constructor(email = ``, firstName = ``, lastName = ``, phone = ``) {
-		this.externalid = hostUrl
-		this.name = hostUrl
-		this.linkUrl = serviceUrl
+		this.email = email
+		this.firstName = firstName
+		this.lastName = lastName
+		this.phone = phone
 	}
 
 	requestJson = () => {

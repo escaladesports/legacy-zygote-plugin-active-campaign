@@ -38,9 +38,9 @@ export class ActiveCampaignEComCustomer {
 	email
 	acceptsMarketing // TODO: update to allow the opt in on form
 
-	constructor(connectionId, externalid = ``, email = ``, acceptsMarketing = `0`) {
+	constructor(connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) {
 		this.connectionid = connectionId
-		this.externalid = externalid
+		this.externalid = externalId
 		this.email = email
 		this.acceptsMarketing = acceptsMarketing
 	}
