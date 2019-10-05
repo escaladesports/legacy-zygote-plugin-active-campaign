@@ -1,42 +1,4 @@
 
-
-// Creates connection object
-/* function createConnectionObj(sitename, linkUrl) {
-  return {
-    connection: {
-      service: `Zygote Cart`,
-      externalid: sitename,
-      name: sitename,
-      logoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
-      linkUrl
-    }
-  }
-} */
-
-// Creates contact object
-/* function createContactObj(email = ``, firstName = ``, lastName = ``, phone = ``) {
-  return {
-    contact: {
-      email,
-      firstName,
-      lastName,
-      phone
-    }
-  }
-} */
-
-// Creates contact object
-function createEcomCusObj(connectionid, externalid = ``, email = ``, acceptsMarketing = `0`) {
-  return {
-    ecomCustomer: {
-      connectionid,
-      externalid,
-      email,
-      acceptsMarketing // TODO: update to allow the opt in on form
-    }
-  }
-}
-
 function getFirstName(fullName) {
   if (fullName.indexOf(` `) > 0) return fullName.split(` `)[0]
   return ` `
@@ -117,13 +79,10 @@ function removeCartAbandonment(ecomOrder, orderid) {
 // < Order Objects
 
 export {
-  // createConnectionObj,
-  // createContactObj,
   getFirstName,
   getLastName,
   buildFiltersString,
   createEcomOrder,
-  createEcomCusObj,
   addCartAbandoned,
   removeCartAbandonment
 }

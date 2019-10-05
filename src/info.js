@@ -1,36 +1,51 @@
-import { handleConnection } from './connection'
-import { handleContact } from './contacts'
-import { handleEcomCus } from './eComCustomer'
+import { ActiveCampaignConnection } from './connection'
+import { ActiveCampaignContact } from './contacts'
+import { ActiveCampaignEComCustomer } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'
-import { setCurrentOrder } from './order'
-
-import { ActiveCampaignConnection } from './utils/classes'
+import { ActiveCampaignStore } from './order'
 
 
 const preInfo = async ({ preFetchData, info }) => {
 
 	try {
 		console.log(`info: `, info)
-		// Check connection
-		let activeCampaignConnection = await ActiveCampaignConnection.init()
-		console.log(`activeCampaignConnection: `, activeCampaignConnection)
-		if (!activeCampaignConnection) return info
 
-		// create the contact
-		/* let contact = await handleContact(info)
-		console.log(`contact handled: `, contact)
-		if (!contact) return info
+		/*
+		Notes:
+			* `init` means to get or create an object in Active Campaign
+		 	* `acceptsMarketing` still needs to be sent in from the cart
+		*/
+		const acceptsMarketing = `1`
 
-		let eComCustomer = await handleEcomCus(connectionid, `0`, info)
-		console.log(`eComCustomer has run`)
-		if (!eComCustomer) return info
+		// init an active campaign connection
+		const acConnection = await ActiveCampaignConnection.init()
+		console.log(`acConnection: `, acConnection)
+		if (!acConnection) return info
 
-		// Create the abandoned eComOrder
-		let eComOrder = await createAbandonedOrder(info, connectionid, eComCustomer.id)
-		console.log(`createAbandonedOrder has run`)
-		if (!eComOrder) return info 
+		// init an active campaign contact
+		const acContact = await ActiveCampaignContact.init(info)
+		console.log(`acContact: `, acContact)
+		if (!acContact) return info
 
-		setCurrentOrder(eComOrder) */
+		// init an active campaign e-commerce customer
+		const acCustomer = await ActiveCampaignEComCustomer.init(
+			info,
+			acConnection.id,
+			acceptsMarketing
+		)
+		console.log(`acCustomer: `, acCustomer)
+		if (!acCustomer) return info
+
+		// init an active campaign e-commerce order
+		const acOrder = await createAbandonedOrder(
+			info,
+			acConnection.id,
+			acCustomer.id
+		)
+		console.log(`acOrder: `, acOrder)
+		if (!acOrder) return info
+
+		ActiveCampaignStore.setCurrentOrder(acOrder)
 	} catch (ex) {
 		console.log(`Error!: `, ex)
 	}
