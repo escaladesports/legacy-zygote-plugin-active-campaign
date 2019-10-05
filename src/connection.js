@@ -7,7 +7,7 @@ const createConnection = async () => {
 
 	let connection = await postACItem(`connections`, connectionItem)
 
-	return connection ? connection.id : null
+	return connection && connection.connection ? connection.connection.id : null
 }
 
 const getConnectionByExternalId = async () => {

@@ -16,8 +16,6 @@ const getEcomCus = async (connectionid, email) => {
 
 	let customer = await getFilteredACItem(`ecomCustomers`, filters)
 
-	customer = ecomCustomers.length ? ecomCustomers[0] : null
-
 	return customer
 }
 
@@ -35,7 +33,7 @@ const handleEcomCus = async (connectionid, acceptsMarketing, info) => {
 	}
 	console.log(`eComCustomer final: `, eComCustomer)
 
-	return eComCustomer
+	return eComCustomer && eComCustomer.ecomCustomer ? eComCustomer.ecomCustomer : null
 }
 
 export { createEcomCus, getEcomCus, handleEcomCus }
