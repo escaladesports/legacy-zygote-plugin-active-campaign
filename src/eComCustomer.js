@@ -3,8 +3,9 @@ import { getFilteredACItem, postACItem } from './utils/requests'
 
 
 const createEcomCus = async (connectionid, acceptsMarketing, data) => {
-	let customer = createEcomCusObj(connectionid, ``)
-	return await postACItem(`ecomCustomers`, customer)
+	let customerItem = createEcomCusObj(connectionid, ``)
+	let customer = await postACItem(`ecomCustomers`, customerItem)
+	return customer ? customer.ecomCustomer : null
 }
 
 const getEcomCus = async (connectionid, email) => {
@@ -14,9 +15,12 @@ const getEcomCus = async (connectionid, email) => {
 		{ filter: `email`, value: email }
 	]
 
-	let customer = await getFilteredACItem(`ecomCustomers`, filters)
+	let customerList = await getFilteredACItem(`ecomCustomers`, filters)
 
-	return customer
+	return customerList
+		&& customerList.ecomCustomers
+		&& customerList.ecomCustomers.length
+		? customerList.ecomCustomers[0] : null
 }
 
 // Always returns a customer resource
@@ -25,15 +29,9 @@ const handleEcomCus = async (connectionid, acceptsMarketing, info) => {
 	console.log(`attempting to get customer`)
 	let eComCustomer = await getEcomCus(connectionid, info.infoEmail)
 	console.log(`eComCustomer: `, eComCustomer)
-
-	// if customer resource does not exist
-	if (!eComCustomer) {
-		console.log(`attempting to create customer`)
-		eComCustomer = await createEcomCus(connectionid, info.infoEmail, `0`)
-	}
+	eComCustomer = eComCustomer ? eComCustomer : await createEcomCus(connectionid, info.infoEmail, `0`)
 	console.log(`eComCustomer final: `, eComCustomer)
-
-	return eComCustomer && eComCustomer.ecomCustomer ? eComCustomer.ecomCustomer : null
+	return eComCustomer
 }
 
 export { createEcomCus, getEcomCus, handleEcomCus }

@@ -106,7 +106,7 @@ function removeCartAbandonment(order, orderid) {
   delete order.externalcheckoutid
   delete order.abandoned_date
 
-  order.externalid = `2019-09-30T17:41:39-04:00`
+  order.externalid = Date.now()
 
   return order
 }

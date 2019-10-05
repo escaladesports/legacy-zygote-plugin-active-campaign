@@ -1,12 +1,19 @@
-import { createEcomOrder, addCartAbandoned } from './utils/dataFormatter'
+import { createEcomOrder, addCartAbandoned, removeCartAbandonment } from './utils/dataFormatter'
 import { postACItem } from './utils/requests'
 
 const createAbandonedOrder = async (data, connectionid, customerid) => {
-	let order = createEcomOrder(data, connectionid, customerid)
-	order = addCartAbandoned(order, connectionid, customerid)
+	let orderItem = createEcomOrder(data, connectionid, customerid)
+	orderItem = addCartAbandoned(orderItem, connectionid, customerid)
 
-	return await postACItem(`ecomOrders`, order)
+	let order = await postACItem(`ecomOrders`, orderItem)
+	console.log(`order final: `, order)
+	return order
+}
+
+const updateAbandonedOrder = async (order) => {
+	order = removeCartAbandonment(order)
+	return await postACItem(`ecomOrderId`, order)
 }
 
 
-export { createAbandonedOrder }
+export { createAbandonedOrder, updateAbandonedOrder }

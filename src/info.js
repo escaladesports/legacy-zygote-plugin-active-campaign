@@ -1,7 +1,8 @@
 import { handleConnection } from './connection'
-import { upsertContact } from './contacts'
+import { handleContact } from './contacts'
 import { handleEcomCus } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'
+import { setCurrentOrder } from './order'
 
 
 const preInfo = async ({ preFetchData, info }) => {
@@ -14,9 +15,8 @@ const preInfo = async ({ preFetchData, info }) => {
 		if (!connectionid) return info
 
 		// create the contact
-		let contact = await upsertContact(info)
-		console.log(`upsertContact has run`)
-		console.log(`contact final: `, eComCustomer)
+		let contact = await handleContact(info)
+		console.log(`contact handled: `, contact)
 		if (!contact) return info
 
 		let eComCustomer = await handleEcomCus(connectionid, `0`, info)
@@ -27,6 +27,8 @@ const preInfo = async ({ preFetchData, info }) => {
 		let eComOrder = await createAbandonedOrder(info, connectionid, eComCustomer.id)
 		console.log(`createAbandonedOrder has run`)
 		if (!eComOrder) return info
+
+		setCurrentOrder(eComOrder)
 	} catch (ex) {
 		console.log(`Error!: `, ex)
 	}
