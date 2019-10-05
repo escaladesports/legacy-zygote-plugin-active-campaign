@@ -5,7 +5,7 @@ function createConnectionObj(sitename, linkUrl) {
       service: `Zygote Cart`,
       externalid: sitename,
       name: sitename,
-      logoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`, // TODO: logourl update
+      logoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
       linkUrl
     }
   }
