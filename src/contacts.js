@@ -1,7 +1,7 @@
 import { getFirstName, getLastName } from './utils/dataFormatter'
 import { postACItem, getFilteredACItem } from './utils/requests'
 
-export const createContact = async (info) => {
+const createContact = async (info) => {
 	console.log(`createContact running...`)
 
 	let contact
@@ -19,7 +19,7 @@ export const createContact = async (info) => {
 	return contact
 }
 
-export const getContactByEmail = async (info) => {
+const getContactByEmail = async (info) => {
 	console.log(`getContactByEmail running...`)
 
 	let contact
@@ -32,7 +32,7 @@ export const getContactByEmail = async (info) => {
 	return contact
 }
 
-export class ActiveCampaignContact {
+class ActiveCampaignContact {
 	email = ``
 	firstName = ``
 	lastName = ``
@@ -68,3 +68,9 @@ export class ActiveCampaignContact {
 		return acItem
 	}
 }
+
+export {
+	ActiveCampaignContact,
+	getContactByEmail,
+	createContact
+} 

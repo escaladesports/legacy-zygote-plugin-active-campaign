@@ -1,6 +1,6 @@
 import { postACItem } from './utils/requests'
 
-export const createAbandonedOrder = async (info, connectionId, customerId) => {
+const createAbandonedOrder = async (info, connectionId, customerId) => {
 	console.log(`createAbandonedOrder running...`)
 
 	let activeOrder = new ActiveCampaignEComOrder(
@@ -22,7 +22,7 @@ export const createAbandonedOrder = async (info, connectionId, customerId) => {
 	return eComOrder
 }
 
-export const updateAbandonedOrder = async (order) => {
+const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 	ActiveCampaignEComOrder.setActiveCartStatus(order.ecomOrder)
 
@@ -34,7 +34,7 @@ export const updateAbandonedOrder = async (order) => {
 	return eComOrder
 }
 
-export class ActiveCampaignEComOrder {
+class ActiveCampaignEComOrder {
 	source = `1`
 	email
 	orderUrl = ``
@@ -93,3 +93,9 @@ export class ActiveCampaignEComOrder {
 		}
 	}
 }
+
+export {
+	ActiveCampaignEComOrder,
+	updateAbandonedOrder,
+	createAbandonedOrder
+} 

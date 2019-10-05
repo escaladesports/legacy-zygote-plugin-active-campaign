@@ -1,6 +1,6 @@
 import { updateAbandonedOrder } from './eComOrder'
 
-export class ActiveCampaignStore {
+class ActiveCampaignStore {
     static currentActiveCampaignOrder = null
 
     static setCurrentOrder = (order) => {
@@ -10,7 +10,7 @@ export class ActiveCampaignStore {
     }
 }
 
-export const postOrder = async ({response, info, preFetchData}) => {
+const postOrder = async ({response, info, preFetchData}) => {
     try {
         console.log(`info: `, info)
         console.log(`currentActiveCampaignOrder: `, ActiveCampaignStore.currentActiveCampaignOrder)
@@ -31,3 +31,5 @@ export const postOrder = async ({response, info, preFetchData}) => {
     console.log(`info final: `, info)
     return response
 }
+
+export { postOrder, ActiveCampaignStore }

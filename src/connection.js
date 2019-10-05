@@ -1,7 +1,7 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 import { serviceName, serviceLogoUrl } from './utils/config'
 
-export const createConnection = async () => {
+const createConnection = async () => {
 	console.log(`createConnection running...`)
 
 	let connection
@@ -14,7 +14,7 @@ export const createConnection = async () => {
 	return connection
 }
 
-export const getConnectionByHostUrl = async () => {
+const getConnectionByHostUrl = async () => {
 	console.log(`getConnectionByHostUrl running...`)
 	
 	let connection
@@ -27,7 +27,7 @@ export const getConnectionByHostUrl = async () => {
 	return connection
 }
 
-export class ActiveCampaignConnection {
+class ActiveCampaignConnection {
 	service = serviceName
 	externalid
 	name
@@ -63,3 +63,9 @@ export class ActiveCampaignConnection {
 		return acItem
 	}
 }
+
+export { 
+	ActiveCampaignConnection,
+	getConnectionByHostUrl,
+	createConnection
+} 

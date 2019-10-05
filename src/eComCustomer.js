@@ -1,6 +1,6 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 
-export const createEcomCustomer = async (info, connectionId, acceptsMarketing) => {
+const createEcomCustomer = async (info, connectionId, acceptsMarketing) => {
 	console.log(`createEcomCustomer running...`)
 
 	let eComCustomer
@@ -18,7 +18,7 @@ export const createEcomCustomer = async (info, connectionId, acceptsMarketing) =
 	return eComCustomer
 }
 
-export const getEComCustomerByEmail = async (email, connectionId) => {
+const getEComCustomerByEmail = async (email, connectionId) => {
 	console.log(`getEComCustomerByEmail running...`)
 
 	let eComCustomer
@@ -32,7 +32,7 @@ export const getEComCustomerByEmail = async (email, connectionId) => {
 	return eComCustomer
 }
 
-export class ActiveCampaignEComCustomer {
+class ActiveCampaignEComCustomer {
 	connectionid
 	externalid
 	email
@@ -70,3 +70,9 @@ export class ActiveCampaignEComCustomer {
 		return acItem
 	}
 }
+
+export {
+	ActiveCampaignEComCustomer,
+	getEComCustomerByEmail,
+	createEcomCustomer
+} 
