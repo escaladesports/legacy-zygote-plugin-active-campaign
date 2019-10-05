@@ -51,31 +51,31 @@ const buildFiltersString = filters => {
 
 // > Order Objects
 
-async function createEcomOrder(data, connectionid, customerid) {
+function createEcomOrder(info, connectionid, customerid) {
   // TODO: Review order creation object
   // Update all default values and review IDs
   let order = {
     ecomOrder: {
-      externalid: `3246315233`,
+      // externalid: `3246315233`,
       source: `1`, // The order source code (0 - will not trigger automations, 1 - will trigger automations)
-      email: data.infoEmail,
+      email: info.infoEmail,
       orderUrl: ``,
       externalCreatedDate: `2019-09-30T17:41:39-04:00`,
       externalUpdatedDate: `2019-09-30T17:41:39-04:00`,
       shippingMethod: `UPS Ground`,
-      totalPrice: data.totals.subtotal,
+      totalPrice: info.totals.subtotal,
       shippingAmount: 0,
       taxAmount: 0,
       discountAmount: 0,
       currency: `USD`,
-      orderNumber: `${data.totals.subtotal}-${customerid}-${connectionid}`,
-      connectionid,
-      customerid
+      orderNumber: `${info.totals.subtotal}-${customerid}-${connectionid}`,
+      connectionid: connectionid,
+      customerid: customerid
     }
   }
 
   // add each product to order
-  order.ecomOrder.orderProducts = data.products.map(product => {
+  order.ecomOrder.orderProducts = info.products.map(product => {
     return {
       externalid: product.id,
       name: product.name,
@@ -114,4 +114,14 @@ function removeCartAbandonment(order, orderid) {
 
 // < Order Objects
 
-export { createConnectionObj, createContactObj, getFirstName, getLastName, buildFiltersString, createEcomOrder, createEcomCusObj, addCartAbandoned, removeCartAbandonment }
+export {
+  createConnectionObj,
+  createContactObj,
+  getFirstName,
+  getLastName,
+  buildFiltersString,
+  createEcomOrder,
+  createEcomCusObj,
+  addCartAbandoned,
+  removeCartAbandonment
+}

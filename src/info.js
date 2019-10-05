@@ -33,6 +33,8 @@ const preInfo = async ({ preFetchData, info }) => {
 		console.log(`Error!: `, ex)
 	}
 
+	info.activeCampaignData = { order: 'testme' }
+
 	console.log(`info final: `, info)
 	return info
 }
