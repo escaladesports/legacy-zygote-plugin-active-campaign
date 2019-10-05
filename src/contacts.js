@@ -33,10 +33,10 @@ export const getContactByEmail = async (info) => {
 }
 
 export class ActiveCampaignContact {
-	email
-	firstName
-	lastName
-	phone
+	email = ``
+	firstName = ``
+	lastName = ``
+	phone = ``
 
 	constructor(email = ``, firstName = ``, lastName = ``, phone = ``) {
 		this.email = email
