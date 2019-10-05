@@ -1,3 +1,31 @@
+
+export class ActiveCampaignConnection {
+  service = `VictoryTailgate`
+  externalid
+  name
+  logoUrl = `https://escaladesports.github.io/zygote-cart/images/logo.png`
+  linkUrl
+
+  constructor(hostUrl = '', serviceUrl = '') {
+    this.externalid = hostUrl
+    this.name = hostUrl
+    this.linkUrl = serviceUrl
+  }
+
+  requestJson = () => {
+    return {
+      connection: {
+        service: `Zygote Cart`,
+        externalid: sitename,
+        name: sitename,
+        logoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
+        linkUrl
+      }
+    }
+  }
+} 
+
+
 // Creates connection object
 function createConnectionObj(sitename, linkUrl) {
   return {

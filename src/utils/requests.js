@@ -1,11 +1,13 @@
 import fetch from 'isomorphic-fetch'
 import { buildFiltersString } from './dataFormatter'
 
-const getACItem = async type => {
+const PROXY_URL = '/api/3/'
+
+/* const getACItem = async type => {
 	let response
 
 	try {
-		response = await fetch(`/api/3/${type}`, {
+		response = await fetch(`${PROXY_URL}${type}`, {
 			method: `GET`,
 			body: JSON.stringify(data)
 		})
@@ -25,7 +27,7 @@ const getACItemById = async (type, id) => {
 	let response
 
 	try {
-		response = await fetch(`/api/3/${type}/${id}`, {
+		response = await fetch(`${PROXY_URL}${type}/${id}`, {
 			method: `GET`,
 			body: JSON.stringify(data)
 		})
@@ -39,21 +41,31 @@ const getACItemById = async (type, id) => {
 	console.log(`response from getACItemById: `, res)
 
 	return res
-}
+} */
 
 const getFilteredACItem = async (type, filters) => {
-	let response
+
+	let responseItem = null
+	await fetch(`${PROXY_URL}${type}${buildFiltersString(filters)}`, { 
+		method: `GET`
+	})
+		.then(response => response.json())
+		.then(responseJson => {
+			console.log(`response from getFilteredACItem: `, responseJson)
+			if (responseJson && responseJson.length) responseItem = responseJson[0]
+		})
+		/* .then(response => {
+			// console.log(response)
+		}) */
+
+	return responseItem
+
+
+
+
+	/* let response
 
 	try {
-		/* fetch(`/api/3/${type}${buildFiltersString(filters)}`)
-			.then(function (response) {
-				if (response.status >= 400)
-					throw new Error("Bad response from server")
-				return response.json();
-			})
-			.then(function (stories) {
-				console.log(stories);
-			}); */
 		response = await fetch(`/api/3/${type}${buildFiltersString(filters)}`, {
 			method: `GET`
 		})
@@ -66,14 +78,33 @@ const getFilteredACItem = async (type, filters) => {
 	let res = await response.json()
 	console.log(`response from getFilteredACItem: `, res)
 
-	return res
+	return res */
 }
 
 const postACItem = async (type, data) => {
-	let response
+
+	let responseItem = null
+	await fetch(`${PROXY_URL}${type}`, {
+		method: `POST`,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	})
+		.then(response => response.json())
+		.then(responseJson => {
+			console.log(`response from postACItem: `, responseJson)
+			if (responseJson) responseItem = responseJson
+		})
+	/* .then(response => {
+		// console.log(response)
+	}) */
+
+	return responseItem
+
+
+	/* let response
 
 	try {
-		response = await fetch(`/api/3/${type}`, {
+		response = await fetch(`${PROXY_URL}${type}`, {
 			method: `POST`,
 			headers: {
 				'Content-Type': 'application/json'
@@ -89,8 +120,9 @@ const postACItem = async (type, data) => {
 	let res = await response.json()
 	console.log(`response from postACItem: `, res)
 
-	return res
+	return res */
 }
 
 
-export { getACItem, getACItemById, getFilteredACItem, postACItem }
+/* export { getACItem, getACItemById, getFilteredACItem, postACItem } */
+export { getFilteredACItem, postACItem }
