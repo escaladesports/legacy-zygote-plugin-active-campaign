@@ -3,7 +3,7 @@ import { postACItem } from './utils/requests'
 
 const createAbandonedOrder = async (info, connectionid, customerid) => {
 	let orderItem = createEcomOrder(info, connectionid, customerid)
-	orderItem = addCartAbandoned(orderItem, connectionid, customerid)
+	orderItem.ecomOrder = addCartAbandoned(orderItem.ecomOrder, connectionid, customerid)
 
 	let order = await postACItem(`ecomOrders`, orderItem)
 	console.log(`order final: `, order)
@@ -11,7 +11,7 @@ const createAbandonedOrder = async (info, connectionid, customerid) => {
 }
 
 const updateAbandonedOrder = async (order) => {
-	order = removeCartAbandonment(order)
+	order.ecomOrder = removeCartAbandonment(order.ecomOrder)
 	let updatedOrder = await postACItem(`ecomOrderId`, order)
 	console.log(`updatedOrder final: `, updatedOrder)
 	return updatedOrder

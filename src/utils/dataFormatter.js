@@ -92,23 +92,23 @@ function createEcomOrder(info, connectionid, customerid) {
   return order
 }
 
-function addCartAbandoned(order, customerid, connectionid) {
+function addCartAbandoned(ecomOrder, customerid, connectionid) {
   // TODO: Review the id and date
   // Add externalcheckoutid and abandoned_date to make cart abandonded
-  order.externalcheckoutid = `${order.totalPrice}-${customerid}-${connectionid}`
-  order.abandoned_date = `2019-09-30T17:41:39-04:00`
+  ecomOrder.externalcheckoutid = `${order.totalPrice}-${customerid}-${connectionid}`
+  ecomOrder.abandoned_date = `2019-09-30T17:41:39-04:00`
 
-  return order
+  return ecomOrder
 }
 
-function removeCartAbandonment(order, orderid) {
+function removeCartAbandonment(ecomOrder, orderid) {
   // remove order 
-  delete order.externalcheckoutid
-  delete order.abandoned_date
+  delete ecomOrder.externalcheckoutid
+  delete ecomOrder.abandoned_date
 
-  order.externalid = Date.now()
+  ecomOrder.externalid = Date.now()
 
-  return order
+  return ecomOrder
 }
 
 
