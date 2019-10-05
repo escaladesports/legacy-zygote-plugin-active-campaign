@@ -14,7 +14,7 @@
 } */
 
 // Creates contact object
-function createContactObj(email = ``, firstName = ``, lastName = ``, phone = ``) {
+/* function createContactObj(email = ``, firstName = ``, lastName = ``, phone = ``) {
   return {
     contact: {
       email,
@@ -23,7 +23,7 @@ function createContactObj(email = ``, firstName = ``, lastName = ``, phone = ``)
       phone
     }
   }
-}
+} */
 
 // Creates contact object
 function createEcomCusObj(connectionid, externalid = ``, email = ``, acceptsMarketing = `0`) {
@@ -117,8 +117,8 @@ function removeCartAbandonment(ecomOrder, orderid) {
 // < Order Objects
 
 export {
-  createConnectionObj,
-  createContactObj,
+  // createConnectionObj,
+  // createContactObj,
   getFirstName,
   getLastName,
   buildFiltersString,

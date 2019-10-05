@@ -3,22 +3,26 @@ import { getFilteredACItem, postACItem } from './utils/requests'
 
 
 export const createConnection = async () => {
+	console.log(`createConnection running...`)
 	let connection
 	await postACItem(`connections`,
 		new ActiveCampaignConnection().requestJson()
 	)
 		.then(response => connection = response ? response.connection : null)
 
+	console.log(`createConnection returning: `, connection)
 	return connection
 }
 
 export const getConnectionByHostUrl = async () => {
+	console.log(`getConnectionByHostUrl running...`)
 	let connection
 	await getFilteredACItem(`connections`, [
 		{ filter: `externalid`, value: window.location.host }
 	])
 		.then(itemJson => connection = itemJson)
-
+	
+	console.log(`getConnectionByHostUrl returning: `, connection)
 	return connection
 
 

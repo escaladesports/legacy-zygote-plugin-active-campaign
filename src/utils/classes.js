@@ -1,5 +1,6 @@
 import { serviceName, serviceLogoUrl } from './config'
 import { createConnection, getConnectionByHostUrl } from '../connection'
+import { createContact, getContactByEmail } from '../contacts'
 
 export class ActiveCampaignConnection {
 	service = serviceName
@@ -26,14 +27,55 @@ export class ActiveCampaignConnection {
 		}
 	}
 
-	static initConnection = async () => {
-		let connection
+	static init = async (info) => {
+		console.log(`ActiveCampaignConnection.init running...`)
+		let acItem
 		await getConnectionByHostUrl()
-			.then(connectionJson => connection = connectionJson)
-		if (!connection) {
+			.then(itemJson => acItem = itemJson)
+		
+		if (!acItem) {
 			await createConnection()
-				.then(connectionJson => connection = connectionJson)
+				.then(itemJson => acItem = itemJson)
 		}
-		return connection
+		console.log(`ActiveCampaignConnection.init returning: `, acItem)
+		return acItem
+	}
+} 
+
+export class ActiveCampaignContact {
+	email
+	firstName
+	lastName
+	phone
+
+	constructor(email = ``, firstName = ``, lastName = ``, phone = ``) {
+		this.externalid = hostUrl
+		this.name = hostUrl
+		this.linkUrl = serviceUrl
+	}
+
+	requestJson = () => {
+		return {
+			contact: {
+				email: this.email,
+				firstName: this.firstName,
+				lastName: this.lastName,
+				phone: this.phone
+			}
+		}
+	}
+
+	static init = async (info) => {
+		console.log(`ActiveCampaignContact.init running...`)
+		let acItem
+		await getContactByEmail(info)
+			.then(itemJson => acItem = itemJson)
+		
+		if (!acItem) {
+			await createContact(info)
+				.then(itemJson => acItem = itemJson)
+		}
+		console.log(`ActiveCampaignContact.init returning: `, acItem)
+		return acItem
 	}
 } 

@@ -12,7 +12,7 @@ const preInfo = async ({ preFetchData, info }) => {
 	try {
 		console.log(`info: `, info)
 		// Check connection
-		let activeCampaignConnection = await ActiveCampaignConnection.initConnection()
+		let activeCampaignConnection = await ActiveCampaignConnection.init()
 		console.log(`activeCampaignConnection: `, activeCampaignConnection)
 		if (!activeCampaignConnection) return info
 

@@ -1,8 +1,4 @@
-import {
-	getFirstName,
-	getLastName,
-	createContactObj
-} from './utils/dataFormatter'
+import { getFirstName, getLastName } from './utils/dataFormatter'
 import { postACItem, getFilteredACItem } from './utils/requests'
 
 
@@ -12,8 +8,23 @@ import { postACItem, getFilteredACItem } from './utils/requests'
 	return await postACItem(`contact/sync`, contact)
 } */
 
-const createContact = async (info) => {
-	let contactItem = createContactObj(
+export const createContact = async (info) => {
+	console.log(`createContact running...`)
+	let contact
+	await postACItem(`contacts`,
+		new ActiveCampaignContact(
+			info.infoEmail,
+			getFirstName(info.infoName),
+			getLastName(info.infoName),
+			info.infoPhone
+		).requestJson()
+	)
+		.then(response => contact = response ? response.contact : null)
+
+	console.log(`createContact returning: `, contact)
+	return contact
+
+	/* let contactItem = createContactObj(
 		info.infoEmail,
 		getFirstName(info.infoName),
 		getLastName(info.infoName),
@@ -21,21 +32,32 @@ const createContact = async (info) => {
 	)
 	
 	let contact = await postACItem(`contacts`, contactItem)
-	return contact ? contact.contact : null
+	return contact ? contact.contact : null */
 }
 
-const getContactByEmail = async (info) => {
-	let filter = [
+export const getContactByEmail = async (info) => {
+	console.log(`getContactByEmail running...`)
+	let contact
+	await getFilteredACItem(`contacts`, [
+		{ filter: `email`, value: info.infoEmail }
+	])
+		.then(itemJson => contact = itemJson)
+
+	console.log(`getContactByEmail returning: `, contact)
+	return contact
+
+
+	/* let filter = [
 		{ filter: `email`, value: info.infoEmail }
 	]
 	let data = await getFilteredACItem(`contacts`, filter)
 	return data
 		&& data.contacts
 		&& data.contacts.length
-		? data.contacts[0] : null
+		? data.contacts[0] : null */
 }
 
-const handleContact = async (info) => {
+/* const handleContact = async (info) => {
 	// Check connection
 	console.log(`attempting to get contact`)
 	let contact = await getContactByEmail(info)
@@ -46,4 +68,4 @@ const handleContact = async (info) => {
 	return contact
 }
 
-export { handleContact }
+export { handleContact } */
