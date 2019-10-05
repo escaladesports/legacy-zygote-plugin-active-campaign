@@ -2,8 +2,8 @@ import { createEcomCusObj } from './utils/dataFormatter'
 import { getFilteredACItem, postACItem } from './utils/requests'
 
 
-const createEcomCus = async (connectionid, acceptsMarketing, data) => {
-	let customerItem = createEcomCusObj(connectionid, ``)
+const createEcomCus = async (connectionid, acceptsMarketing, info) => {
+	let customerItem = createEcomCusObj(connectionid, info.infoEmail, info.infoEmail, acceptsMarketing)
 	let customer = await postACItem(`ecomCustomers`, customerItem)
 	return customer ? customer.ecomCustomer : null
 }
@@ -29,7 +29,7 @@ const handleEcomCus = async (connectionid, acceptsMarketing, info) => {
 	console.log(`attempting to get customer`)
 	let eComCustomer = await getEcomCus(connectionid, info.infoEmail)
 	console.log(`eComCustomer: `, eComCustomer)
-	eComCustomer = eComCustomer ? eComCustomer : await createEcomCus(connectionid, info.infoEmail, `0`)
+	eComCustomer = eComCustomer ? eComCustomer : await createEcomCus(connectionid, acceptsMarketing, info)
 	console.log(`eComCustomer final: `, eComCustomer)
 	return eComCustomer
 }
