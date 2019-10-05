@@ -12,7 +12,7 @@ import { postACItem, getFilteredACItem } from './utils/requests'
 	return await postACItem(`contact/sync`, contact)
 } */
 
-const createContact = async () => {
+const createContact = async (info) => {
 	let contactItem = createContactObj(
 		info.infoEmail,
 		getFirstName(info.infoName),
@@ -41,8 +41,8 @@ const handleContact = async (info) => {
 	let contact = await getContactByEmail(info)
 	console.log(`contact: `, contact)
 	// if we dont have a connection - create one
-	contact = contact ? contact : await createContact()
-	console.log(`contact final: `, connectionid)
+	contact = contact ? contact : await createContact(info)
+	console.log(`contact final: `, contact)
 	return contact
 }
 
