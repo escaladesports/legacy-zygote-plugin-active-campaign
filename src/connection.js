@@ -1,17 +1,29 @@
-import { createConnectionObj } from './utils/dataFormatter'
+import { ActiveCampaignConnection } from './utils/dataFormatter'
 import { getFilteredACItem, postACItem } from './utils/requests'
 
 
 const createConnection = async () => {
-	let connectionItem = createConnectionObj(window.location.host, window.location.origin)
+	let connection
+	await postACItem(`connections`,
+		new ActiveCampaignConnection().requestJson()
+	)
+		.then(response => connection = response ? response.connection : null)
 
-	let connection = await postACItem(`connections`, connectionItem)
-
-	return connection && connection.connection ? connection.connection.id : null
+	return connection
 }
 
-const getConnectionByExternalId = async () => {
-	let filter = [{
+const getConnectionByHostUrl = async () => {
+	let connection
+	await getFilteredACItem(`connections`, [
+		{ filter: `externalid`, value: window.location.host }
+	])
+		.then(itemJson => connection = itemJson)
+
+	return connection
+
+
+
+	/* let filter = [{
 		filter: `externalid`,
 		value: window.location.host
 	}]
@@ -19,10 +31,24 @@ const getConnectionByExternalId = async () => {
 	let data = await getFilteredACItem(`connections`, filter)
 
 	if (data.connections.length) return data.connections[0].id
-	return null
+	return null */
 }
 
 const handleConnection = async () => {
+
+	let connection
+	await getConnectionByHostUrl()
+		.then(connectionJson => connection = connectionJson)
+	
+	if (!connection) {
+		await createConnection()
+			.then(connectionJson => connection = connectionJson)
+	}
+
+	return connection
+
+
+/* 
 	// Check connection
 	console.log(`attempting to get connectionid`)
 	let connectionid = await getConnectionByExternalId()
@@ -31,7 +57,8 @@ const handleConnection = async () => {
 	connectionid = connectionid ? connectionid : await createConnection()
 	console.log(`connectionid final: `, connectionid)
 
-	return connectionid
+	return connectionid */
 }
 
-export { createConnection, getConnectionByExternalId, handleConnection }
+/* export { createConnection, getConnectionByExternalId, handleConnection } */
+export { handleConnection }
