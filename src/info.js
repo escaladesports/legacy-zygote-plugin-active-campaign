@@ -4,18 +4,20 @@ import { handleEcomCus } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'
 import { setCurrentOrder } from './order'
 
+import { ActiveCampaignConnection } from './utils/classes'
+
 
 const preInfo = async ({ preFetchData, info }) => {
 
 	try {
 		console.log(`info: `, info)
 		// Check connection
-		let connectionid = await handleConnection()
-		console.log(`connection handled: `, connectionid)
-		if (!connectionid) return info
+		let activeCampaignConnection = await ActiveCampaignConnection.initConnection()
+		console.log(`activeCampaignConnection: `, activeCampaignConnection)
+		if (!activeCampaignConnection) return info
 
 		// create the contact
-		let contact = await handleContact(info)
+		/* let contact = await handleContact(info)
 		console.log(`contact handled: `, contact)
 		if (!contact) return info
 
@@ -26,9 +28,9 @@ const preInfo = async ({ preFetchData, info }) => {
 		// Create the abandoned eComOrder
 		let eComOrder = await createAbandonedOrder(info, connectionid, eComCustomer.id)
 		console.log(`createAbandonedOrder has run`)
-		if (!eComOrder) return info
+		if (!eComOrder) return info 
 
-		setCurrentOrder(eComOrder)
+		setCurrentOrder(eComOrder) */
 	} catch (ex) {
 		console.log(`Error!: `, ex)
 	}

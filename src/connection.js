@@ -1,8 +1,8 @@
-import { ActiveCampaignConnection } from './utils/dataFormatter'
+import { ActiveCampaignConnection } from './utils/classes'
 import { getFilteredACItem, postACItem } from './utils/requests'
 
 
-const createConnection = async () => {
+export const createConnection = async () => {
 	let connection
 	await postACItem(`connections`,
 		new ActiveCampaignConnection().requestJson()
@@ -12,7 +12,7 @@ const createConnection = async () => {
 	return connection
 }
 
-const getConnectionByHostUrl = async () => {
+export const getConnectionByHostUrl = async () => {
 	let connection
 	await getFilteredACItem(`connections`, [
 		{ filter: `externalid`, value: window.location.host }
@@ -33,8 +33,8 @@ const getConnectionByHostUrl = async () => {
 	if (data.connections.length) return data.connections[0].id
 	return null */
 }
-
-const handleConnection = async () => {
+/*
+export const handleConnection = async () => {
 
 	let connection
 	await getConnectionByHostUrl()
@@ -48,7 +48,7 @@ const handleConnection = async () => {
 	return connection
 
 
-/* 
+ 
 	// Check connection
 	console.log(`attempting to get connectionid`)
 	let connectionid = await getConnectionByExternalId()
@@ -57,8 +57,8 @@ const handleConnection = async () => {
 	connectionid = connectionid ? connectionid : await createConnection()
 	console.log(`connectionid final: `, connectionid)
 
-	return connectionid */
+	return connectionid 
 }
+*/
 
 /* export { createConnection, getConnectionByExternalId, handleConnection } */
-export { handleConnection }

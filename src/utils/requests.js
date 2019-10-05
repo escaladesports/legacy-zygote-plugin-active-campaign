@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import { buildFiltersString } from './dataFormatter'
+import { proxyUrl } from './config'
 
-const PROXY_URL = '/api/3/'
 
 /* const getACItem = async type => {
 	let response
@@ -43,10 +43,10 @@ const getACItemById = async (type, id) => {
 	return res
 } */
 
-const getFilteredACItem = async (type, filters) => {
+export const getFilteredACItem = async (type, filters) => {
 
 	let responseItem = null
-	await fetch(`${PROXY_URL}${type}${buildFiltersString(filters)}`, { 
+	await fetch(`${proxyUrl}${type}${buildFiltersString(filters)}`, { 
 		method: `GET`
 	})
 		.then(response => response.json())
@@ -81,10 +81,10 @@ const getFilteredACItem = async (type, filters) => {
 	return res */
 }
 
-const postACItem = async (type, data) => {
+export const postACItem = async (type, data) => {
 
 	let responseItem = null
-	await fetch(`${PROXY_URL}${type}`, {
+	await fetch(`${proxyUrl}${type}`, {
 		method: `POST`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
@@ -125,4 +125,3 @@ const postACItem = async (type, data) => {
 
 
 /* export { getACItem, getACItemById, getFilteredACItem, postACItem } */
-export { getFilteredACItem, postACItem }
