@@ -1,37 +1,65 @@
-import { createConnectionObj } from './utils/dataFormatter'
 import { getFilteredACItem, postACItem } from './utils/requests'
+import { serviceName, serviceLogoUrl } from './utils/config'
 
+export const createConnection = async () => {
+	console.log(`createConnection running...`)
 
-const createConnection = async () => {
-	let connectionItem = createConnectionObj(window.location.host, window.location.origin)
+	let connection
+	await postACItem(`connections`,
+		new ActiveCampaignConnection().requestJson()
+	)
+		.then(response => connection = response ? response.connection : null)
 
-	let connection = await postACItem(`connections`, connectionItem)
-
-	return connection && connection.connection ? connection.connection.id : null
+	console.log(`createConnection returning: `, connection)
+	return connection
 }
 
-const getConnectionByExternalId = async () => {
-	let filter = [{
-		filter: `externalid`,
-		value: window.location.host
-	}]
+export const getConnectionByHostUrl = async () => {
+	console.log(`getConnectionByHostUrl running...`)
+	
+	let connection
+	await getFilteredACItem(`connections`, [
+		{ filter: `externalid`, value: window.location.host }
+	])
+		.then(itemJson => connection = itemJson)
 
-	let data = await getFilteredACItem(`connections`, filter)
-
-	if (data.connections.length) return data.connections[0].id
-	return null
+	console.log(`getConnectionByHostUrl returning: `, connection)
+	return connection
 }
 
-const handleConnection = async () => {
-	// Check connection
-	console.log(`attempting to get connectionid`)
-	let connectionid = await getConnectionByExternalId()
-	console.log(`connectionid: `, connectionid)
-	// if we dont have a connection - create one
-	connectionid = connectionid ? connectionid : await createConnection()
-	console.log(`connectionid final: `, connectionid)
+export class ActiveCampaignConnection {
+	service = serviceName
+	externalid
+	name
+	logoUrl = serviceLogoUrl
+	linkUrl
 
-	return connectionid
+	constructor(hostUrl = window.location.host, serviceUrl = window.location.origin) {
+		this.externalid = hostUrl
+		this.name = hostUrl
+		this.linkUrl = serviceUrl
+	}
+
+	requestJson = () => {
+		return {
+			connection: {
+				...this
+			}
+		}
+	}
+
+	static init = async (info) => {
+		console.log(`ActiveCampaignConnection.init running...`)
+		
+		let acItem
+		await getConnectionByHostUrl()
+			.then(itemJson => acItem = itemJson)
+
+		if (!acItem) {
+			await createConnection()
+				.then(itemJson => acItem = itemJson)
+		}
+		console.log(`ActiveCampaignConnection.init returning: `, acItem)
+		return acItem
+	}
 }
-
-export { createConnection, getConnectionByExternalId, handleConnection }

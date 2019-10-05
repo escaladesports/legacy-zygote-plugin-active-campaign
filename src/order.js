@@ -1,35 +1,33 @@
 import { updateAbandonedOrder } from './eComOrder'
 
-let currentActiveCampaignOrder
+export class ActiveCampaignStore {
+    static currentActiveCampaignOrder = null
 
-const setCurrentOrder = async (order) => { 
-    currentActiveCampaignOrder = order
-    console.log(`order: `, order)
-    console.log(`currentActiveCampaignOrder: `, currentActiveCampaignOrder)
+    static setCurrentOrder = (order) => {
+        console.log(`order: `, order)
+        this.currentActiveCampaignOrder = order
+        console.log(`currentActiveCampaignOrder: `, this.currentActiveCampaignOrder)
+    }
 }
 
-const postOrder = async ({response, info, preFetchData}) => {
-    // TODO: Handle the order update and remove cart flag
-
-    // Get the current order
-    // Update it
-
+export const postOrder = async ({response, info, preFetchData}) => {
     try {
         console.log(`info: `, info)
-        console.log(`currentActiveCampaignOrder: `, currentActiveCampaignOrder)
-        if (!currentActiveCampaignOrder) return info
-        // Create the abandoned eComOrder
-        let updatedOrder = await updateAbandonedOrder(currentActiveCampaignOrder)
-        console.log(`updateACOrder has run`)
-        console.log(`updatedOrder final: `, updatedOrder)
-        setCurrentOrder(null)
+        console.log(`currentActiveCampaignOrder: `, ActiveCampaignStore.currentActiveCampaignOrder)
+        if (!ActiveCampaignStore.currentActiveCampaignOrder) return info
+
+        // update current order as unabandoned
+        const acOrder = await updateAbandonedOrder(
+            ActiveCampaignStore.currentActiveCampaignOrder
+        )
+        console.log(`acOrder: `, acOrder)
+        if (!acOrder) return info
+
+        ActiveCampaignStore.setCurrentOrder(null)
     } catch (ex) {
         console.log(`Error!: `, ex)
     }
 
     console.log(`info final: `, info)
-    console.log(`currentActiveCampaignOrder final: `, currentActiveCampaignOrder)
     return response
 }
-
-export { postOrder, setCurrentOrder }

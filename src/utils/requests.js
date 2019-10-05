@@ -1,96 +1,41 @@
 import fetch from 'isomorphic-fetch'
 import { buildFiltersString } from './dataFormatter'
+import { proxyUrl } from './config'
 
-const getACItem = async type => {
-	let response
+export const getFilteredACItem = async (type, filters) => {
 
-	try {
-		response = await fetch(`/api/3/${type}`, {
-			method: `GET`,
-			body: JSON.stringify(data)
+	let responseItem = null
+	await fetch(`${proxyUrl}${type}${buildFiltersString(filters)}`, { 
+		method: `GET`
+	})
+		.then(response => response.json())
+		.then(responseJson => {
+			console.log(`response from getFilteredACItem: `, responseJson)
+			if (responseJson && responseJson.length) responseItem = responseJson[0]
 		})
-	}
-	catch (err) {
-		console.error(`Error occured getting item: `, err)
-		return null
-	}
+		/* .then(response => {
+			// console.log(response)
+		}) */
 
-	let res = await response.json()
-	console.log(`response from getACItem: `, res)
-
-	return res
+	return responseItem
 }
 
-const getACItemById = async (type, id) => {
-	let response
+export const postACItem = async (type, data) => {
 
-	try {
-		response = await fetch(`/api/3/${type}/${id}`, {
-			method: `GET`,
-			body: JSON.stringify(data)
+	let responseItem = null
+	await fetch(`${proxyUrl}${type}`, {
+		method: `POST`,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	})
+		.then(response => response.json())
+		.then(responseJson => {
+			console.log(`response from postACItem: `, responseJson)
+			if (responseJson) responseItem = responseJson
 		})
-	}
-	catch (err) {
-		console.error(`Error occured getting filtered item: `, err)
-		return null
-	}
+		/* .then(response => {
+			// console.log(response)
+		}) */
 
-	let res = await response.json()
-	console.log(`response from getACItemById: `, res)
-
-	return res
+	return responseItem
 }
-
-const getFilteredACItem = async (type, filters) => {
-	let response
-
-	try {
-		/* fetch(`/api/3/${type}${buildFiltersString(filters)}`)
-			.then(function (response) {
-				if (response.status >= 400)
-					throw new Error("Bad response from server")
-				return response.json();
-			})
-			.then(function (stories) {
-				console.log(stories);
-			}); */
-		response = await fetch(`/api/3/${type}${buildFiltersString(filters)}`, {
-			method: `GET`
-		})
-	}
-	catch (err) {
-		console.error(`Error occured getting filtered item: `, err)
-		return null
-	}
-
-	let res = await response.json()
-	console.log(`response from getFilteredACItem: `, res)
-
-	return res
-}
-
-const postACItem = async (type, data) => {
-	let response
-
-	try {
-		response = await fetch(`/api/3/${type}`, {
-			method: `POST`,
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		})
-	}
-	catch (err) {
-		console.error(`Error occured during post: `, err)
-		return null
-	}
-
-	let res = await response.json()
-	console.log(`response from postACItem: `, res)
-
-	return res
-}
-
-
-export { getACItem, getACItemById, getFilteredACItem, postACItem }
