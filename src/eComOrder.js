@@ -12,21 +12,21 @@ const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 
 	setActiveCartStatus(order)
-	let eComOrder
+	let ecomOrder
 	await postACItem(`ecomOrderId`, order)
-		.then(response => eComOrder = response ? response.eComOrder : null)
+		.then(response => ecomOrder = response ? response.ecomOrder : null)
 
-	console.log(`updateAbandonedOrder returning: `, eComOrder)
-	return eComOrder
+	console.log(`updateAbandonedOrder returning: `, ecomOrder)
+	return ecomOrder
 }
 
 const completeAbandonedStateOrder = async () => {
-	let eComOrder
+	let ecomOrder
 	if (activeCampaignState.state.activeCampaignOrder) {
-		eComOrder = await updateAbandonedOrder({ ...activeCampaignState.state.activeCampaignOrder })
-		if (eComOrder) activeCampaignState.setState({ activeCampaignOrder: null })
+		ecomOrder = await updateAbandonedOrder({ ...activeCampaignState.state.activeCampaignOrder })
+		if (ecomOrder) activeCampaignState.setState({ activeCampaignOrder: null })
 	}
-	return eComOrder
+	return ecomOrder
 }
 
 function ActiveCampaignEComOrder (props = {}) {
@@ -92,13 +92,13 @@ function ActiveCampaignEComOrder (props = {}) {
 		console.log(`createAbandonedOrder running...`)
 
 		this.abandonCart()
-		let eComOrder
+		let ecomOrder
 		await postACItem(`ecomOrders`, this.requestJson())
-			.then(response => eComOrder = response ? response.eComOrder : null)
+			.then(response => ecomOrder = response ? response.ecomOrder : null)
 
-		console.log(`createAbandonedOrder returning: `, eComOrder)
-		activeCampaignState.setState({ activeCampaignOrder: eComOrder })
-		return eComOrder
+		console.log(`createAbandonedOrder returning: `, ecomOrder)
+		activeCampaignState.setState({ activeCampaignOrder: ecomOrder })
+		return ecomOrder
 	}
 }
 
