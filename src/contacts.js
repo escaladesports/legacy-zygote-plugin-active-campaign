@@ -7,7 +7,7 @@ const ActiveCampaignContact = function (props = {}) {
 	this.phone = props.phone || ''
 }
 
-ActiveCampaignContact.prototype.requestJson = function () {
+ActiveCampaignContact.prototype.requestJson = () => {
 	return {
 		contact: {
 			...this
@@ -15,7 +15,7 @@ ActiveCampaignContact.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignContact.prototype.getContactByEmail = async function () {
+ActiveCampaignContact.prototype.getContactByEmail = async () => {
 	console.log(`getContactByEmail running...`)
 
 	let contact
@@ -28,7 +28,7 @@ ActiveCampaignContact.prototype.getContactByEmail = async function () {
 	return contact
 }
 
-ActiveCampaignContact.prototype.createContact = async function () {
+ActiveCampaignContact.prototype.createContact = async () => {
 	console.log(`createContact running...`)
 
 	let contact
@@ -41,7 +41,7 @@ ActiveCampaignContact.prototype.createContact = async function () {
 	return contact
 }
 
-ActiveCampaignContact.prototype.init = async function () {
+ActiveCampaignContact.prototype.init = async () => {
 	console.log(`ActiveCampaignContact.init running...`)
 
 	let acItem

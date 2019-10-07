@@ -9,7 +9,7 @@ const ActiveCampaignConnection = function (props = {}) {
 	this.logoUrl = props.logoUrl || serviceLogoUrl
 }
 
-ActiveCampaignConnection.prototype.requestJson = function () {
+ActiveCampaignConnection.prototype.requestJson = () => {
 	return {
 		connection: {
 			...this
@@ -17,7 +17,7 @@ ActiveCampaignConnection.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignConnection.prototype.getConnectionByHostUrl = async function () {
+ActiveCampaignConnection.prototype.getConnectionByHostUrl = async () => {
 	console.log(`getConnectionByHostUrl running...`)
 
 	let connection
@@ -30,7 +30,7 @@ ActiveCampaignConnection.prototype.getConnectionByHostUrl = async function () {
 	return connection
 }
 
-ActiveCampaignConnection.prototype.createConnection = async function () {
+ActiveCampaignConnection.prototype.createConnection = async () => {
 	console.log(`createConnection running...`)
 
 	let connection
@@ -43,7 +43,7 @@ ActiveCampaignConnection.prototype.createConnection = async function () {
 	return connection
 }
 
-ActiveCampaignConnection.prototype.init = async function () {
+ActiveCampaignConnection.prototype.init = async () => {
 	console.log(`ActiveCampaignConnection.init running...`)
 
 	let acItem
