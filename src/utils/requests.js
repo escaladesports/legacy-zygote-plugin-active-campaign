@@ -49,7 +49,7 @@ export const postACItem = async (type, data) => {
 export const putACItem = async (type, data) => {
 
 	let responseItem = null
-	await fetch(`${proxyUrl}${type}/${data.id}`, {
+	await fetch(`${proxyUrl}${type}`, {
 		method: `PUT`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
