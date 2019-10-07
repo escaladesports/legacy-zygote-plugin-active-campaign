@@ -25,13 +25,13 @@ const preInfo = async ({ preFetchData, info }) => {
 	try {	
 
 		// init an active campaign connection
-		const acConnection = new ActiveCampaignConnection()
+		let acConnection = new ActiveCampaignConnection()
 		acConnection = await acConnection.init()
 		console.log(`acConnection: `, acConnection)
 		if (!acConnection) return info
 
 		// init an active campaign contact
-		const acContact = new ActiveCampaignContact(
+		let acContact = new ActiveCampaignContact(
 			getContactProps(info)
 		)
 		acContact = await acContact.init()
@@ -39,7 +39,7 @@ const preInfo = async ({ preFetchData, info }) => {
 		if (!acContact) return info
 
 		// init an active campaign e-commerce customer
-		const acCustomer = new ActiveCampaignEComCustomer(
+		let acCustomer = new ActiveCampaignEComCustomer(
 			getCustomerProps(info, acConnection, acceptsMarketing)
 		)
 		acCustomer = await acCustomer.init()
@@ -47,7 +47,7 @@ const preInfo = async ({ preFetchData, info }) => {
 		if (!acCustomer) return info
 
 		// init an active campaign e-commerce order
-		const acOrder = new ActiveCampaignEComOrder(
+		let acOrder = new ActiveCampaignEComOrder(
 			getOrderProps(info, acConnection, acCustomer)
 		)
 		acOrder = await acOrder.createAbandonedOrder()
