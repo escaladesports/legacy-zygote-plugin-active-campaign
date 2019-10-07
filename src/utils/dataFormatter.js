@@ -13,7 +13,7 @@ const buildFiltersString = filters => {
   return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
 }
 
-const getContactProps = function (info = {}) { 
+const getContactProps = (info = {}) => { 
   return {
     email: info.infoEmail,
     firstName: getFirstName(info.infoName),
@@ -22,7 +22,7 @@ const getContactProps = function (info = {}) {
   }
 }
 
-const getCustomerProps = function (info = {}, connection = {}, acceptsMarketing) {
+const getCustomerProps = (info = {}, connection = {}, acceptsMarketing) => {
   return {
     connectionid: connection.id,
     externalid: info.infoEmail,
@@ -31,7 +31,7 @@ const getCustomerProps = function (info = {}, connection = {}, acceptsMarketing)
   }
 }
 
-const getOrderProps = function (info = {}, connection = {}, customer = {}) {
+const getOrderProps = (info = {}, connection = {}, customer = {}) => {
   return {
     connectionid: connection.id,
     email: info.infoEmail,
