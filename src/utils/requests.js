@@ -31,7 +31,10 @@ export const postACItem = async (type, data) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
 	})
-		.then(response => response.json())
+		.then(response => {
+			if (response.errors) console.error(`Response Errors: `, response.errors)
+			return response.json()
+		})
 		.then(responseJson => {
 			console.log(`response from postACItem: `, responseJson)
 			if (responseJson) responseItem = responseJson

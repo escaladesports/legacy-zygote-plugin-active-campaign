@@ -85,7 +85,7 @@ function ActiveCampaignEComOrder (props = {}) {
 		this.abandoned_date = `2019-09-30T17:41:39-04:00`
 		this.externalcheckoutid =
 			props.externalcheckoutid
-			|| `${this.totalPrice}-${this.customerid}-${this.connectionid}`
+			|| `${Date.now()}-${this.customerid}-${this.connectionid}`
 	}
 
 	this.createAbandonedOrder = async () => {
