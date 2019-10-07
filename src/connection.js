@@ -27,41 +27,35 @@ const getConnectionByHostUrl = async () => {
 	return connection
 }
 
-class ActiveCampaignConnection {
-	service = serviceName
-	externalid
-	name
-	logoUrl = serviceLogoUrl
-	linkUrl
+const ActiveCampaignConnection = (hostUrl = window.location.host, serviceUrl = window.location.origin) => {
+	this.externalid = hostUrl
+	this.name = hostUrl
+	this.linkUrl = serviceUrl
+	this.service = serviceName
+	this.logoUrl = serviceLogoUrl
+}
 
-	constructor(hostUrl = window.location.host, serviceUrl = window.location.origin) {
-		this.externalid = hostUrl
-		this.name = hostUrl
-		this.linkUrl = serviceUrl
-	}
-
-	requestJson = () => {
-		return {
-			connection: {
-				...this
-			}
+ActiveCampaignConnection.prototype.requestJson = function () {
+	return {
+		connection: {
+			...this
 		}
 	}
+}
 
-	static init = async (info) => {
-		console.log(`ActiveCampaignConnection.init running...`)
-		
-		let acItem
-		await getConnectionByHostUrl()
+ActiveCampaignConnection.init = async function (info) {
+	console.log(`ActiveCampaignConnection.init running...`)
+
+	let acItem
+	await getConnectionByHostUrl()
+		.then(itemJson => acItem = itemJson)
+
+	if (!acItem) {
+		await createConnection()
 			.then(itemJson => acItem = itemJson)
-
-		if (!acItem) {
-			await createConnection()
-				.then(itemJson => acItem = itemJson)
-		}
-		console.log(`ActiveCampaignConnection.init returning: `, acItem)
-		return acItem
 	}
+	console.log(`ActiveCampaignConnection.init returning: `, acItem)
+	return acItem
 }
 
 export { 

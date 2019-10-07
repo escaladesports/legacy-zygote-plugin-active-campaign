@@ -32,41 +32,34 @@ const getContactByEmail = async (info) => {
 	return contact
 }
 
-class ActiveCampaignContact {
-	email = ``
-	firstName = ``
-	lastName = ``
-	phone = ``
+const ActiveCampaignContact = (email = '', firstName = '', lastName = '', phone = '') => {
+	this.email = props.email
+	this.firstName = props.firstName
+	this.lastName = props.lastName
+	this.phone = props.phone
+}
 
-	constructor(email = ``, firstName = ``, lastName = ``, phone = ``) {
-		this.email = email
-		this.firstName = firstName
-		this.lastName = lastName
-		this.phone = phone
-	}
-
-	requestJson = () => {
-		return {
-			contact: {
-				...this
-			}
+ActiveCampaignContact.prototype.requestJson = function () {
+	return {
+		contact: {
+			...this
 		}
 	}
+}
 
-	static init = async (info) => {
-		console.log(`ActiveCampaignContact.init running...`)
+ActiveCampaignContact.init = async function (info) {
+	console.log(`ActiveCampaignContact.init running...`)
 
-		let acItem
-		await getContactByEmail(info)
+	let acItem
+	await getContactByEmail(info)
+		.then(itemJson => acItem = itemJson)
+
+	if (!acItem) {
+		await createContact(info)
 			.then(itemJson => acItem = itemJson)
-
-		if (!acItem) {
-			await createContact(info)
-				.then(itemJson => acItem = itemJson)
-		}
-		console.log(`ActiveCampaignContact.init returning: `, acItem)
-		return acItem
 	}
+	console.log(`ActiveCampaignContact.init returning: `, acItem)
+	return acItem
 }
 
 export {

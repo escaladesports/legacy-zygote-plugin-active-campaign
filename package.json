@@ -7,7 +7,7 @@
   "scripts": {
     "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
     "build": "esca-scripts build --react --component --babel --input src --output dist --multiple",
-    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser",
+    "dev": "esca-scripts dev --input './dev/dev.js, ./dev/index.html' --react --browser",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,12 +33,11 @@
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
-    "eslint-config-escalade-sports": "^1.0.2",
     "esca-scripts": "^1.5.4",
+    "eslint-config-escalade-sports": "^1.0.2",
     "statable": "^0.3.2"
   },
   "peerDependencies": {
-    "@escaladesports/zygote-cart": "^3.0.0",
     "react": "^16.7.0"
   }
 }

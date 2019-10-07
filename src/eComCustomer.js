@@ -32,43 +32,33 @@ const getEComCustomerByEmail = async (email, connectionId) => {
 	return eComCustomer
 }
 
-class ActiveCampaignEComCustomer {
-	connectionid
-	externalid
-	email
-	acceptsMarketing // TODO: update to allow the opt in on form
+const ActiveCampaignEComCustomer = (connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) => {
+	this.connectionid = connectionId
+	this.externalid = externalId
+	this.email = email
+	this.acceptsMarketing = acceptsMarketing // TODO: update to allow the opt in on form
+}
 
-	constructor(connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) {
-		this.connectionid = connectionId
-		this.externalid = externalId
-		this.email = email
-		this.acceptsMarketing = acceptsMarketing
-	}
-
-	requestJson = () => {
-		return {
-			ecomCustomer: {
-				connectionid: this.connectionid,
-				externalid: this.externalid,
-				email: this.email,
-				acceptsMarketing: this.acceptsMarketing
-			}
+ActiveCampaignEComCustomer.prototype.requestJson = function () {
+	return {
+		ecomCustomer: {
+			...this
 		}
 	}
+}
 
-	static init = async (info, connectionId, acceptsMarketing = `0`) => {
-		console.log(`ActiveCampaignEComCustomer.init running...`)
-		let acItem
-		await getEComCustomerByEmail(info.infoEmail, connectionId)
+ActiveCampaignEComCustomer.init = async function (info) {
+	console.log(`ActiveCampaignEComCustomer.init running...`)
+	let acItem
+	await getEComCustomerByEmail(info.infoEmail, connectionId)
+		.then(itemJson => acItem = itemJson)
+
+	if (!acItem) {
+		await createEcomCustomer(info, connectionId, acceptsMarketing)
 			.then(itemJson => acItem = itemJson)
-
-		if (!acItem) {
-			await createEcomCustomer(info, connectionId, acceptsMarketing)
-				.then(itemJson => acItem = itemJson)
-		}
-		console.log(`ActiveCampaignEComCustomer.init returning: `, acItem)
-		return acItem
 	}
+	console.log(`ActiveCampaignEComCustomer.init returning: `, acItem)
+	return acItem
 }
 
 export {

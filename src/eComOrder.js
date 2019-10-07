@@ -34,64 +34,55 @@ const updateAbandonedOrder = async (order) => {
 	return eComOrder
 }
 
-class ActiveCampaignEComOrder {
-	source = `1`
-	email
-	orderUrl = ``
-	externalCreatedDate = `2019-09-30T17:41:39-04:00`
-	externalUpdatedDate = `2019-09-30T17:41:39-04:00`
-	shippingMethod = `UPS Ground`
-	totalPrice
-	shippingAmount = 0
-	taxAmount = 0
-	discountAmount = 0
-	currency = `USD`
-	orderNumber
-	connectionid
-	customerid
-	orderProducts = []
-
-	constructor(orderNumber, connectionId, customerId, email = ``, totalPrice = 0, orderProducts = []) {
-		this.email = email
-		this.totalPrice = totalPrice
-		this.orderNumber = orderNumber
-		this.connectionid = connectionId
-		this.customerid = customerId
-		this.orderProducts = orderProducts.map(product => {
-			return {
-				externalid: product.id,
-				name: product.name,
-				price: product.price,
-				quantity: product.quantity,
-				category: ``,
-				sku: ``,
-				description: product.description,
-				imageUrl: product.image,
-				productUrl: ``
-			}
-		})
-	}
-
-	abandonCart() {
-		// TODO: Review the id and date
-		// Add externalcheckoutid and abandoned_date to make cart abandonded
-		this.externalcheckoutid = `${this.totalPrice}-${this.customerid}-${this.connectionid}`
-		this.abandoned_date = `2019-09-30T17:41:39-04:00`
-	}
-
-	static setActiveCartStatus(eComOrder) {
-		delete eComOrder.externalcheckoutid
-		delete eComOrder.abandoned_date
-		eComOrder.externalid = Date.now()
-	}
-
-	requestJson = () => {
+const ActiveCampaignEComOrder = (orderNumber, connectionId, customerId, email = ``, totalPrice = 0, orderProducts = []) => {
+	this.email = email
+	this.totalPrice = totalPrice
+	this.orderNumber = orderNumber
+	this.connectionid = connectionId
+	this.customerid = customerId	
+	this.source = `1`
+	this.orderUrl = ``
+	this.externalCreatedDate = `2019-09-30T17:41:39-04:00`
+	this.externalUpdatedDate = `2019-09-30T17:41:39-04:00`
+	this.shippingMethod = `UPS Ground`
+	this.shippingAmount = 0
+	this.taxAmount = 0
+	this.discountAmount = 0
+	this.currency = `USD`	
+	this.orderProducts = orderProducts.map(product => {
 		return {
-			ecomOrder: {
-				...this
-			}
+			externalid: product.id,
+			name: product.name,
+			price: product.price,
+			quantity: product.quantity,
+			category: ``,
+			sku: ``,
+			description: product.description,
+			imageUrl: product.image,
+			productUrl: ``
+		}
+	})
+}
+
+ActiveCampaignEComOrder.prototype.requestJson = function () {
+	return {
+		ecomOrder: {
+			...this
 		}
 	}
+}
+
+ActiveCampaignEComOrder.prototype.abandonCart = function () {
+	// TODO: Review the id and date
+	// Add externalcheckoutid and abandoned_date to make cart abandonded
+	this.externalcheckoutid = `${this.totalPrice}-${this.customerid}-${this.connectionid}`
+	this.abandoned_date = `2019-09-30T17:41:39-04:00`
+}
+
+ActiveCampaignEComOrder.setActiveCartStatus = function (eComOrder) {
+	delete eComOrder.externalcheckoutid
+	delete eComOrder.abandoned_date
+	eComOrder.externalid = Date.now()
 }
 
 export {
