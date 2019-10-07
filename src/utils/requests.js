@@ -11,7 +11,7 @@ export const getFilteredACItem = async (type, filters) => {
 		.then(response => response.json())
 		.then(responseJson => {
 			console.log(`response from getFilteredACItem: `, responseJson)
-			if (responseJson && responseJson.length) responseItem = responseJson[0]
+			if (responseJson) responseItem = responseJson[type]
 		})
 		/* .then(response => {
 			// console.log(response)

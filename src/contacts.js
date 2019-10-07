@@ -21,7 +21,9 @@ function ActiveCampaignContact (props = {}) {
 		await getFilteredACItem(`contacts`, [
 			{ filter: `email`, value: this.email }
 		])
-			.then(itemJson => contact = itemJson)
+			.then(itemJson => { 
+				if (itemJson && itemJson.length) contact = itemJson[0]
+			})
 
 		console.log(`getContactByEmail returning: `, contact)
 		return contact

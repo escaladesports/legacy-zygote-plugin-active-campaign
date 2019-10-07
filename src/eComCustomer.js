@@ -23,7 +23,9 @@ function ActiveCampaignEComCustomer (props = {}) {
 			{ filter: `connectionid`, value: this.connectionid },
 			{ filter: `email`, value: this.email }
 		])
-			.then(itemJson => eComCustomer = itemJson)
+			.then(itemJson => {
+				if (itemJson && itemJson.length) eComCustomer = itemJson[0]
+			})
 
 		console.log(`getEComCustomerByEmail returning: `, eComCustomer)
 		return eComCustomer
