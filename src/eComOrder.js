@@ -1,10 +1,11 @@
-import { postACItem } from './utils/requests'
+import { postACItem, putACItem } from './utils/requests'
 
 import activeCampaignState from '../state'
 
 const setActiveCartStatus = (order = {}, props = {}) => {
 	delete order.externalcheckoutid
 	delete order.abandoned_date
+	delete order.abandonedDate
 	order.externalid = props.externalid || Date.now()
 }
 
@@ -13,7 +14,7 @@ const updateAbandonedOrder = async (order) => {
 
 	setActiveCartStatus(order)
 	let ecomOrder
-	await postACItem(`ecomOrderId`, order)
+	await putACItem(`ecomOrders`, order)
 		.then(response => ecomOrder = response ? response.ecomOrder : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)

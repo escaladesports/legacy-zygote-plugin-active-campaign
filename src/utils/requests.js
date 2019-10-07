@@ -45,3 +45,26 @@ export const postACItem = async (type, data) => {
 
 	return responseItem
 }
+
+export const putACItem = async (type, data) => {
+
+	let responseItem = null
+	await fetch(`${proxyUrl}${type}/${data.id}`, {
+		method: `PUT`,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(data)
+	})
+		.then(response => {
+			if (response.errors) console.error(`Response Errors: `, response.errors)
+			return response.json()
+		})
+		.then(responseJson => {
+			console.log(`response from putACItem: `, responseJson)
+			if (responseJson) responseItem = responseJson
+		})
+	/* .then(response => {
+		// console.log(response)
+	}) */
+
+	return responseItem
+}
