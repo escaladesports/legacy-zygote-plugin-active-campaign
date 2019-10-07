@@ -1,6 +1,6 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 
-const ActiveCampaignEComCustomer = function (props = {}) {
+function ActiveCampaignEComCustomer (props = {}) {
 	this.connectionid = props.connectionid || ''
 	this.externalid = props.externalid || ''
 	this.email = props.email || ''
@@ -8,7 +8,7 @@ const ActiveCampaignEComCustomer = function (props = {}) {
 	this.acceptsMarketing = props.acceptsMarketing || `0`
 }
 
-ActiveCampaignEComCustomer.prototype.requestJson = () => {
+ActiveCampaignEComCustomer.prototype.requestJson = function () {
 	return {
 		ecomCustomer: {
 			...this
@@ -16,7 +16,7 @@ ActiveCampaignEComCustomer.prototype.requestJson = () => {
 	}
 }
 
-ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async () => {
+ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async function () {
 	console.log(`getEComCustomerByEmail running...`)
 
 	let eComCustomer
@@ -30,7 +30,7 @@ ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async () => {
 	return eComCustomer
 }
 
-ActiveCampaignEComCustomer.prototype.createEcomCustomer = async () => {
+ActiveCampaignEComCustomer.prototype.createEcomCustomer = async function () {
 	console.log(`createEcomCustomer running...`)
 
 	let eComCustomer
@@ -43,7 +43,7 @@ ActiveCampaignEComCustomer.prototype.createEcomCustomer = async () => {
 	return eComCustomer
 }
 
-ActiveCampaignEComCustomer.prototype.init = async () => {
+ActiveCampaignEComCustomer.prototype.init = async function () {
 	console.log(`ActiveCampaignEComCustomer.init running...`)
 	let acItem
 	await this.getEComCustomerByEmail()

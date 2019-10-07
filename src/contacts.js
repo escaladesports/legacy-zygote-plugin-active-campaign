@@ -1,13 +1,13 @@
 import { postACItem, getFilteredACItem } from './utils/requests'
 
-const ActiveCampaignContact = function (props = {}) {
+function ActiveCampaignContact (props = {}) {
 	this.email = props.email || ''
 	this.firstName = props.firstName || ''
 	this.lastName = props.lastName || ''
 	this.phone = props.phone || ''
 }
 
-ActiveCampaignContact.prototype.requestJson = () => {
+ActiveCampaignContact.prototype.requestJson = function () {
 	return {
 		contact: {
 			...this
@@ -15,7 +15,7 @@ ActiveCampaignContact.prototype.requestJson = () => {
 	}
 }
 
-ActiveCampaignContact.prototype.getContactByEmail = async () => {
+ActiveCampaignContact.prototype.getContactByEmail = async function () {
 	console.log(`getContactByEmail running...`)
 
 	let contact
@@ -28,7 +28,7 @@ ActiveCampaignContact.prototype.getContactByEmail = async () => {
 	return contact
 }
 
-ActiveCampaignContact.prototype.createContact = async () => {
+ActiveCampaignContact.prototype.createContact = async function () {
 	console.log(`createContact running...`)
 
 	let contact
@@ -41,7 +41,7 @@ ActiveCampaignContact.prototype.createContact = async () => {
 	return contact
 }
 
-ActiveCampaignContact.prototype.init = async () => {
+ActiveCampaignContact.prototype.init = async function () {
 	console.log(`ActiveCampaignContact.init running...`)
 
 	let acItem

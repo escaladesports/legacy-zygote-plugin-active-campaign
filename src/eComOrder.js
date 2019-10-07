@@ -1,6 +1,6 @@
 import { postACItem } from './utils/requests'
 
-const ActiveCampaignEComOrder = function (props = {}) {
+function ActiveCampaignEComOrder (props = {}) {
 	// priority properties
 	this.email = props.email
 	this.totalPrice = props.totalPrice || 0
@@ -49,7 +49,7 @@ ActiveCampaignEComOrder.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignEComOrder.prototype.abandonCart = (props = {}) => {
+ActiveCampaignEComOrder.prototype.abandonCart = function (props = {}) {
 	// TODO: Review the id and date
 	// Add externalcheckoutid and abandoned_date to make cart abandonded
 	delete this.externalid
@@ -60,13 +60,13 @@ ActiveCampaignEComOrder.prototype.abandonCart = (props = {}) => {
 		|| `${this.totalPrice}-${this.customerid}-${this.connectionid}`
 }
 
-ActiveCampaignEComOrder.prototype.setActiveCartStatus = (props = {}) => {
+ActiveCampaignEComOrder.prototype.setActiveCartStatus = function (props = {}) {
 	delete this.externalcheckoutid
 	delete this.abandoned_date
 	this.externalid = props.externalid || Date.now()
 }
 
-ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async () => {
+ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async function () {
 	console.log(`updateAbandonedOrder running...`)
 
 	this.setActiveCartStatus()
@@ -78,7 +78,7 @@ ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async () => {
 	return eComOrder
 }
 
-ActiveCampaignEComOrder.prototype.createAbandonedOrder = async () => {
+ActiveCampaignEComOrder.prototype.createAbandonedOrder = async function () {
 	console.log(`createAbandonedOrder running...`)
 
 	this.abandonCart()
