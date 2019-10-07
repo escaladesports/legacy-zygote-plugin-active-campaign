@@ -41,7 +41,7 @@ function ActiveCampaignEComOrder (props = {}) {
 	this.externalUpdatedDate = props.externalUpdatedDate || `2019-09-30T17:41:39-04:00`
 }
 
-ActiveCampaignEComOrder.prototype.requestJson = function () {
+ActiveCampaignEComOrder.prototype.requestJson = () => {
 	return {
 		ecomOrder: {
 			...this
@@ -49,7 +49,7 @@ ActiveCampaignEComOrder.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignEComOrder.prototype.abandonCart = function (props = {}) {
+ActiveCampaignEComOrder.prototype.abandonCart = (props = {}) => {
 	// TODO: Review the id and date
 	// Add externalcheckoutid and abandoned_date to make cart abandonded
 	delete this.externalid
@@ -60,13 +60,13 @@ ActiveCampaignEComOrder.prototype.abandonCart = function (props = {}) {
 		|| `${this.totalPrice}-${this.customerid}-${this.connectionid}`
 }
 
-ActiveCampaignEComOrder.prototype.setActiveCartStatus = function (props = {}) {
+ActiveCampaignEComOrder.prototype.setActiveCartStatus = (props = {}) => {
 	delete this.externalcheckoutid
 	delete this.abandoned_date
 	this.externalid = props.externalid || Date.now()
 }
 
-ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async function () {
+ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async () => {
 	console.log(`updateAbandonedOrder running...`)
 
 	this.setActiveCartStatus()
@@ -78,7 +78,7 @@ ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async function () {
 	return eComOrder
 }
 
-ActiveCampaignEComOrder.prototype.createAbandonedOrder = async function () {
+ActiveCampaignEComOrder.prototype.createAbandonedOrder = async () => {
 	console.log(`createAbandonedOrder running...`)
 
 	this.abandonCart()

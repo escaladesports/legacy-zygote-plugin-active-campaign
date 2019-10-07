@@ -8,7 +8,7 @@ function ActiveCampaignEComCustomer (props = {}) {
 	this.acceptsMarketing = props.acceptsMarketing || `0`
 }
 
-ActiveCampaignEComCustomer.prototype.requestJson = function () {
+ActiveCampaignEComCustomer.prototype.requestJson = () => {
 	return {
 		ecomCustomer: {
 			...this
@@ -16,7 +16,7 @@ ActiveCampaignEComCustomer.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async function () {
+ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async () => {
 	console.log(`getEComCustomerByEmail running...`)
 
 	let eComCustomer
@@ -30,7 +30,7 @@ ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async function () 
 	return eComCustomer
 }
 
-ActiveCampaignEComCustomer.prototype.createEcomCustomer = async function () {
+ActiveCampaignEComCustomer.prototype.createEcomCustomer = async () => {
 	console.log(`createEcomCustomer running...`)
 
 	let eComCustomer
@@ -43,7 +43,7 @@ ActiveCampaignEComCustomer.prototype.createEcomCustomer = async function () {
 	return eComCustomer
 }
 
-ActiveCampaignEComCustomer.prototype.init = async function () {
+ActiveCampaignEComCustomer.prototype.init = async () => {
 	console.log(`ActiveCampaignEComCustomer.init running...`)
 	let acItem
 	await this.getEComCustomerByEmail()
