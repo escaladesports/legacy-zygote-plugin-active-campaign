@@ -1,6 +1,6 @@
 {
   "name": "zygote-plugin-active-campaign",
-  "version": "0.1.81",
+  "version": "0.1.82",
   "description": "Integration for Zygote and Active Campaign",
   "main": "src/index.js",
   "public": true,
