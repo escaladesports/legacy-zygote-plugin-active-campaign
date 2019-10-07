@@ -4,6 +4,7 @@ This plugin is the integration of Zygote and Active Campaign
 
 ## :construction: UNDER DEVELOPMENT :construction:
 
+
 ---
 
 ## Installation
@@ -19,6 +20,7 @@ Or with Yarn:
 ```bash
 yarn add zygote-plugin-active-campaign
 ```
+
 
 ---
 
