@@ -5,8 +5,8 @@ function ActiveCampaignEComOrder (props = {}) {
 	this.email = props.email
 	this.totalPrice = props.totalPrice || 0
 	this.orderNumber = props.orderNumber
-	this.connectionid = props.connectionId
-	this.customerid = props.customerId
+	this.connectionid = props.connectionid
+	this.customerid = props.customerid
 
 	this.orderProducts = props.orderProducts && props.orderProducts.length ?
 		props.orderProducts.map(product => {
