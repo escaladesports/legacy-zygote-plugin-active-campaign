@@ -1,42 +1,11 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 
-const createEcomCustomer = async (info, connectionId, acceptsMarketing) => {
-	console.log(`createEcomCustomer running...`)
-
-	let eComCustomer
-	await postACItem(`ecomCustomers`,
-		new ActiveCampaignEComCustomer(
-			connectionId,
-			info.infoEmail,
-			info.infoEmail,
-			acceptsMarketing
-		).requestJson()
-	)
-		.then(response => eComCustomer = response ? response.ecomCustomer : null)
-
-	console.log(`createEcomCustomer returning: `, eComCustomer)
-	return eComCustomer
-}
-
-const getEComCustomerByEmail = async (email, connectionId) => {
-	console.log(`getEComCustomerByEmail running...`)
-
-	let eComCustomer
-	await getFilteredACItem(`ecomCustomers`, [
-		{ filter: `connectionid`, value: connectionId },
-		{ filter: `email`, value: email }
-	])
-		.then(itemJson => eComCustomer = itemJson)
-
-	console.log(`getEComCustomerByEmail returning: `, eComCustomer)
-	return eComCustomer
-}
-
-const ActiveCampaignEComCustomer = function (connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) {
-	this.connectionid = connectionId
-	this.externalid = externalId
-	this.email = email
-	this.acceptsMarketing = acceptsMarketing // TODO: update to allow the opt in on form
+const ActiveCampaignEComCustomer = function (props = {}) {
+	this.connectionid = props.connectionid || ''
+	this.externalid = props.externalid || ''
+	this.email = props.email || ''
+	// TODO: update to allow the opt in on form
+	this.acceptsMarketing = props.acceptsMarketing || `0`
 }
 
 ActiveCampaignEComCustomer.prototype.requestJson = function () {
@@ -47,14 +16,41 @@ ActiveCampaignEComCustomer.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignEComCustomer.init = async function (info) {
+ActiveCampaignEComCustomer.prototype.getEComCustomerByEmail = async function () {
+	console.log(`getEComCustomerByEmail running...`)
+
+	let eComCustomer
+	await getFilteredACItem(`ecomCustomers`, [
+		{ filter: `connectionid`, value: this.connectionid },
+		{ filter: `email`, value: this.email }
+	])
+		.then(itemJson => eComCustomer = itemJson)
+
+	console.log(`getEComCustomerByEmail returning: `, eComCustomer)
+	return eComCustomer
+}
+
+ActiveCampaignEComCustomer.prototype.createEcomCustomer = async function () {
+	console.log(`createEcomCustomer running...`)
+
+	let eComCustomer
+	await postACItem(`ecomCustomers`,
+		this.requestJson()
+	)
+		.then(response => eComCustomer = response ? response.ecomCustomer : null)
+
+	console.log(`createEcomCustomer returning: `, eComCustomer)
+	return eComCustomer
+}
+
+ActiveCampaignEComCustomer.prototype.init = async function (info, connectionId, acceptsMarketing) {
 	console.log(`ActiveCampaignEComCustomer.init running...`)
 	let acItem
-	await getEComCustomerByEmail(info.infoEmail, connectionId)
+	await this.getEComCustomerByEmail()
 		.then(itemJson => acItem = itemJson)
 
 	if (!acItem) {
-		await createEcomCustomer(info, connectionId, acceptsMarketing)
+		await this.createEcomCustomer()
 			.then(itemJson => acItem = itemJson)
 	}
 	console.log(`ActiveCampaignEComCustomer.init returning: `, acItem)
@@ -62,7 +58,5 @@ ActiveCampaignEComCustomer.init = async function (info) {
 }
 
 export {
-	ActiveCampaignEComCustomer,
-	getEComCustomerByEmail,
-	createEcomCustomer
+	ActiveCampaignEComCustomer
 } 

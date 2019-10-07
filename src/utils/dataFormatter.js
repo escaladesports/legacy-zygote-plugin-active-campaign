@@ -13,8 +13,40 @@ const buildFiltersString = filters => {
   return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
 }
 
+const getContactProps = function (info = {}) { 
+  return {
+    email: info.infoEmail,
+    firstName: getFirstName(info.infoName),
+    lastName: getLastName(info.infoName),
+    phone: info.infoPhone
+  }
+}
+
+const getCustomerProps = function (info = {}, connection = {}, acceptsMarketing) {
+  return {
+    connectionid: connection.id,
+    externalid: info.infoEmail,
+    email: info.infoEmail,
+    acceptsMarketing: acceptsMarketing
+  }
+}
+
+const getOrderProps = function (info = {}, connection = {}, customer = {}) {
+  return {
+    connectionid: connection.id,
+    email: info.infoEmail,
+    totalPrice: info.totals.subtotal,
+    orderNumber: `${info.totals.subtotal}-${customer.id}-${connection.id}`,
+    customerid: customer.id,
+    orderProducts: info.products
+  }
+}
+
 export {
   getFirstName,
   getLastName,
-  buildFiltersString
+  buildFiltersString,
+  getContactProps,
+  getCustomerProps,
+  getOrderProps
 }

@@ -1,48 +1,55 @@
 import { ActiveCampaignConnection } from './connection'
 import { ActiveCampaignContact } from './contacts'
 import { ActiveCampaignEComCustomer } from './eComCustomer'
-import { createAbandonedOrder } from './eComOrder'
+import { ActiveCampaignEComOrder } from './eComOrder'
 // import { ActiveCampaignStore } from './order'
+import {
+	getContactProps,
+	getCustomerProps,
+	getOrderProps
+} from './utils/dataFormatter'
+
+
+/*
+	Notes:
+	* `init` means to get or create an object in Active Campaign
+	* `acceptsMarketing` still needs to be sent in from the cart
+*/
 
 
 const preInfo = async ({ preFetchData, info }) => {
 
-	try {
-		console.log(`info: `, info)
+	const acceptsMarketing = `1`
+	console.log(`info: `, info)
 
-		/*
-		Notes:
-			* `init` means to get or create an object in Active Campaign
-		 	* `acceptsMarketing` still needs to be sent in from the cart
-		*/
-		const acceptsMarketing = `1`
+	try {	
 
 		// init an active campaign connection
-		const acConnection = await ActiveCampaignConnection.init()
+		const acConnection = await new ActiveCampaignConnection().init()
 		console.log(`acConnection: `, acConnection)
 		if (!acConnection) return info
 
 		// init an active campaign contact
-		const acContact = await ActiveCampaignContact.init(info)
+		const acContact =
+			await new ActiveCampaignContact(
+				getContactProps(info)
+			).init()
 		console.log(`acContact: `, acContact)
 		if (!acContact) return info
 
 		// init an active campaign e-commerce customer
-		const acCustomer = await ActiveCampaignEComCustomer.init(
-			acConnection.id,
-			info.infoEmail,
-			info.infoEmail,
-			acceptsMarketing
-		)
+		const acCustomer =
+			await new ActiveCampaignEComCustomer(
+				getCustomerProps(info, acConnection, acceptsMarketing)
+			).init()
 		console.log(`acCustomer: `, acCustomer)
 		if (!acCustomer) return info
 
 		// init an active campaign e-commerce order
-		const acOrder = await createAbandonedOrder(
-			info,
-			acConnection.id,
-			acCustomer.id
-		)
+		const acOrder =
+			await new ActiveCampaignEComOrder(
+				getOrderProps(info, acConnection, acCustomer)
+			).createAbandonedOrder()
 		console.log(`acOrder: `, acOrder)
 		if (!acOrder) return info
 

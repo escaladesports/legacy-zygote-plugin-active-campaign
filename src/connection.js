@@ -1,12 +1,12 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 import { serviceName, serviceLogoUrl } from './utils/config'
 
-const ActiveCampaignConnection = function (hostUrl = window.location.host, serviceUrl = window.location.origin) {
-	this.externalid = hostUrl
-	this.name = hostUrl
-	this.linkUrl = serviceUrl
-	this.service = serviceName
-	this.logoUrl = serviceLogoUrl
+const ActiveCampaignConnection = function (props = {}) {
+	this.externalid = props.externalid || window.location.host
+	this.name = props.name || window.location.host
+	this.linkUrl = props.linkUrl || window.location.origin
+	this.service = props.service || serviceName
+	this.logoUrl = props.logoUrl || serviceLogoUrl
 }
 
 ActiveCampaignConnection.prototype.requestJson = function () {
@@ -15,21 +15,6 @@ ActiveCampaignConnection.prototype.requestJson = function () {
 			...this
 		}
 	}
-}
-
-ActiveCampaignConnection.prototype.init = async function (info) {
-	console.log(`ActiveCampaignConnection.init running...`)
-
-	let acItem
-	await getConnectionByHostUrl()
-		.then(itemJson => acItem = itemJson)
-
-	if (!acItem) {
-		await createConnection()
-			.then(itemJson => acItem = itemJson)
-	}
-	console.log(`ActiveCampaignConnection.init returning: `, acItem)
-	return acItem
 }
 
 ActiveCampaignConnection.prototype.getConnectionByHostUrl = async function () {
@@ -58,8 +43,21 @@ ActiveCampaignConnection.prototype.createConnection = async function () {
 	return connection
 }
 
+ActiveCampaignConnection.prototype.init = async function () {
+	console.log(`ActiveCampaignConnection.init running...`)
+
+	let acItem
+	await this.getConnectionByHostUrl()
+		.then(itemJson => acItem = itemJson)
+
+	if (!acItem) {
+		await this.createConnection()
+			.then(itemJson => acItem = itemJson)
+	}
+	console.log(`ActiveCampaignConnection.init returning: `, acItem)
+	return acItem
+}
+
 export { 
-	ActiveCampaignConnection,
-	getConnectionByHostUrl,
-	createConnection
+	ActiveCampaignConnection
 } 

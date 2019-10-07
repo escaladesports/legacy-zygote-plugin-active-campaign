@@ -1,67 +1,44 @@
 import { postACItem } from './utils/requests'
 
-const createAbandonedOrder = async (info, connectionId, customerId) => {
-	console.log(`createAbandonedOrder running...`)
+const ActiveCampaignEComOrder = function (props = {}) {
+	// priority properties
+	this.email = props.email
+	this.totalPrice = props.totalPrice || 0
+	this.orderNumber = props.orderNumber
+	this.connectionid = props.connectionId
+	this.customerid = props.customerId
 
-	let activeOrder = new ActiveCampaignEComOrder(
-		`${info.totals.subtotal}-${customerId}-${connectionId}`,
-		connectionId,
-		customerId,
-		info.infoEmail,
-		info.totals.subtotal,
-		info.products
-	).requestJson()
-
-	activeOrder.abandonCart()
-
-	let eComOrder
-	await postACItem(`ecomOrders`, activeOrder)
-		.then(response => eComOrder = response ? response.eComOrder : null)
+	this.orderProducts = props.orderProducts && props.orderProducts.length ?
+		props.orderProducts.map(product => {
+			return {
+				externalid: product.id,
+				name: product.name,
+				price: product.price,
+				quantity: product.quantity,
+				category: ``,
+				sku: ``,
+				description: product.description,
+				imageUrl: product.image,
+				productUrl: ``
+			}
+		})
+		: []
 	
-	console.log(`createAbandonedOrder returning: `, eComOrder)
-	return eComOrder
-}
+	// external id is optional, will determine cart abandment
+	this.externalid = props.externalid || null
 
-const updateAbandonedOrder = async (order) => {
-	console.log(`updateAbandonedOrder running...`)
-	ActiveCampaignEComOrder.setActiveCartStatus(order.ecomOrder)
+	// optional properties (have default values)
+	this.source = props.source || `1`
+	this.orderUrl = props.orderUrl || ``
+	this.shippingMethod = props.shippingMethod || `UPS Ground`
+	this.shippingAmount = props.shippingAmount || 0
+	this.taxAmount = props.taxAmount || 0
+	this.discountAmount = props.discountAmount || 0
+	this.currency = props.currency || `USD`	
 
-	let eComOrder
-	await postACItem(`ecomOrderId`, order)
-		.then(response => eComOrder = response ? response.eComOrder : null)
-
-	console.log(`updateAbandonedOrder returning: `, eComOrder)
-	return eComOrder
-}
-
-const ActiveCampaignEComOrder = function (orderNumber, connectionId, customerId, email = ``, totalPrice = 0, orderProducts = []) {
-	this.email = email
-	this.totalPrice = totalPrice
-	this.orderNumber = orderNumber
-	this.connectionid = connectionId
-	this.customerid = customerId	
-	this.source = `1`
-	this.orderUrl = ``
-	this.externalCreatedDate = `2019-09-30T17:41:39-04:00`
-	this.externalUpdatedDate = `2019-09-30T17:41:39-04:00`
-	this.shippingMethod = `UPS Ground`
-	this.shippingAmount = 0
-	this.taxAmount = 0
-	this.discountAmount = 0
-	this.currency = `USD`	
-	this.orderProducts = orderProducts.map(product => {
-		return {
-			externalid: product.id,
-			name: product.name,
-			price: product.price,
-			quantity: product.quantity,
-			category: ``,
-			sku: ``,
-			description: product.description,
-			imageUrl: product.image,
-			productUrl: ``
-		}
-	})
+	// values that are currently static and need to be updated
+	this.externalCreatedDate = props.externalCreatedDate || `2019-09-30T17:41:39-04:00`
+	this.externalUpdatedDate = props.externalUpdatedDate || `2019-09-30T17:41:39-04:00`
 }
 
 ActiveCampaignEComOrder.prototype.requestJson = function () {
@@ -72,21 +49,47 @@ ActiveCampaignEComOrder.prototype.requestJson = function () {
 	}
 }
 
-ActiveCampaignEComOrder.prototype.abandonCart = function () {
+ActiveCampaignEComOrder.prototype.abandonCart = function (props = {}) {
 	// TODO: Review the id and date
 	// Add externalcheckoutid and abandoned_date to make cart abandonded
-	this.externalcheckoutid = `${this.totalPrice}-${this.customerid}-${this.connectionid}`
+	delete this.externalid
+
 	this.abandoned_date = `2019-09-30T17:41:39-04:00`
+	this.externalcheckoutid =
+		props.externalcheckoutid
+		|| `${this.totalPrice}-${this.customerid}-${this.connectionid}`
 }
 
-ActiveCampaignEComOrder.setActiveCartStatus = function (eComOrder) {
-	delete eComOrder.externalcheckoutid
-	delete eComOrder.abandoned_date
-	eComOrder.externalid = Date.now()
+ActiveCampaignEComOrder.prototype.setActiveCartStatus = function (props = {}) {
+	delete this.externalcheckoutid
+	delete this.abandoned_date
+	this.externalid = props.externalid || Date.now()
+}
+
+ActiveCampaignEComOrder.prototype.updateAbandonedOrder = async function () {
+	console.log(`updateAbandonedOrder running...`)
+
+	this.setActiveCartStatus()
+	let eComOrder
+	await postACItem(`ecomOrderId`, this.requestJson())
+		.then(response => eComOrder = response ? response.eComOrder : null)
+
+	console.log(`updateAbandonedOrder returning: `, eComOrder)
+	return eComOrder
+}
+
+ActiveCampaignEComOrder.prototype.createAbandonedOrder = async function () {
+	console.log(`createAbandonedOrder running...`)
+
+	this.abandonCart()
+	let eComOrder
+	await postACItem(`ecomOrders`, this.requestJson())
+		.then(response => eComOrder = response ? response.eComOrder : null)
+
+	console.log(`createAbandonedOrder returning: `, eComOrder)
+	return eComOrder
 }
 
 export {
-	ActiveCampaignEComOrder,
-	updateAbandonedOrder,
-	createAbandonedOrder
+	ActiveCampaignEComOrder
 } 
