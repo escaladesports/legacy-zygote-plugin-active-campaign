@@ -34,7 +34,7 @@ const updateAbandonedOrder = async (order) => {
 	return eComOrder
 }
 
-const ActiveCampaignEComOrder = (orderNumber, connectionId, customerId, email = ``, totalPrice = 0, orderProducts = []) => {
+const ActiveCampaignEComOrder = function (orderNumber, connectionId, customerId, email = ``, totalPrice = 0, orderProducts = []) {
 	this.email = email
 	this.totalPrice = totalPrice
 	this.orderNumber = orderNumber

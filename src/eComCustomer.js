@@ -32,7 +32,7 @@ const getEComCustomerByEmail = async (email, connectionId) => {
 	return eComCustomer
 }
 
-const ActiveCampaignEComCustomer = (connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) => {
+const ActiveCampaignEComCustomer = function (connectionId, externalId = ``, email = ``, acceptsMarketing = `0`) {
 	this.connectionid = connectionId
 	this.externalid = externalId
 	this.email = email

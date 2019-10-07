@@ -2,7 +2,7 @@ import { ActiveCampaignConnection } from './connection'
 import { ActiveCampaignContact } from './contacts'
 import { ActiveCampaignEComCustomer } from './eComCustomer'
 import { createAbandonedOrder } from './eComOrder'
-import { ActiveCampaignStore } from './order'
+// import { ActiveCampaignStore } from './order'
 
 
 const preInfo = async ({ preFetchData, info }) => {
@@ -46,7 +46,7 @@ const preInfo = async ({ preFetchData, info }) => {
 		console.log(`acOrder: `, acOrder)
 		if (!acOrder) return info
 
-		ActiveCampaignStore.setCurrentOrder(acOrder)
+		// ActiveCampaignStore.setCurrentOrder(acOrder)
 	} catch (ex) {
 		console.log(`Error!: `, ex)
 	}

@@ -27,7 +27,7 @@ const getConnectionByHostUrl = async () => {
 	return connection
 }
 
-const ActiveCampaignConnection = (hostUrl = window.location.host, serviceUrl = window.location.origin) => {
+const ActiveCampaignConnection = function (hostUrl = window.location.host, serviceUrl = window.location.origin) {
 	this.externalid = hostUrl
 	this.name = hostUrl
 	this.linkUrl = serviceUrl

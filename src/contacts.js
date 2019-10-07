@@ -32,7 +32,7 @@ const getContactByEmail = async (info) => {
 	return contact
 }
 
-const ActiveCampaignContact = (email = '', firstName = '', lastName = '', phone = '') => {
+const ActiveCampaignContact = function (email = '', firstName = '', lastName = '', phone = '') {
 	this.email = props.email
 	this.firstName = props.firstName
 	this.lastName = props.lastName
