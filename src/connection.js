@@ -1,6 +1,8 @@
 import { getFilteredACItem, postACItem } from './utils/requests'
 import { serviceName, serviceLogoUrl } from './utils/config'
 
+import activeCampaignState from '../state'
+
 function ActiveCampaignConnection (props = {}) {
 	this.externalid = props.externalid || window.location.host
 	this.name = props.name || window.location.host
@@ -23,7 +25,9 @@ function ActiveCampaignConnection (props = {}) {
 		await getFilteredACItem(`connections`, [
 			{ filter: `externalid`, value: window.location.host }
 		])
-			.then(itemJson => connection = itemJson)
+			.then(itemJson => {
+				if (itemJson && itemJson.length) connection = itemJson[0]
+			})
 
 		console.log(`getConnectionByHostUrl returning: `, connection)
 		return connection
@@ -45,13 +49,16 @@ function ActiveCampaignConnection (props = {}) {
 	this.init = async () => {
 		console.log(`ActiveCampaignConnection.init running...`)
 
-		let acItem
-		await this.getConnectionByHostUrl()
-			.then(itemJson => acItem = itemJson)
-
+		let acItem = activeCampaignState.state.activeCampaignConnection || null
 		if (!acItem) {
-			await this.createConnection()
+			await this.getConnectionByHostUrl()
 				.then(itemJson => acItem = itemJson)
+
+			if (!acItem) {
+				await this.createConnection()
+					.then(itemJson => acItem = itemJson)
+			}
+			if (acItem) activeCampaignState.setState({ activeCampaignConnection: acItem })
 		}
 		console.log(`ActiveCampaignConnection.init returning: `, acItem)
 		return acItem

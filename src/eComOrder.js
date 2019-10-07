@@ -1,5 +1,34 @@
 import { postACItem } from './utils/requests'
 
+import activeCampaignState from '../state'
+
+const setActiveCartStatus = (order = {}, props = {}) => {
+	delete order.externalcheckoutid
+	delete order.abandoned_date
+	order.externalid = props.externalid || Date.now()
+}
+
+const updateAbandonedOrder = async (order) => {
+	console.log(`updateAbandonedOrder running...`)
+
+	setActiveCartStatus(order)
+	let eComOrder
+	await postACItem(`ecomOrderId`, order)
+		.then(response => eComOrder = response ? response.eComOrder : null)
+
+	console.log(`updateAbandonedOrder returning: `, eComOrder)
+	return eComOrder
+}
+
+const completeAbandonedStateOrder = async () => {
+	let eComOrder
+	if (activeCampaignState.state.activeCampaignOrder) {
+		eComOrder = await updateAbandonedOrder({ ...activeCampaignState.state.activeCampaignOrder })
+		if (eComOrder) activeCampaignState.setState({ activeCampaignOrder: null })
+	}
+	return eComOrder
+}
+
 function ActiveCampaignEComOrder (props = {}) {
 	// priority properties
 	this.email = props.email
@@ -59,24 +88,6 @@ function ActiveCampaignEComOrder (props = {}) {
 			|| `${this.totalPrice}-${this.customerid}-${this.connectionid}`
 	}
 
-	this.setActiveCartStatus = (props = {}) => {
-		delete this.externalcheckoutid
-		delete this.abandoned_date
-		this.externalid = props.externalid || Date.now()
-	}
-
-	this.updateAbandonedOrder = async () => {
-		console.log(`updateAbandonedOrder running...`)
-
-		this.setActiveCartStatus()
-		let eComOrder
-		await postACItem(`ecomOrderId`, this.requestJson())
-			.then(response => eComOrder = response ? response.eComOrder : null)
-
-		console.log(`updateAbandonedOrder returning: `, eComOrder)
-		return eComOrder
-	}
-
 	this.createAbandonedOrder = async () => {
 		console.log(`createAbandonedOrder running...`)
 
@@ -86,10 +97,12 @@ function ActiveCampaignEComOrder (props = {}) {
 			.then(response => eComOrder = response ? response.eComOrder : null)
 
 		console.log(`createAbandonedOrder returning: `, eComOrder)
+		activeCampaignState.setState({ activeCampaignOrder: eComOrder })
 		return eComOrder
 	}
 }
 
 export {
-	ActiveCampaignEComOrder
+	ActiveCampaignEComOrder,
+	completeAbandonedStateOrder
 } 

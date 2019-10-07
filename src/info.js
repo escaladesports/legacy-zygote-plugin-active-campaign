@@ -18,9 +18,7 @@ import {
 
 
 const preInfo = async ({ preFetchData, info }) => {
-
 	const acceptsMarketing = `1`
-	console.log(`info: `, info)
 
 	try {	
 
@@ -54,14 +52,9 @@ const preInfo = async ({ preFetchData, info }) => {
 		console.log(`acOrder: `, acOrder)
 		if (!acOrder) return info
 
-		// ActiveCampaignStore.setCurrentOrder(acOrder)
 	} catch (ex) {
-		console.log(`Error!: `, ex)
+		console.error(`Error!: `, ex)
 	}
-
-	info.activeCampaignData = { order: 'testme' }
-
-	console.log(`info final: `, info)
 	return info
 }
 
