@@ -27,10 +27,10 @@
   },
   "homepage": "https://github.com/escaladesports/zygote-plugin-active-campaign#readme",
   "dependencies": {
+    "@emotion/core": "^10.0.21",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
-    "@emotion/core": "^10.0.21",
     "esca-scripts": "^1.5.4",
     "eslint-config-escalade-sports": "^1.0.2",
     "statable": "^0.3.2"
