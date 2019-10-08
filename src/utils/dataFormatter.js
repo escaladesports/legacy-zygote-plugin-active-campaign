@@ -36,7 +36,7 @@ const getOrderProps = (info = {}, connection = {}, customer = {}) => {
     connectionid: connection.id,
     email: info.infoEmail,
     totalPrice: info.totals.subtotal,
-    orderNumber: `${info.totals.subtotal}-${customer.id}-${connection.id}`,
+    orderNumber: `${Date.now()}-${customer.id}-${connection.id}`,
     customerid: customer.id,
     orderProducts: info.products
   }

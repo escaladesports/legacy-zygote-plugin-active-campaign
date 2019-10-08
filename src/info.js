@@ -2,7 +2,6 @@ import { ActiveCampaignConnection } from './connection'
 import { ActiveCampaignContact } from './contacts'
 import { ActiveCampaignEComCustomer } from './eComCustomer'
 import { ActiveCampaignEComOrder } from './eComOrder'
-// import { ActiveCampaignStore } from './order'
 import activeCampaignState from '../state'
 
 import {

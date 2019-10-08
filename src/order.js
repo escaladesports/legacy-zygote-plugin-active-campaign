@@ -1,7 +1,5 @@
 import { completeAbandonedStateOrder } from './eComOrder'
 
-import activeCampaignState from '../state'
-
 const postOrder = async ({response, info, preFetchData}) => {
     try {
         // update current order as unabandoned
