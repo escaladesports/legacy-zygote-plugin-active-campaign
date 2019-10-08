@@ -35,6 +35,14 @@ Add the following to your `netlify.toml` file:
 
 ```toml
 [[redirects]]
+  from = "/api/3/:params/:id"
+  to = "https://<account-name>.api-us1.com/api/3/:params/:id"
+  status = 200
+  force = true
+  [redirects.headers]
+    Api-Token = "<AC-API-KEY>"
+
+[[redirects]]
   from = "/api/3/:params"
   to = "https://<account-name>.api-us1.com/api/3/:params"
   status = 200
