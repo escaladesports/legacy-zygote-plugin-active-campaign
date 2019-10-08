@@ -63,7 +63,7 @@ The plugin focuses on creating **deep data integrations** through Active Campaig
 
 On the `postInfo` hook
 - Creates/Updates a contact resource
-- Creates/Updates eCommerece customer resource
+- Creates/Updates eCommerce customer resource
 - Creates/Updates order with an abandoned cart flag
 
 On the `postOrder` hook
