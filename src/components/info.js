@@ -23,7 +23,7 @@ const Info = () => {
 					<label htmlFor="checkbox_mkt">I would like to receive emails and updates about my order and special promotions</label>
 				</div>
 			)}
-		</Subscribe>  
+		</Subscribe>
 	)
 }
 

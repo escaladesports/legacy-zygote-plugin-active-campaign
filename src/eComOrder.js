@@ -1,4 +1,5 @@
 import { postACItem, putACItem } from './utils/requests'
+import moment from 'moment'
 
 import activeCampaignState from '../state'
 
@@ -67,8 +68,8 @@ function ActiveCampaignEComOrder (props = {}) {
 	this.currency = props.currency || `USD`	
 
 	// values that are currently static and need to be updated
-	this.externalCreatedDate = props.externalCreatedDate || `2019-09-30T17:41:39-04:00`
-	this.externalUpdatedDate = props.externalUpdatedDate || `2019-09-30T17:41:39-04:00`
+	this.externalCreatedDate = props.externalCreatedDate || moment().format()
+	this.externalUpdatedDate = props.externalUpdatedDate || moment().format()
 
 	this.requestJson = () => {
 		return {
@@ -83,7 +84,7 @@ function ActiveCampaignEComOrder (props = {}) {
 		// Add externalcheckoutid and abandoned_date to make cart abandonded
 		delete this.externalid
 
-		this.abandoned_date = `2019-09-30T17:41:39-04:00`
+		this.abandoned_date = moment().format()
 		this.externalcheckoutid =
 			props.externalcheckoutid
 			|| `${Date.now()}-${this.customerid}-${this.connectionid}`
