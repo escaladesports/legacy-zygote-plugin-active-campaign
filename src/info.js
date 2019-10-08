@@ -2,6 +2,7 @@ import { ActiveCampaignConnection } from './connection'
 import { ActiveCampaignContact } from './contacts'
 import { ActiveCampaignEComCustomer } from './eComCustomer'
 import { ActiveCampaignEComOrder } from './eComOrder'
+import activeCampaignState from '../state'
 
 import {
 	getContactProps,
@@ -18,8 +19,10 @@ import {
 
 
 const preInfo = async ({ preFetchData, info }) => {
-	const acceptsMarketing = `1`
-
+	// If user selects the opt in for marketing send `1` else send `0`
+	const acceptsMarketing = activeCampaignState.state.acceptsMarketing ? `1` : `0`
+	console.log(`Accepts Marketing: `, acceptsMarketing)
+	
 	try {	
 
 		// init an active campaign connection
