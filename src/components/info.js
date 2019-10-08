@@ -15,14 +15,12 @@ const Info = () => {
     return (
         <Subscribe to={activeCampaignState}>
             {state => (
-                <div
-                    css ={styles.checkMarketing}>
-                    <input
-                        type="checkbox"
-                        onChange={setMarketingState}
-                        checked={state.acceptsMarketing}
+                <div css={styles.checkMarketing}>
+                    <input type="checkbox" id="checkbox_mkt" 
+                      onChange={setMarketingState}
+                      checked={state.acceptsMarketing}
                     />
-                    <span>I would like to receive emails and updates about my order and special promotions</span>
+                    <label htmlFor="checkbox_mkt">I would like to receive emails and updates about my order and special promotions</label>
                 </div>
             )}
         </Subscribe>  
@@ -31,7 +29,7 @@ const Info = () => {
 
 const styles = {
     checkMarketing: css`
-        padding: 5px 2px;
+        padding: 5px 0px;
         margin-top: 25px;
         text-align: center;
     `
