@@ -1,6 +1,6 @@
 import React from 'react'
 import { Subscribe } from 'statable'
-import { css } from "@emotion/core"
+import { css } from 'emotion'
 import activeCampaignState from '../../state'
 
 
@@ -15,7 +15,8 @@ const Info = () => {
 	return (
 		<Subscribe to={activeCampaignState}>
 			{state => (
-				<div css={styles.checkMarketing}>
+				<div className={divStyle}>
+					<span className="checkmark"></span>
 					<input type="checkbox" id="checkbox_mkt"
 						onChange={setMarketingState}
 						checked={state.acceptsMarketing}
@@ -27,13 +28,12 @@ const Info = () => {
 	)
 }
 
-const styles = {
-	checkMarketing: css`
-        padding: 5px 0px;
-        margin-top: 25px;
-        text-align: center;
-    `,
-}
+// TODO: Allow to set custom css
+const divStyle = css({
+	padding: `5px 0px`,
+	marginTop: `25px`,
+	textAlign: `center`,
+})
 
 
 export { Info }
