@@ -7,7 +7,9 @@ const setActiveCartStatus = (order = {}, props = {}) => {
 	delete order.externalcheckoutid
 	delete order.abandoned_date
 	delete order.abandonedDate
-	order.externalid = props.externalid || Date.now()
+	order.externalid = props.externalid || Date.now() // TODO: Check if we have order id available and add here
+	// update order products to the order object to complete the order submitted
+	order.orderProducts = activeCampaignState.state.activeCampaignOrderProducts
 }
 
 const updateAbandonedOrder = async (order) => {
@@ -15,7 +17,7 @@ const updateAbandonedOrder = async (order) => {
 
 	setActiveCartStatus(order)
 	let ecomOrder
-	await putACItem(`ecomOrders`, order)
+	await putACItem(`ecomOrders/${order.id}`, order)
 		.then(response => ecomOrder = response ? response.ecomOrder : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)
@@ -26,7 +28,12 @@ const completeAbandonedStateOrder = async () => {
 	let ecomOrder
 	if (activeCampaignState.state.activeCampaignOrder) {
 		ecomOrder = await updateAbandonedOrder({ ...activeCampaignState.state.activeCampaignOrder })
-		if (ecomOrder) activeCampaignState.setState({ activeCampaignOrder: null })
+		if (ecomOrder) { // When final order is successfull
+			activeCampaignState.setState({
+				activeCampaignOrderProducts: null, // Clear the product array object from state
+				activeCampaignOrder: null // Clear the order object from state
+			})
+		}
 	}
 	return ecomOrder
 }
@@ -80,8 +87,6 @@ function ActiveCampaignEComOrder (props = {}) {
 	}
 
 	this.abandonCart = (props = {}) => {
-		// TODO: Review the id and date
-		// Add externalcheckoutid and abandoned_date to make cart abandonded
 		delete this.externalid
 
 		this.abandoned_date = moment().format()
@@ -94,12 +99,22 @@ function ActiveCampaignEComOrder (props = {}) {
 		console.log(`createAbandonedOrder running...`)
 
 		this.abandonCart()
-		let ecomOrder
+		let ecomOrder, ecomProducts
 		await postACItem(`ecomOrders`, this.requestJson())
-			.then(response => ecomOrder = response ? response.ecomOrder : null)
+			.then(response => {
+				if(response) {
+					ecomOrder = response.ecomOrder
+					ecomProducts = response.ecomOrderProducts
+				}
+			})
 
-		console.log(`createAbandonedOrder returning: `, ecomOrder)
-		activeCampaignState.setState({ activeCampaignOrder: ecomOrder })
+		console.log(`createAbandonedOrder returning order: `, ecomOrder)
+		console.log(`createAbandonedOrder returning products: `, ecomProducts)
+		// after cart abandonment is created then we set the data response to state
+		activeCampaignState.setState({
+			activeCampaignOrderProducts: ecomProducts, 
+			activeCampaignOrder: ecomOrder
+		})
 		return ecomOrder
 	}
 }
