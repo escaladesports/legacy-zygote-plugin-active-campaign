@@ -12,13 +12,8 @@ module.exports = {
       : ''
   },
 
-  buildFiltersString: function (fullName) {
-    return `?
-      ${filters
-        .map(({ filter, value }) => `&filters[${filter}]=${value}`)
-        .join('')
-        .substr(1)
-      }`
+  buildFiltersString: function (filters) {
+    return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
   },
 
   getContactProps: (info = {}) => {

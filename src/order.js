@@ -1,9 +1,9 @@
-import { completeAbandonedStateOrder } from './eComOrder'
+import { EComOrder } from './classes'
 
 const postOrder = async ({response, info, preFetchData}) => {
     try {
         // update current order as unabandoned
-        const acOrder = await completeAbandonedStateOrder()
+        const acOrder = await EComOrder.completeAbandonedStateOrder()
         console.log(`acOrder: `, acOrder)
         if (!acOrder) return info
 
@@ -13,4 +13,4 @@ const postOrder = async ({response, info, preFetchData}) => {
     return response
 }
 
-export { postOrder/* , ActiveCampaignStore */ }
+export { postOrder }

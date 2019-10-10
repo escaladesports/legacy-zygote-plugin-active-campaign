@@ -1,30 +1,28 @@
-import { serviceName, serviceLogoUrl } from '../utils'
 import { BaseClass } from '../classes'
 
 // Static data identifying this AC objects endpoints and object property name
-const AC_CONNECTION_JSON_PROP = `connection`
-const AC_CONNECTION_ENDPOINT = `connections`
+const AC_CONTACT_JSON_PROP = `contact`
+const AC_CONTACT_ENDPOINT = `contacts`
 
 // Static filters to be sent with this object for `GET` requests
-const acConnectionFilters = () => {
+const acContactFilters = (obj) => {
 	return [
-		{ filter: `externalid`, value: window.location.host }
+		{ filter: `email`, value: obj.email }
 	]
 }
 
 /*
-	Active Campaign Connection Object Class Definition
+	Active Campaign Contact Object Class Definition
 */
 export default class extends BaseClass {
 
 	/*
 		Object fields as defined by Active Campaign API endpoints
 	*/
-	externalid
-	name
-	linkUrl
-	service
-	logoUrl
+	email
+	firstName
+	lastName
+	phone
 
 	/*
 		Constructor -
@@ -35,18 +33,17 @@ export default class extends BaseClass {
 		super(props)
 
 		// set `this` values
-		this.externalid = props.externalid || window.location.host
-		this.name = props.name || window.location.host
-		this.linkUrl = props.linkUrl || window.location.origin
-		this.service = props.service || serviceName
-		this.logoUrl = props.logoUrl || serviceLogoUrl
+		this.email = props.email || ''
+		this.firstName = props.firstName || ''
+		this.lastName = props.lastName || ''
+		this.phone = props.phone || ''
 	}
 
 	/*
 		overridden parent function 
 		for returning an object ready for API requests
 	*/
-	requestJson() { return super.requestJson(AC_CONNECTION_JSON_PROP) }
+	requestJson() { return super.requestJson(AC_CONTACT_JSON_PROP) }
 
 	/*
 		overridden parent function for searching 
@@ -55,8 +52,8 @@ export default class extends BaseClass {
 	getObjectByFilters = async () => {
 		console.log(`getObjectByFilters...`)
 		return await super.getObjectByFilters({
-			acEndpoint: AC_CONNECTION_ENDPOINT,
-			filters: acConnectionFilters()
+			acEndpoint: AC_CONTACT_ENDPOINT,
+			filters: acContactFilters(this)
 		})
 	}
 
@@ -67,9 +64,9 @@ export default class extends BaseClass {
 	createObject = async () => {
 		console.log(`createObject...`)
 		return await super.createObject({
-			acEndpoint: AC_CONNECTION_ENDPOINT,
+			acEndpoint: AC_CONTACT_ENDPOINT,
 			bodyJson: this.requestJson(),
-			propName: AC_CONNECTION_JSON_PROP
+			propName: AC_CONTACT_JSON_PROP
 		})
 	}
 
@@ -81,7 +78,7 @@ export default class extends BaseClass {
 	init = async () => {
 		console.log(`init...`)
 		await super.init(
-			AC_CONNECTION_JSON_PROP,
+			AC_CONTACT_JSON_PROP,
 			this.getObjectByFilters,
 			this.createObject
 		)

@@ -2,7 +2,7 @@ import { State } from 'statable'
 
 export default new State({
 	connection: null,
-	activeCampaignOrderProducts: null,
-	activeCampaignOrder: null,
+	ecomOrderProducts: null,
+	ecomOrder: null,
 	acceptsMarketing: false
 })

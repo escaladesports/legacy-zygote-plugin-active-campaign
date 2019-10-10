@@ -1,7 +1,9 @@
 export {
     serviceName,
     serviceLogoUrl,
-    proxyUrl
+    proxyUrl,
+    devSiteUrl,
+    prodSiteUrl
 } from './config'
 
 export {

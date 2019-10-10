@@ -5,12 +5,9 @@ const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = merge(common, {
     mode: 'development',
-    watch: false,
+    watch: true,
     plugins: [
         ...common.plugins,
-        new webpack.HotModuleReplacementPlugin(),
-        /* new WebpackShellPlugin({
-            onBuildEnd: [`yarn dev:start`]
-        }) */
+        new webpack.HotModuleReplacementPlugin()
     ]
 })
