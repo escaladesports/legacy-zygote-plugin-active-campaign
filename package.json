@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "public": true,
   "scripts": {
-    "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
-    "build": "esca-scripts build --react --component --babel --input src --output dist --multiple",
-    "dev": "esca-scripts dev --input './dev/dev.js, ./dev/index.html' --react --browser",
-    "prepublishOnly": "npm run build",
-    "reset": "esca-scripts reset",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development && webpack --config webpack.dev.js",
+    "prod": "NODE_ENV=production && webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js"
   },
+  "files": [
+    "dist/*"
+  ],
   "repository": {
     "git": "git",
     "url": "git+https://github.com/escaladesports/zygote-plugin-active-campaign.git"
@@ -27,16 +27,26 @@
   },
   "homepage": "https://github.com/escaladesports/zygote-plugin-active-campaign#readme",
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "emotion": "^10.0.17",
+    "eslint": "^5.16.0",
     "isomorphic-fetch": "^2.2.1",
-    "moment": "^2.24.0"
-  },
-  "devDependencies": {
-    "esca-scripts": "^1.5.4",
-    "eslint-config-escalade-sports": "^1.0.2",
+    "moment": "^2.24.0",
+    "nodemon": "^1.18.10",
+    "react": "^16.10.2",
     "statable": "^0.3.2"
   },
-  "peerDependencies": {
-    "react": "^16.7.0"
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "clean-webpack-plugin": "^2.0.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-merge": "^4.2.1",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }

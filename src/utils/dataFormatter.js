@@ -1,52 +1,50 @@
+module.exports = {
 
-function getFirstName(fullName) {
-  if (fullName.indexOf(` `) > 0) return fullName.split(` `)[0]
-  return ` `
-}
+  getFirstName: (fullName = '') => {
+    return fullName.indexOf(` `) > 0
+      ? fullName.split(` `)[0]
+      : ''
+  },
 
-function getLastName(fullName) {
-  if (fullName.indexOf(` `) > 0) return fullName.split(` `)[fullName.split(` `).length - 1]
-  return ` `
-}
+  getLastName: (fullName = '') => {
+    return fullName.indexOf(` `) > 0
+      ? fullName.split(` `)[1]
+      : ''
+  },
 
-const buildFiltersString = filters => {
-  return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
-}
+  buildFiltersString: function (filters) {
+    return `?${filters.map(({ filter, value }) => `&filters[${filter}]=${value}`).join('').substr(1)}`
+  },
 
-const getContactProps = (info = {}) => { 
-  return {
-    email: info.infoEmail,
-    firstName: getFirstName(info.infoName),
-    lastName: getLastName(info.infoName),
-    phone: info.infoPhone
+  getContactProps: (info = {}) => {
+    const { infoEmail, infoName, infoPhone } = info
+    return {
+      email: infoEmail,
+      firstName: getFirstName(infoName),
+      lastName: getLastName(infoName),
+      phone: infoPhone
+    }
+  },
+
+  getCustomerProps: (info = {}, connection = {}, acceptsMarketing) => {
+    const { infoEmail } = info
+    return {
+      connectionid: connection.id,
+      externalid: infoEmail,
+      email: infoEmail,
+      acceptsMarketing
+    }
+  },
+
+  getOrderProps: (info = {}, connection = {}, customer = {}) => {
+    const { infoEmail, totals, products = [] } = info
+    return {
+      connectionid: id,
+      email: infoEmail,
+      totalPrice: totals.subtotal,
+      orderNumber: `${Date.now()}-${customer.id}-${connection.id}`,
+      customerid: customer.id,
+      orderProducts: products
+    }
   }
-}
-
-const getCustomerProps = (info = {}, connection = {}, acceptsMarketing) => {
-  return {
-    connectionid: connection.id,
-    externalid: info.infoEmail,
-    email: info.infoEmail,
-    acceptsMarketing: acceptsMarketing
-  }
-}
-
-const getOrderProps = (info = {}, connection = {}, customer = {}) => {
-  return {
-    connectionid: connection.id,
-    email: info.infoEmail,
-    totalPrice: info.totals.subtotal,
-    orderNumber: `${Date.now()}-${customer.id}-${connection.id}`,
-    customerid: customer.id,
-    orderProducts: info.products
-  }
-}
-
-export {
-  getFirstName,
-  getLastName,
-  buildFiltersString,
-  getContactProps,
-  getCustomerProps,
-  getOrderProps
 }
