@@ -4,21 +4,7 @@
 		"@babel/preset-react"
 	],
 	"plugins": [
-		[
-			"styled-jsx/babel",
-			{
-				"plugins": [
-					"styled-jsx-plugin-postcss"
-				]
-			}
-		],
-		"transform-es2015-modules-commonjs",
-		"syntax-dynamic-import",
-		"dynamic-import-node",
 		"transform-class-properties",
 		"@babel/plugin-transform-runtime"
-	],
-	"ignore": [
-		"node_modules"
 	]
 }

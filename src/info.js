@@ -10,14 +10,6 @@ import {
 	getOrderProps
 } from './utils/dataFormatter'
 
-
-/*
-	Notes:
-	* `init` means to get or create an object in Active Campaign
-	* `acceptsMarketing` still needs to be sent in from the cart
-*/
-
-
 const preInfo = async ({ preFetchData, info }) => {
 	// If user selects the opt in for marketing send `1` else send `0`
 	const acceptsMarketing = activeCampaignState.state.acceptsMarketing ? `1` : `0`
