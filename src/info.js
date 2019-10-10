@@ -1,4 +1,4 @@
-import { ActiveCampaignConnection } from './connection'
+import { Connection } from './classes'
 import { ActiveCampaignContact } from './contacts'
 import { ActiveCampaignEComCustomer } from './eComCustomer'
 import { ActiveCampaignEComOrder } from './eComOrder'
@@ -8,7 +8,7 @@ import {
 	getContactProps,
 	getCustomerProps,
 	getOrderProps
-} from './utils/dataFormatter'
+} from './utils'
 
 const preInfo = async ({ preFetchData, info }) => {
 	// If user selects the opt in for marketing send `1` else send `0`
@@ -18,7 +18,7 @@ const preInfo = async ({ preFetchData, info }) => {
 	try {	
 
 		// init an active campaign connection
-		let acConnection = new ActiveCampaignConnection()
+		let acConnection = new Connection()
 		acConnection = await acConnection.init()
 		console.log(`acConnection: `, acConnection)
 		if (!acConnection) return info

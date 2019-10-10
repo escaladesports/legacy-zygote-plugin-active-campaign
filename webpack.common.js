@@ -1,14 +1,16 @@
 const path = require('path')
-const nodeExternals = require('webpack-node-externals')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
-    entry: [
-        path.resolve(__dirname, 'src/index.js')
-    ],
+    entry: {
+        classes: path.resolve(__dirname, 'src/classes/index.js'),
+        components: path.resolve(__dirname, 'src/components/index.js'),
+        utils: path.resolve(__dirname, 'src/utils/index.js'),
+        index: path.resolve(__dirname, 'src/index.js')
+    },
     output: {
         path: path.resolve(__dirname, `dist`),
-        filename: 'index.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -23,10 +25,5 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     plugins: [new CleanWebpackPlugin()],
-    target: `node`,
-    externals: [
-        nodeExternals({
-            whitelist: ['webpack/hot/poll?100']
-        })
-    ]
+    target: `node`
 };

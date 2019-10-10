@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { buildFiltersString } from './dataFormatter'
-import { proxyUrl } from './config'
+import { buildFiltersString, proxyUrl } from '../utils'
 
 export const getFilteredACItem = async (type, filters) => {
 
