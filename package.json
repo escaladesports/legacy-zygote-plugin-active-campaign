@@ -28,7 +28,7 @@
   "homepage": "https://github.com/escaladesports/zygote-plugin-active-campaign#readme",
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "@emotion/core": "^10.0.21",
+    "emotion": "^10.0.17",
     "eslint": "^5.16.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.24.0",
