@@ -8,6 +8,8 @@ export default new State({
 	config: {
 		serviceName: `VictoryTailgate`,
 		serviceLogoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
-		proxyUrl: `/api/3/`
+		proxyUrl: `/api/3/`,
+		origin: '',
+		host: ''
 	}
 })

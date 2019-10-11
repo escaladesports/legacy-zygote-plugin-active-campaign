@@ -1,7 +1,12 @@
 import { BaseClass } from '../classes'
 import acState from '../../state'
 
-const { serviceName, serviceLogoUrl } = acState.state.config
+const {
+	serviceName,
+	serviceLogoUrl,
+	origin,
+	host
+} = acState.state.config
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONNECTION_JSON_PROP = `connection`
@@ -10,7 +15,7 @@ const AC_CONNECTION_ENDPOINT = `connections`
 // Static filters to be sent with this object for `GET` requests
 const acConnectionFilters = () => {
 	return [
-		{ filter: `externalid`, value: window.location.host }
+		{ filter: `externalid`, value: host }
 	]
 }
 
@@ -37,9 +42,9 @@ export default class extends BaseClass {
 		super(props)
 
 		// set `this` values
-		this.externalid = props.externalid || window.location.host
-		this.name = props.name || window.location.host
-		this.linkUrl = props.linkUrl || window.location.origin
+		this.externalid = props.externalid || host
+		this.name = props.name || host
+		this.linkUrl = props.linkUrl || origin
 		this.service = props.service || serviceName
 		this.logoUrl = props.logoUrl || serviceLogoUrl
 	}

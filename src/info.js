@@ -12,13 +12,15 @@ import {
 	getOrderProps
 } from './utils'
 
-const init = async ({ serviceName, serviceLogoUrl, proxyUrl }) => {
+const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
 	console.log(`config init`)
 	await acState.setState({
 		config: {
 			serviceName: serviceName || acState.state.config.serviceName,
 			serviceLogoUrl: serviceLogoUrl || acState.state.config.serviceLogoUrl,
-			proxyUrl: proxyUrl || acState.state.config.proxyUrl
+			proxyUrl: proxyUrl || acState.state.config.proxyUrl,
+			origin: origin || acState.state.config.serviceLogoUrl,
+			host: host || acState.state.config.serviceLogoUrl
 		}
 	})
 	console.log(`config: `, acState.state.config)
