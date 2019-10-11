@@ -8,6 +8,6 @@ module.exports = {
 
     devSiteUrl: `https://localhost:8000`,
     //prodSiteUrl: `https://localhost:8000`
-    prodSiteUrl: `https://ac-functions--victorytailgate.netlify.com`
+    prodSiteUrl: `https://ac-deploy--victorytailgate.netlify.com`
     
 }

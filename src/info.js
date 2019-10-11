@@ -12,6 +12,25 @@ import {
 	getOrderProps
 } from './utils'
 
+const init = async ({ serviceName, serviceLogoUrl, proxyUrl }) => {
+	console.log(`config init`)
+	await acState.setState({
+		config: {
+			serviceName: serviceName || acState.state.config.serviceName,
+			serviceLogoUrl: serviceLogoUrl || acState.state.config.serviceLogoUrl,
+			proxyUrl: proxyUrl || acState.state.config.proxyUrl
+		}
+	})
+	console.log(`config: `, acState.state.config)
+	try {
+		// init an active campaign connection
+		// this saves time during checkout
+		await new Connection().init()
+	} catch (e) {
+		console.error(`ZygoteAC Error!: `, e)
+	}
+}
+
 const preInfo = async ({ preFetchData, info }) => {
 
 	// If user selects the opt in for marketing send `1` else send `0`
@@ -50,9 +69,9 @@ const preInfo = async ({ preFetchData, info }) => {
 		if (!acOrder) return info
 
 	} catch (ex) {
-		console.error(`Error!: `, ex)
+		console.error(`ZygoteAC Error!: `, ex)
 	}
 	return info
 }
 
-export { preInfo }
+export { preInfo, init }

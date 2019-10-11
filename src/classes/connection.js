@@ -1,5 +1,7 @@
-import { serviceName, serviceLogoUrl } from '../utils'
 import { BaseClass } from '../classes'
+import acState from '../../state'
+
+const { serviceName, serviceLogoUrl } = acState.state.config
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONNECTION_JSON_PROP = `connection`

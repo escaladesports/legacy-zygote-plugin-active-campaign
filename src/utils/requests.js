@@ -1,13 +1,12 @@
 import fetch from 'isomorphic-fetch'
-import { buildFiltersString, proxyUrl, devSiteUrl, prodSiteUrl } from '../utils'
-
-const baseUrl = process.env.NODE_ENV !== 'production' ? devSiteUrl : prodSiteUrl;
+import { buildFiltersString } from '../utils'
+import acState from '../../state'
 
 export const getFilteredACItem = async (type, filters) => {
 	console.log(`getFilteredACItem filters: `, filters)
 
 	let responseItem = null
-	await fetch(`${baseUrl}${proxyUrl}${type}${buildFiltersString(filters)}`, { 
+	await fetch(`${acState.state.config.proxyUrl}${type}${buildFiltersString(filters)}`, { 
 		method: `GET`
 	})
 		.then(response => response.json())
@@ -29,7 +28,7 @@ export const postACItem = async (type, data) => {
 	console.log(`postACItem data: `, data)
 
 	let responseItem = null
-	await fetch(`${baseUrl}${proxyUrl}${type}`, {
+	await fetch(`${acState.state.config.proxyUrl}${type}`, {
 		method: `POST`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
@@ -53,7 +52,7 @@ export const putACItem = async (type, data) => {
 	console.log(`putACItem data: `, data)
 
 	let responseItem = null
-	await fetch(`${baseUrl}${proxyUrl}${type}`, {
+	await fetch(`${acState.state.config.proxyUrl}${type}`, {
 		method: `PUT`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
