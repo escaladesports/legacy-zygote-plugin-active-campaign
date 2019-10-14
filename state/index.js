@@ -8,8 +8,8 @@ export default new State({
 	config: {
 		serviceName: `VictoryTailgate`,
 		serviceLogoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
-		proxyUrl: `/api/3/`,
-		origin: '',
-		host: ''
+		proxyUrl: `https://ac-preview--victorytailgate.netlify.com/api/3/`,
+		origin: `https://ac-preview--victorytailgate.netlify.com`,
+		host: `ac-preview--victorytailgate.netlify.com`,
 	}
 })

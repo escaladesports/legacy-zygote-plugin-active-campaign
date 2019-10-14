@@ -12,7 +12,7 @@ import {
 	getOrderProps
 } from './utils'
 
-const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
+/* const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
 	console.log(`config init`)
 	await acState.setState({
 		config: {
@@ -24,14 +24,14 @@ const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => 
 		}
 	})
 	console.log(`config: `, acState.state.config)
-	/* try {
+	try {
 		// init an active campaign connection
 		// this saves time during checkout
 		await new Connection().init()
 	} catch (e) {
 		console.error(`ZygoteAC Error!: `, e)
-	} */
-}
+	}
+} */
 
 const preInfo = async ({ preFetchData, info }) => {
 
@@ -76,4 +76,5 @@ const preInfo = async ({ preFetchData, info }) => {
 	return info
 }
 
-export { preInfo, init }
+/* export { preInfo, init } */
+export { preInfo }
