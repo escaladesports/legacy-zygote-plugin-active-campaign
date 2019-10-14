@@ -39,7 +39,7 @@ module.exports = {
   getOrderProps: (info = {}, connection = {}, customer = {}) => {
     const { infoEmail, totals, products = [] } = info
     return {
-      connectionid: id,
+      connectionid: connection.id,
       email: infoEmail,
       totalPrice: totals.subtotal,
       orderNumber: `${Date.now()}-${customer.id}-${connection.id}`,
