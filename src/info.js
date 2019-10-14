@@ -23,7 +23,7 @@ const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => 
 			host: host || acState.state.config.host
 		}
 	})
-	console.log(`config: `, acState.state.config)
+	// console.log(`config: `, acState.state.config)
 	try {
 		// init an active campaign connection
 		// this saves time during checkout
