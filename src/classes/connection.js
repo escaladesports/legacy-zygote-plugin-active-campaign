@@ -11,7 +11,7 @@ const AC_CONNECTION_JSON_PROP = `connection`
 const AC_CONNECTION_ENDPOINT = `connections`
 
 // Static filters to be sent with this object for `GET` requests
-const acConnectionFilters = () => {
+const acConnectionFilters = (host) => {
 	return [
 		{ filter: `externalid`, value: host }
 	]
@@ -38,7 +38,7 @@ export default function (props = {}) {
 		console.log(`getObjectByFilters...`)
 		return await getObjectByFilters({
 			acEndpoint: AC_CONNECTION_ENDPOINT,
-			filters: acConnectionFilters()
+			filters: acConnectionFilters(host)
 		})
 	}
 

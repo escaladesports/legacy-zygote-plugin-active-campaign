@@ -79,4 +79,4 @@ const preInfo = async ({ preFetchData, info }) => {
 }
 
 /* export { preInfo, init } */
-export { preInfo }
+export { preInfo, init }
