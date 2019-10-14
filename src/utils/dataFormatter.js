@@ -20,8 +20,8 @@ module.exports = {
     const { infoEmail, infoName, infoPhone } = info
     return {
       email: infoEmail,
-      firstName: this.getFirstName(infoName),
-      lastName: this.getLastName(infoName),
+      firstName: module.exports.getFirstName(infoName),
+      lastName: module.exports.getLastName(infoName),
       phone: infoPhone
     }
   },
