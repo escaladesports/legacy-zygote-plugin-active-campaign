@@ -3,9 +3,9 @@ import { completeAbandonedStateOrder } from './classes'
 const postOrder = async ({response, info, preFetchData}) => {
     try {
         // update current order as unabandoned
-        const acOrder = await completeAbandonedStateOrder()
-        console.log(`acOrder: `, acOrder)
-        if (!acOrder) return info
+        // don't await - let it run in background
+        console.log(`completing AC order...`)
+        completeAbandonedStateOrder()
 
     } catch (ex) {
         console.error(`Error!: `, ex)
