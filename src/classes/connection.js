@@ -53,7 +53,7 @@ export default function (props = {}) {
 
 	this.init = async () => {
 		console.log(`init...`)
-		await init(
+		return await init(
 			AC_CONNECTION_JSON_PROP,
 			this.getObjectByFilters,
 			this.createObject
