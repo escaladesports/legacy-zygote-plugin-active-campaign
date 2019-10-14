@@ -12,7 +12,7 @@ import {
 	getOrderProps
 } from './utils'
 
-/* const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
+const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
 	console.log(`config init`)
 	await acState.setState({
 		config: {
@@ -27,11 +27,12 @@ import {
 	try {
 		// init an active campaign connection
 		// this saves time during checkout
-		await new Connection().init()
+		let acConnection = new Connection()
+		acConnection = await acConnection.init()
 	} catch (e) {
 		console.error(`ZygoteAC Error!: `, e)
 	}
-} */
+}
 
 const preInfo = async ({ preFetchData, info }) => {
 
@@ -42,31 +43,32 @@ const preInfo = async ({ preFetchData, info }) => {
 	try {	
 
 		// init an active campaign connection
-		let acConnection = await new Connection().init()
+		let acConnection = new Connection()
+		acConnection = await acConnection.init()
 		console.log(`acConnection: `, acConnection)
 		if (!acConnection) return info
 
 		// init an active campaign contact
-		let acContact =
-			await new Contact(
-				getContactProps(info)
-			).init()
+		let acContact = new Contact(
+			getContactProps(info)
+		)
+		acContact = await acContact.init()
 		console.log(`acContact: `, acContact)
 		if (!acContact) return info
 
 		// init an active campaign e-commerce customer
-		let acCustomer =
-			await new EComCustomer(
-				getCustomerProps(info, acConnection, acceptsMarketing)
-			).init()
+		let acCustomer = new EComCustomer(
+			getCustomerProps(info, acConnection, acceptsMarketing)
+		)
+		acCustomer = await acCustomer.init()
 		console.log(`acCustomer: `, acCustomer)
 		if (!acCustomer) return info
 
 		// init an active campaign e-commerce order
-		let acOrder =
-			await new EComOrder(
-				getOrderProps(info, acConnection, acCustomer)
-			).createAbandonedOrder()
+		let acOrder = new EComOrder(
+			getOrderProps(info, acConnection, acCustomer)
+		)
+		acOrder = await acOrder.createAbandonedOrder()
 		console.log(`acOrder: `, acOrder)
 		if (!acOrder) return info
 

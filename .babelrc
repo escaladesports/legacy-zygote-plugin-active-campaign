@@ -1,10 +1,27 @@
 {
 	"presets": [
-		"@babel/preset-env",
-		"@babel/preset-react"
+		"env",
+		"stage-0",
+		"react"
 	],
 	"plugins": [
-		"transform-class-properties",
-		"@babel/plugin-transform-runtime"
+		[
+			"styled-jsx/babel",
+			{
+				"plugins": [
+					"styled-jsx-plugin-postcss"
+				]
+			}
+		],
+		"transform-es2015-modules-commonjs",
+		"syntax-dynamic-import",
+		"dynamic-import-node",
+		[
+			"transform-runtime",
+			{
+				"polyfill": false,
+				"regenerator": true
+			}
+		]
 	]
 }

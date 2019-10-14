@@ -1,4 +1,9 @@
-import { BaseClass } from '../classes'
+import {
+	requestJson,
+	getObjectByFilters,
+	createObject,
+	init
+} from './base'
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_ECOMCUSTOMER_JSON_PROP = `ecomCustomer`
@@ -12,73 +17,35 @@ const acEComCustomerfilters = (obj) => {
 	]
 }
 
-/*
-	Active Campaign eComCustomer Object Class Definition
-*/
-export default class extends BaseClass {
+export default function (props = {}) {
 
-	/*
-		Object fields as defined by Active Campaign API endpoints
-	*/
-	connectionid
-	externalid
-	email
-	acceptsMarketing
+	this.connectionid = props.connectionid || ''
+	this.externalid = props.externalid || ''
+	this.email = props.email || ''
+	this.acceptsMarketing = props.acceptsMarketing || `0`
 
-	/*
-		Constructor -
-		pull values from props before using default values
-	*/
-	constructor(props = {}) {
-		// invoke parent constructor
-		super(props)
+	this.requestJson = function () { return requestJson(AC_ECOMCUSTOMER_JSON_PROP, this) }
 
-		// set `this` values
-		this.connectionid = props.connectionid || ''
-		this.externalid = props.externalid || ''
-		this.email = props.email || ''
-		this.acceptsMarketing = props.acceptsMarketing || `0`
-	}
-
-	/*
-		overridden parent function 
-		for returning an object ready for API requests
-	*/
-	requestJson() { return super.requestJson(AC_ECOMCUSTOMER_JSON_PROP) }
-
-	/*
-		overridden parent function for searching 
-		Active Campaign based on endpoint and filters
-	*/
-	getObjectByFilters = async () => {
+	this.getObjectByFilters = async () => {
 		console.log(`getObjectByFilters...`)
-		return await super.getObjectByFilters({
+		return await getObjectByFilters({
 			acEndpoint: AC_ECOMCUSTOMER_ENDPOINT,
 			filters: acEComCustomerfilters(this)
 		})
 	}
 
-	/*
-		overridden parent function for creating
-		Active Campaign object with passed in data
-	*/
-	createObject = async () => {
+	this.createObject = async () => {
 		console.log(`createObject...`)
-		return await super.createObject({
+		return await createObject({
 			acEndpoint: AC_ECOMCUSTOMER_ENDPOINT,
 			bodyJson: this.requestJson(),
 			propName: AC_ECOMCUSTOMER_JSON_PROP
 		})
 	}
 
-	/*
-		overridden parent function for 
-		getting AC object from state or API
-		or making a new object
-	*/
-	init = async () => {
+	this.init = async () => {
 		console.log(`init...`)
-		await super.init(
+		await init(
 			AC_ECOMCUSTOMER_JSON_PROP,
 			this.getObjectByFilters,
 			this.createObject

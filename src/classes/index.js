@@ -1,13 +1,30 @@
-import BaseClass from './base'
+import {
+    requestJson,
+    getObjectByFilters,
+    createObject,
+    init
+} from './base'
+
 import Connection from './connection'
 import Contact from './contact'
 import EComCustomer from './eComCustomer'
-import EComOrder from './eComOrder'
+import {
+    EComOrder,
+    completeAbandonedStateOrder,
+    updateAbandonedOrder,
+    setActiveCartStatus
+}  from './eComOrder'
 
 export { 
-    BaseClass,
+    requestJson,
+    getObjectByFilters,
+    createObject,
+    init,
     Connection,
     Contact,
     EComCustomer,
-    EComOrder
+    EComOrder,
+    completeAbandonedStateOrder,
+    updateAbandonedOrder,
+    setActiveCartStatus
 }

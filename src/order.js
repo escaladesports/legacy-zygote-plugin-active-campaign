@@ -1,9 +1,9 @@
-import { EComOrder } from './classes'
+import { completeAbandonedStateOrder } from './classes'
 
 const postOrder = async ({response, info, preFetchData}) => {
     try {
         // update current order as unabandoned
-        const acOrder = await EComOrder.completeAbandonedStateOrder()
+        const acOrder = await completeAbandonedStateOrder()
         console.log(`acOrder: `, acOrder)
         if (!acOrder) return info
 

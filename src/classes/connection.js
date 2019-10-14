@@ -1,12 +1,10 @@
-import { BaseClass } from '../classes'
+import {
+	requestJson,
+	getObjectByFilters,
+	createObject,
+	init
+} from './base'
 import acState from '../../state'
-
-const {
-	serviceName,
-	serviceLogoUrl,
-	origin,
-	host
-} = acState.state.config
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONNECTION_JSON_PROP = `connection`
@@ -19,75 +17,43 @@ const acConnectionFilters = () => {
 	]
 }
 
-/*
-	Active Campaign Connection Object Class Definition
-*/
-export default class extends BaseClass {
+export default function (props = {}) {
 
-	/*
-		Object fields as defined by Active Campaign API endpoints
-	*/
-	externalid
-	name
-	linkUrl
-	service
-	logoUrl
+	const {
+		serviceName,
+		serviceLogoUrl,
+		origin,
+		host
+	} = acState.state.config
 
-	/*
-		Constructor -
-		pull values from props before using default values
-	*/
-	constructor(props = {}) {
-		// invoke parent constructor
-		super(props)
+	this.externalid = props.externalid || host
+	this.name = props.name || host
+	this.linkUrl = props.linkUrl || origin
+	this.service = props.service || serviceName
+	this.logoUrl = props.logoUrl || serviceLogoUrl
 
-		// set `this` values
-		this.externalid = props.externalid || host
-		this.name = props.name || host
-		this.linkUrl = props.linkUrl || origin
-		this.service = props.service || serviceName
-		this.logoUrl = props.logoUrl || serviceLogoUrl
-	}
+	this.requestJson = function () { return requestJson(AC_CONNECTION_JSON_PROP, this) }
 
-	/*
-		overridden parent function 
-		for returning an object ready for API requests
-	*/
-	requestJson() { return super.requestJson(AC_CONNECTION_JSON_PROP) }
-
-	/*
-		overridden parent function for searching 
-		Active Campaign based on endpoint and filters
-	*/
-	getObjectByFilters = async () => {
+	this.getObjectByFilters = async () => {
 		console.log(`getObjectByFilters...`)
-		return await super.getObjectByFilters({
+		return await getObjectByFilters({
 			acEndpoint: AC_CONNECTION_ENDPOINT,
 			filters: acConnectionFilters()
 		})
 	}
 
-	/*
-		overridden parent function for creating
-		Active Campaign object with passed in data
-	*/
-	createObject = async () => {
+	this.createObject = async () => {
 		console.log(`createObject...`)
-		return await super.createObject({
+		return await createObject({
 			acEndpoint: AC_CONNECTION_ENDPOINT,
 			bodyJson: this.requestJson(),
 			propName: AC_CONNECTION_JSON_PROP
 		})
 	}
 
-	/*
-		overridden parent function for 
-		getting AC object from state or API
-		or making a new object
-	*/
-	init = async () => {
+	this.init = async () => {
 		console.log(`init...`)
-		await super.init(
+		await init(
 			AC_CONNECTION_JSON_PROP,
 			this.getObjectByFilters,
 			this.createObject
