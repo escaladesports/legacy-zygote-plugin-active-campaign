@@ -19,18 +19,18 @@ const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => 
 			serviceName: serviceName || acState.state.config.serviceName,
 			serviceLogoUrl: serviceLogoUrl || acState.state.config.serviceLogoUrl,
 			proxyUrl: proxyUrl || acState.state.config.proxyUrl,
-			origin: origin || acState.state.config.serviceLogoUrl,
-			host: host || acState.state.config.serviceLogoUrl
+			origin: origin || acState.state.config.origin,
+			host: host || acState.state.config.host
 		}
 	})
 	console.log(`config: `, acState.state.config)
-	try {
+	/* try {
 		// init an active campaign connection
 		// this saves time during checkout
 		await new Connection().init()
 	} catch (e) {
 		console.error(`ZygoteAC Error!: `, e)
-	}
+	} */
 }
 
 const preInfo = async ({ preFetchData, info }) => {
