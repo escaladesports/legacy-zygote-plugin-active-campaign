@@ -12,7 +12,7 @@ import {
 	getOrderProps
 } from './utils'
 
-const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => {
+const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host , proxyDevUrl, isDevMode }) => {
 	console.log(`config init`)
 	await acState.setState({
 		config: {
@@ -20,7 +20,9 @@ const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host }) => 
 			serviceLogoUrl: serviceLogoUrl || acState.state.config.serviceLogoUrl,
 			proxyUrl: proxyUrl || acState.state.config.proxyUrl,
 			origin: origin || acState.state.config.origin,
-			host: host || acState.state.config.host
+			host: host || acState.state.config.host,
+			proxyDevUrl: proxyDevUrl ||  acState.state.config.proxyDevUrl,
+			isDevMode: isDevMode || acState.state.config.isDevMode,
 		}
 	})
 	// console.log(`config: `, acState.state.config)

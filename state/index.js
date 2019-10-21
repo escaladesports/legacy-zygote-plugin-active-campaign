@@ -11,5 +11,7 @@ export default new State({
 		proxyUrl: `https://ac-preview--victorytailgate.netlify.com/api/3/`,
 		origin: `https://ac-preview--victorytailgate.netlify.com`,
 		host: `ac-preview--victorytailgate.netlify.com`,
+		proxyDevUrl: `https://ac-dev-mode--victorytailgate.netlify.com/dev/api/3/`,
+		isDevMode: false,
 	}
 })
