@@ -11,9 +11,6 @@ const AC_ECOMORDER_PRODUCTS_JSON_PROP = `ecomOrderProducts`
 const AC_ECOMORDER_ENDPOINT = `ecomOrders`
 
 export const setActiveCartStatus = (order = {}, props = {}) => {
-	delete order.externalcheckoutid
-	delete order.abandoned_date
-	delete order.abandonedDate
 	order.externalid = props.externalid || Date.now() // TODO: Check if we have order id available and add here
 	// update order products to the order object to complete the order submitted
 	order.orderProducts = acState.state[AC_ECOMORDER_PRODUCTS_JSON_PROP]
