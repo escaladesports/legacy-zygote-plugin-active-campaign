@@ -6,7 +6,9 @@ export const getFilteredACItem = async (type, filters) => {
 	console.log(`getFilteredACItem filters: `, filters)
 
 	let responseItem = null
-	await fetch(`${acState.state.config.proxyUrl}${type}${buildFiltersString(filters)}`, { 
+	let url = acState.state.config.isDevMode ? acState.state.config.proxyDevUrl : acState.state.config.proxyUrl
+	
+	await fetch(`${url}${type}${buildFiltersString(filters)}`, { 
 		method: `GET`
 	})
 		.then(response => response.json())
@@ -28,7 +30,9 @@ export const postACItem = async (type, data) => {
 	console.log(`postACItem data: `, data)
 
 	let responseItem = null
-	await fetch(`${acState.state.config.proxyUrl}${type}`, {
+	let url = acState.state.config.isDevMode ? acState.state.config.proxyDevUrl : acState.state.config.proxyUrl
+	
+	await fetch(`${url}${type}`, {
 		method: `POST`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
@@ -52,7 +56,9 @@ export const putACItem = async (type, data) => {
 	console.log(`putACItem data: `, data)
 
 	let responseItem = null
-	await fetch(`${acState.state.config.proxyUrl}${type}`, {
+	let url = acState.state.config.isDevMode ? acState.state.config.proxyDevUrl : acState.state.config.proxyUrl
+	// TODO: Resolve url for dev mode
+	await fetch(`${url}${type}`, {
 		method: `PUT`,
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(data)
