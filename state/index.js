@@ -4,7 +4,7 @@ export default new State({
 	connection: null,
 	ecomOrderProducts: null,
 	ecomOrder: null,
-	acceptsMarketing: false,
+	acceptsMarketing: true,
 	config: {
 		serviceName: `VictoryTailgate`,
 		serviceLogoUrl: `https://escaladesports.github.io/zygote-cart/images/logo.png`,
