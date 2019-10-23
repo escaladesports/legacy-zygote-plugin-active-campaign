@@ -77,3 +77,27 @@ export const putACItem = async (type, data) => {
 
 	return responseItem
 }
+
+export const deleteACItem = async (type) => {
+	console.log(`deleteACItem type: `, type)
+
+	let responseItem = null
+	let url = acState.state.config.isDevMode ? acState.state.config.proxyDevUrl : acState.state.config.proxyUrl
+
+	await fetch(`${url}${type}`, {
+		method: `DELETE`
+	})
+		.then(response => response.json())
+		.then(responseJson => {
+			console.log(`response from deleteACItem: `, responseJson)
+			if (responseJson) {
+				if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
+				else responseItem = responseJson[type]
+			}
+		})
+	/* .then(response => {
+		// console.log(response)
+	}) */
+
+	return responseItem
+}

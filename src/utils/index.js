@@ -18,5 +18,6 @@ export {
 export {
     getFilteredACItem,
     postACItem,
-    putACItem
+    putACItem,
+    deleteACItem
 } from './requests'
