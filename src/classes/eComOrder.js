@@ -39,9 +39,8 @@ export const setActiveCartStatus = (order = {}, props = {}) => {
 export const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 
-	let sendCartData = setActiveCartStatus(order)
 	let ecomOrder
-	await putACItem(`${AC_ECOMORDER_ENDPOINT}`, sendCartData)
+	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, setActiveCartStatus(order))
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)
