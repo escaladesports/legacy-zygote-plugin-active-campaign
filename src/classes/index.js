@@ -12,7 +12,9 @@ import {
     EComOrder,
     completeAbandonedStateOrder,
     updateAbandonedOrder,
-    setActiveCartStatus
+    setActiveCartStatus,
+    deleteAndMakeComplete,
+    resolveAbandonedOrder
 }  from './eComOrder'
 
 export { 
@@ -26,5 +28,7 @@ export {
     EComOrder,
     completeAbandonedStateOrder,
     updateAbandonedOrder,
-    setActiveCartStatus
+    setActiveCartStatus,
+    deleteAndMakeComplete,
+    resolveAbandonedOrder
 }
