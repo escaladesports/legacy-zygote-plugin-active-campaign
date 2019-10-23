@@ -62,7 +62,7 @@ export const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 
 	let ecomOrder
-	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, { [AC_ECOMORDER_JSON_PROP]: setActiveCartStatus(order) })
+  await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, { [AC_ECOMORDER_JSON_PROP]: setActiveCartStatus(order) })
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)
