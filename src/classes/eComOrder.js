@@ -15,9 +15,11 @@ export const setActiveCartStatus = (order = {}, props = {}) => {
 	// delete order.externalcheckoutid
 	// delete order.abandoned_date
 	// delete order.abandonedDate
-	order.externalid = props.externalid || Date.now() // TODO: Check if we have order id available and add here
+	order.externalid = props.externalid || Date.now().toString() // TODO: Check if we have order id available and add here
 	// update order products to the order object to complete the order submitted
 	order.orderProducts = acState.state[AC_ECOMORDER_PRODUCTS_JSON_PROP]
+	console.log(`setActiveCartStatus order: `, order)
+	console.log(`setActiveCartStatus props: `, props)
 }
 
 export const updateAbandonedOrder = async (order) => {
@@ -34,6 +36,7 @@ export const updateAbandonedOrder = async (order) => {
 
 export const completeAbandonedStateOrder = async () => {
 	let ecomOrder = acState.state[AC_ECOMORDER_JSON_PROP]
+	console.log(`sending the following order to complete: `, ecomOrder)
 	if (acState.state[AC_ECOMORDER_JSON_PROP]) {
 		ecomOrder = await updateAbandonedOrder({ ...acState.state[AC_ECOMORDER_JSON_PROP] })
 		if (ecomOrder) { // When final order is successfull
@@ -63,8 +66,8 @@ export function EComOrder (props = {}) {
 				quantity: product.quantity,
 				category: ``,
 				sku: ``,
-				description: product.description,
-				imageUrl: product.image,
+				description: product.description || ``,
+				imageUrl: product.image || ``,
 				productUrl: ``
 			}
 		})
@@ -107,6 +110,7 @@ export function EComOrder (props = {}) {
 				if (response) {
 					ecomOrder = response.ecomOrder
 					ecomProducts = response.ecomOrderProducts
+					console.log(`Response from post abandoned order: `, response)
 				}
 			})
 
