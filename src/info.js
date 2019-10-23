@@ -12,8 +12,30 @@ import {
 	getOrderProps
 } from './utils'
 
-const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host , proxyDevUrl, isDevMode }) => {
-	console.log(`config init`)
+const init = async (
+		{ 
+			serviceName,
+			serviceLogoUrl,
+			proxyUrl,
+			origin,
+			host,
+			proxyDevUrl
+		}, 
+		{ 
+			proxyDevUrl, 
+			isDevMode 
+		},
+		{
+			acceptsMarketing,
+			color,
+			text,
+		},
+		{
+			abandonOffset,
+		}
+	) => {
+	
+	console.log(`config initializing.....`)
 	await acState.setState({
 		config: {
 			serviceName: serviceName || acState.state.config.serviceName,
@@ -21,11 +43,22 @@ const init = async ({ serviceName, serviceLogoUrl, proxyUrl, origin, host , prox
 			proxyUrl: proxyUrl || acState.state.config.proxyUrl,
 			origin: origin || acState.state.config.origin,
 			host: host || acState.state.config.host,
-			proxyDevUrl: proxyDevUrl ||  acState.state.config.proxyDevUrl,
-			isDevMode: isDevMode || acState.state.config.isDevMode,
+		},
+		devConfig: {
+			proxyDevUrl: proxyDevUrl || acState.state.devConfig.proxyDevUrl,
+			isDevMode: isDevMode || acState.state.devConfig.isDevMode,
+		},
+		pluginConfig: {
+			acceptsMarketing: acceptsMarketing || acState.state.pluginConfig.acceptsMarketing,
+			color: color || acState.state.pluginConfig.color,
+			text: text || acState.state.pluginConfig.text,
+		},
+		defaultConfig: {
+			abandonOffset: abandonOffset ||acState.state.defaultConfig.abandonOffset
 		}
+		
 	})
-	// console.log(`config: `, acState.state.config)
+	console.log(`config: `, acState.state.config)
 	try {
 		// init an active campaign connection
 		// this saves time during checkout

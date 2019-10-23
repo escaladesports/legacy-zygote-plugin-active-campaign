@@ -3,15 +3,11 @@ import { Subscribe } from 'statable'
 import { css, keyframes } from 'emotion'
 import activeCampaignState from '../../state'
 
-// TODO: Import primary color and signUpText text from the config file
-// import { primaryColor, signUpText } from 'config'
-const primaryColor = `#182A42`
-const signUpText = `I would like to receive emails and updates about my order and special promotions`
 
 function setMarketingState() {
-	let acceptsMkt = activeCampaignState.state.acceptsMarketing || false
-	console.log(`Update marketing state: `, acceptsMkt)
-	activeCampaignState.setState({ acceptsMarketing: !acceptsMkt })
+	let pluginConfig = { ...activeCampaignState.state.pluginConfig }
+	pluginConfig.acceptsMarketing = !pluginConfig.acceptsMarketing
+	activeCampaignState.setState({ pluginConfig })
 	console.log(activeCampaignState)
 }
 
@@ -22,9 +18,9 @@ const Info = () => {
 				<div className={divStyle}>
 					<input type="checkbox" id="checkbox_mkt"
 						onChange={setMarketingState}
-						checked={state.acceptsMarketing}
+						checked={state.pluginConfig.acceptsMarketing}
 					/>
-					<label htmlFor="checkbox_mkt">{signUpText}</label>
+					<label htmlFor="checkbox_mkt">{state.pluginConfig.text}</label>
 				</div>
 			)}
 		</Subscribe>
@@ -78,7 +74,7 @@ const divStyle = css({
 		display: `block`,
 		width: `20px`,
 		height: `20px`,
-		border: `2px solid ${primaryColor}`,
+		border: `2px solid ${acState.state.pluginConfig.color}`,
 		position: `absolute`,
 		left: `0`,
 		top: `5px`,

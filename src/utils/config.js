@@ -7,7 +7,7 @@ module.exports = {
     proxyUrl: `/api/3/`,
 
     devSiteUrl: `https://localhost:8000`,
-    //prodSiteUrl: `https://localhost:8000`
+    
     prodSiteUrl: `https://ac-deploy--victorytailgate.netlify.com`
     
 }
