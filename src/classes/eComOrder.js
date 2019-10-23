@@ -11,23 +11,37 @@ const AC_ECOMORDER_PRODUCTS_JSON_PROP = `ecomOrderProducts`
 const AC_ECOMORDER_ENDPOINT = `ecomOrders`
 
 export const setActiveCartStatus = (order = {}, props = {}) => {
-	// TODO: Review this if needed
-	// delete order.externalcheckoutid
-	// delete order.abandoned_date
-	// delete order.abandonedDate
-	order.externalid = props.externalid || Date.now().toString() // TODO: Check if we have order id available and add here
-	// update order products to the order object to complete the order submitted
-	order.orderProducts = acState.state[AC_ECOMORDER_PRODUCTS_JSON_PROP]
-	console.log(`setActiveCartStatus order: `, order)
-	console.log(`setActiveCartStatus props: `, props)
+	// To activate a cart: 
+	// update it with an external id
+	order.externalid = props.externalid || Date.now().toString()
+
+	// Check the abandoned date for the order
+	// If it's in the future, unset it and the externalcheckoutid
+	const abandonedDate = order.abandonedDate || order.abandoned_date
+	if (moment().diff(abandonedDate) < 0) {
+		// abandoned date has not been hit yet, unset it for AC
+		order.externalcheckoutid = null
+		order.abandoned_date = null
+		order.abandonedDate = null
+	} else {
+		// Cart is being recovered, do not send any updates to the abandoned data to AC
+		delete order.externalcheckoutid
+		delete order.abandoned_date
+		delete order.abandonedDate
+	}
+
+	// delete the order products array so AC doesn't have to process it
+	delete order.orderProducts
+
+	return order
 }
 
 export const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 
-	setActiveCartStatus(order)
+	let sendCartData = setActiveCartStatus(order)
 	let ecomOrder
-	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, order)
+	await putACItem(`${AC_ECOMORDER_ENDPOINT}`, sendCartData)
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)
@@ -94,7 +108,7 @@ export function EComOrder (props = {}) {
 	this.abandonCart = (props = {}) => {
 		delete this.externalid
 
-		this.abandoned_date = moment().format()
+		this.abandoned_date = moment().add(3, 'hours').format()
 		this.externalcheckoutid =
 			props.externalcheckoutid
 			|| `${Date.now()}-${this.customerid}-${this.connectionid}`
