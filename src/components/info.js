@@ -8,7 +8,7 @@ function setMarketingState() {
 	let pluginConfig = { ...activeCampaignState.state.pluginConfig }
 	pluginConfig.acceptsMarketing = !pluginConfig.acceptsMarketing
 	activeCampaignState.setState({ pluginConfig })
-	console.log(activeCampaignState)
+	console.log(`setMarketingState: `, activeCampaignState)
 }
 
 const Info = () => {

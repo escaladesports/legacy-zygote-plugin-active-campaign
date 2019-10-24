@@ -4,7 +4,6 @@ This plugin is the integration of Zygote and Active Campaign
 
 ## :construction: UNDER DEVELOPMENT :construction:
 
-
 ---
 
 ## Installation
@@ -21,6 +20,91 @@ Or with Yarn:
 yarn add zygote-plugin-active-campaign
 ```
 
+---
+
+## Configuration
+
+On the index the same file that your Cart is being imported from Zygote, import the plugin:
+
+```js
+import * as ZygoteAC from "zygote-plugin-active-campaign"
+```
+
+On `componentDidMount()` initialize the AC plugin by sending in the configurations(view details below about the data expected):
+
+```js
+componentDidMount() {
+  ZygoteAC.init(config, devConfig, pluginConfig, defaultConfig)
+}
+```
+
+Initialization Paraments:
+
+`config` - Active Campaign account configuration specifications:
+
+| Property Name        | Data Type | Description                       |
+| -------------------- | --------- | ----------------------------------|
+| serviceName          | `string`  | Name of the service               |
+| serviceLogoUrl       | `string`  | url to logo of service            |
+| proxyUrl             | `string`  | url that points to proxy          |
+| origin               | `string`  | origin of requests                |
+| host                 | `string`  | hosting site                      |
+
+Example:
+
+```js
+{
+  serviceName: `MyCompanyOne`,
+  serviceLogoUrl: `https://www.mycompanyone.com/media/logo.png`,
+  proxyUrl: `https://www.mycompanyone.com/api/3/`,
+  origin: `https://www.mycompanyone.com/`,
+  host: `www.mycompanyone.com`,
+}
+```
+
+`devConfig` - define sandbox url and set it to run on dev mode
+
+| Property Name        | Data Type | Description                       |
+| -------------------- | --------- | ----------------------------------|
+| proxyDevUrl          | `string`  | url for the sanbox account        |
+| isDevMode            | `boolean` | sets plugin to run on dev mode    |
+
+Example:
+
+```js
+{
+  proxyDevUrl: `https://mysandboxacct.netlify.com/dev/api/3/`,
+  isDevMode: true
+}
+```
+
+`pluginConfig` - displaying and styling of plugin
+
+| Property Name        | Data Type | Description                              |
+| -------------------- | --------- | -----------------------------------------|
+| acceptsMarketing     | `boolean` | Set checkbot to start  checked/unchecked |
+| color                | `string`  | HEX value of the checkbox                |
+| text                 | `string`  | Display text for the opt-in              |
+
+Example:
+
+```js
+{
+    acceptsMarketing: true,
+    color: `#182A42`,
+    text: `I would like to receive emails and updates about my order and special promotions`,
+},
+```
+
+`defaultConfig` - default configurations for the plugin to run based on
+
+Inject the plugin in the cart:
+
+```jsx
+<Cart
+    plugins={[ZygoteAC]}
+/>
+```
 
 ---
 
@@ -49,6 +133,23 @@ Add the following to your `netlify.toml` file:
   force = true
   [redirects.headers]
     Api-Token = "<AC-API-KEY>"
+
+# Optional if you want to be able to run pointing to a Sand Box
+[[redirects]]
+  from = "/dev/api/3/:params/:id"
+  to = "https://<sandbox-account-name>.api-us1.com/api/3/:params/:id"
+  status = 200
+  force = true
+  [redirects.headers]
+    Api-Token = "<AC-SANDBOX-API-KEY>"
+
+[[redirects]]
+  from = "/dev/api/3/:params"
+  to = "https://<sandbox-account-name>.api-us1.com/api/3/:params"
+  status = 200
+  force = true
+  [redirects.headers]
+    Api-Token = "<AC-SANDBOX-API-KEY>"
 ```
 
 For additional info on Proxy setup on Netlify:
@@ -69,12 +170,14 @@ The plugin focuses on creating **deep data integrations** through Active Campaig
 
 ## What does the plugin do
 
-On the `postInfo` hook
+On the `preInfo` hook:
+
 - Creates/Updates a contact resource
 - Creates/Updates eCommerce customer resource
 - Creates/Updates order with an abandoned cart flag
 
-On the `postOrder` hook
+On the `postOrder` hook:
+
 - Updates the created abandoned cart order
 
 ---

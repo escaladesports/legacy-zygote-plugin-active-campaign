@@ -13,13 +13,12 @@ import {
 } from './utils'
 
 const init = async (
-		{ 
+		{
 			serviceName,
 			serviceLogoUrl,
 			proxyUrl,
 			origin,
-			host,
-			proxyDevUrl
+			host
 		}, 
 		{ 
 			proxyDevUrl, 
@@ -56,7 +55,6 @@ const init = async (
 		defaultConfig: {
 			abandonOffset: abandonOffset ||acState.state.defaultConfig.abandonOffset
 		}
-		
 	})
 	console.log(`config: `, acState.state.config)
 	try {
