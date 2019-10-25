@@ -186,7 +186,7 @@ export function EComOrder(props = {}) {
 				}
 			})
 
-		console.log(`createAbandonedOrder returning order: `, ecomOrder)
+		console.log(`createAbandonedOrder returning order: `, orderData)
 		// after cart abandonment is created then we set the data response to state
 		acState.setState({
 			[AC_ECOMORDER_JSON_PROP]: orderData // only add the ecomOrderId to state 
