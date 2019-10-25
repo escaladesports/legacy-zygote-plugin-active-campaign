@@ -84,8 +84,8 @@ export const resolveAbandonedOrder = async (order = {}, props = {}) => {
 
 export const completeAbandonedStateOrder = async () => {
 	let ecomOrder
-	console.log(`sending the following order to complete: `, ecomOrder)
 	if (acState.state[AC_ECOMORDER_JSON_PROP]) {
+		console.log(`sending the following order to complete: `, ecomOrder)
 		ecomOrder = await resolveAbandonedOrder({ ...acState.state[AC_ECOMORDER_JSON_PROP] })
 		if (ecomOrder) { // When final order is successfull
 			acState.setState({
