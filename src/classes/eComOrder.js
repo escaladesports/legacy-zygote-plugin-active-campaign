@@ -73,7 +73,7 @@ export const updateAbandonedOrder = async (order) => {
 	console.log(`updateAbandonedOrder running...`)
 
 	let ecomOrder
-  await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, { [AC_ECOMORDER_JSON_PROP]: setActiveCartStatus(order) })
+  	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, { [AC_ECOMORDER_JSON_PROP]: setActiveCartStatus(order) })
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
 	console.log(`updateAbandonedOrder returning: `, ecomOrder)
@@ -82,6 +82,8 @@ export const updateAbandonedOrder = async (order) => {
 
 export const resolveAbandonedOrder = async (order = {}, props = {}) => {
 	console.log(`resolveAbandonedOrder running...`)
+
+	if (order[AC_ECOMORDER_JSON_PROP]) order = order[AC_ECOMORDER_JSON_PROP]
 
 	// Determine if we need to recover a cart or delete it and make a complete purchase record
 	// if the abandoned date on the cart is in the future, delete it and make a completed purchase record
@@ -175,11 +177,11 @@ export function EComOrder(props = {}) {
 		console.log(`createAbandonedOrder running...`)
 
 		this.abandonCart()
-		let ecomOrder = { ...acState.state.EComOrder }
-		await postACItem(AC_ECOMORDER_ENDPOINT, this.requestJson())
+		let orderData = this.requestJson()
+		await postACItem(AC_ECOMORDER_ENDPOINT, orderData)
 			.then(response => {
 				if (response) {
-					ecomOrder.id = response.ecomOrder.id
+					orderData[AC_ECOMORDER_JSON_PROP].id = response.ecomOrder.id
 					console.log(`Response from post abandoned order: `, response)
 				}
 			})
@@ -187,7 +189,7 @@ export function EComOrder(props = {}) {
 		console.log(`createAbandonedOrder returning order: `, ecomOrder)
 		// after cart abandonment is created then we set the data response to state
 		acState.setState({
-			[AC_ECOMORDER_JSON_PROP]: ecomOrder // only add the ecomOrderId to state 
+			[AC_ECOMORDER_JSON_PROP]: orderData // only add the ecomOrderId to state 
 		})
 		return ecomOrder
 	}
