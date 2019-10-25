@@ -191,6 +191,6 @@ export function EComOrder(props = {}) {
 		acState.setState({
 			[AC_ECOMORDER_JSON_PROP]: orderData // only add the ecomOrderId to state 
 		})
-		return ecomOrder
+		return orderData
 	}
 }
