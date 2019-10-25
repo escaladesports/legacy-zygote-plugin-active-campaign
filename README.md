@@ -22,6 +22,28 @@ yarn add zygote-plugin-active-campaign
 
 ---
 
+## What does the plugin do
+
+On the `preInfo` hook:
+
+- Creates/Updates a contact resource
+- Creates/Updates eCommerce customer resource
+- Creates/Updates order with an abandoned cart flag
+
+On the `postOrder` hook:
+
+- Updates the created abandoned cart order
+
+---
+
+## Deep Data Integration
+
+The plugin focuses on creating **deep data integrations** through Active Campaign
+
+[Deep Data Integration - Active Campaign](https://developers.activecampaign.com/reference#connections)
+
+---
+
 ## Configuration
 
 On the index the same file that your Cart is being imported from Zygote, import the plugin:
@@ -176,28 +198,6 @@ For additional info on Proxy setup on Netlify:
 [Netlify - Rewrites and Proxying](https://www.netlify.com/docs/redirects/#rewrites-and-proxying)
 
 [Netlify - Toml Reference](https://www.netlify.com/docs/netlify-toml-reference/)
-
----
-
-## Deep Data Integration
-
-The plugin focuses on creating **deep data integrations** through Active Campaign
-
-[Deep Data Integration - Active Campaign](https://developers.activecampaign.com/reference#connections)
-
----
-
-## What does the plugin do
-
-On the `preInfo` hook:
-
-- Creates/Updates a contact resource
-- Creates/Updates eCommerce customer resource
-- Creates/Updates order with an abandoned cart flag
-
-On the `postOrder` hook:
-
-- Updates the created abandoned cart order
 
 ---
 

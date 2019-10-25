@@ -20,7 +20,7 @@ const init = async (
 			origin,
 			host
 		}, 
-		{ 
+		{
 			proxyDevUrl, 
 			isDevMode 
 		},
