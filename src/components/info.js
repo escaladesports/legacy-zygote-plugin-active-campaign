@@ -74,7 +74,7 @@ const divStyle = css({
 		display: `block`,
 		width: `20px`,
 		height: `20px`,
-		border: `2px solid ${acState.state.pluginConfig.color}`,
+		border: `2px solid ${activeCampaignState.state.pluginConfig.color}`,
 		position: `absolute`,
 		left: `0`,
 		top: `5px`,

@@ -53,10 +53,10 @@ const init = async (
 			text: text || acState.state.pluginConfig.text,
 		},
 		defaultConfig: {
-			abandonOffset: abandonOffset ||acState.state.defaultConfig.abandonOffset
+			abandonOffset: abandonOffset || acState.state.defaultConfig.abandonOffset
 		}
 	})
-	console.log(`config: `, acState.state.config)
+	console.log(`acState: `, acState.state)
 	try {
 		// init an active campaign connection
 		// this saves time during checkout
