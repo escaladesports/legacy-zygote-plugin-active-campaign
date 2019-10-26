@@ -51,18 +51,17 @@ export const deleteAndMakeComplete = async (order = {}, props = {}) => {
 	}
 
 	if (!errors) {
-		order = setActiveCartStatus(order, { isComplete: true })
-		await postACItem(AC_ECOMORDER_ENDPOINT, order)
+		await postACItem(AC_ECOMORDER_ENDPOINT, { [AC_ECOMORDER_JSON_PROP]: setActiveCartStatus(order, order, { isComplete: true }) })
 			.then(response => {
 				if (response) {
 					ecomOrder = response.ecomOrder
 					ecomProducts = response.ecomOrderProducts
-					console.log(`Response from post abandoned order: `, response)
+					console.log(`Response from post complete order: `, response)
 				}
 			})
 
-		console.log(`createAbandonedOrder returning order: `, ecomOrder)
-		console.log(`createAbandonedOrder returning products: `, ecomProducts)
+		console.log(`deleteAndMakeComplete returning order: `, ecomOrder)
+		console.log(`deleteAndMakeComplete returning products: `, ecomProducts)
 	}
 
 	console.log(`deleteAndMakeComplete returning: `, ecomOrder)
