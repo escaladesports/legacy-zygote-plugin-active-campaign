@@ -13,49 +13,19 @@ import {
 } from './utils'
 
 const init = async (
-		{
-			serviceName,
-			serviceLogoUrl,
-			proxyUrl,
-			origin,
-			host
-		}, 
-		{
-			proxyDevUrl, 
-			isDevMode 
-		},
-		{
-			acceptsMarketing,
-			color,
-			text,
-		},
-		{
-			abandonOffset,
-		}
-	) => {
+	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
+	{ proxyDevUrl, isDevMode },
+	{ acceptsMarketing, color, text },
+	{ abandonOffset }
+) => {
 	
 	console.log(`config initializing.....`)
-	await acState.setState({
-		config: {
-			serviceName: serviceName || acState.state.config.serviceName,
-			serviceLogoUrl: serviceLogoUrl || acState.state.config.serviceLogoUrl,
-			proxyUrl: proxyUrl || acState.state.config.proxyUrl,
-			origin: origin || acState.state.config.origin,
-			host: host || acState.state.config.host,
-		},
-		devConfig: {
-			proxyDevUrl: proxyDevUrl || acState.state.devConfig.proxyDevUrl,
-			isDevMode: isDevMode || acState.state.devConfig.isDevMode,
-		},
-		pluginConfig: {
-			acceptsMarketing: acceptsMarketing || acState.state.pluginConfig.acceptsMarketing,
-			color: color || acState.state.pluginConfig.color,
-			text: text || acState.state.pluginConfig.text,
-		},
-		defaultConfig: {
-			abandonOffset: abandonOffset || acState.state.defaultConfig.abandonOffset
-		}
-	})
+	acState.init((
+		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
+		{ proxyDevUrl, isDevMode },
+		{ acceptsMarketing, color, text },
+		{ abandonOffset }
+	))
 	console.log(`acState: `, acState.state)
 	try {
 		// init an active campaign connection
