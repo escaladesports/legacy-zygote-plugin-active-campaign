@@ -185,7 +185,7 @@ export function EComOrder(props = {}) {
 		console.log(`createAbandonedOrder running...`)
 
 		// first check state to see if we have an order
-		if (acState.state[AC_ECOMORDER_JSON_PROP]) this.id = acState.state[AC_ECOMORDER_JSON_PROP].id
+		if (acState.state[AC_ECOMORDER_JSON_PROP]) this.id = acState.state[AC_ECOMORDER_JSON_PROP][AC_ECOMORDER_JSON_PROP].id
 
 		this.abandonCart()
 		
