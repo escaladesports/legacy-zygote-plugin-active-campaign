@@ -20,13 +20,14 @@ const init = async (
 ) => {
 	
 	console.log(`config initializing.....`)
-	acState.init((
+	console.log(`acState PRE: `, acState.state)
+	acState.init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, isDevMode },
 		{ acceptsMarketing, color, text },
 		{ abandonOffset }
-	))
-	console.log(`acState: `, acState.state)
+	)
+	console.log(`acState POST: `, acState.state)
 	try {
 		// init an active campaign connection
 		// this saves time during checkout
