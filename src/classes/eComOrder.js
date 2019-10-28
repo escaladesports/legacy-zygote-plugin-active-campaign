@@ -153,7 +153,7 @@ export function EComOrder(props = {}) {
 	this.abandonCart = (props = {}) => {
 		delete this.externalid
 
-		this.abandoned_date = moment().add(1, 'hours').format()
+		this.abandoned_date = moment().add(Number(acState.state.defaultConfig.abandonOffset), 'minutes').format()
 		this.externalcheckoutid =
 			props.externalcheckoutid
 			|| `${Date.now()}-${this.customerid}-${this.connectionid}`
