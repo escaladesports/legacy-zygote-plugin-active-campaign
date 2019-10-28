@@ -22,6 +22,6 @@ export default new State({
 		
 	},
 	defaultConfig: {
-		abandonOffset: 5
+		abandonOffset: 30
 	}
 })
