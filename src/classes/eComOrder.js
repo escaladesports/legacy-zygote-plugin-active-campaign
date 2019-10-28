@@ -185,9 +185,14 @@ export function EComOrder(props = {}) {
 		console.log(`createAbandonedOrder running...`)
 
 		// first check state to see if we have an order
-		if (acState.state[AC_ECOMORDER_JSON_PROP]) this.id = acState.state[AC_ECOMORDER_JSON_PROP][AC_ECOMORDER_JSON_PROP].id
+		// if so, get id and abandoned_date
+		if (acState.state[AC_ECOMORDER_JSON_PROP]) {
+			this.id = acState.state[AC_ECOMORDER_JSON_PROP][AC_ECOMORDER_JSON_PROP].id
+			this.abandoned_date = acState.state[AC_ECOMORDER_JSON_PROP][AC_ECOMORDER_JSON_PROP].abandoned_date
+		}
 
-		this.abandonCart()
+		// if cart is not abandoned, update the abanonded data
+		if (!this.abandoned_date || moment().diff(this.abandoned_date) < 0) this.abandonCart()
 		
 		// If order has an id associated then we only update
 		let acOrderData, orderData = this.requestJson()
