@@ -192,7 +192,7 @@ export function EComOrder(props = {}) {
 		// If order has an id associated then we only update
 		let acOrderData, orderData = this.requestJson()
 		if(this.id) {
-			acOrderData = updateOrder(orderData)
+			acOrderData = await updateOrder(orderData)
 		// Else we create a new abandoned order
 		} else {
 			acOrderData = await postACItem(AC_ECOMORDER_ENDPOINT, orderData)
