@@ -14,7 +14,7 @@ export const removeFromAutomations = async () => {
     console.log(`activeAutomations: `, activeAutomations)
     // Remove contact from automation queue
     if(activeAutomations.length) {
-        activeAutomations.forEach(automation => {
+        activeAutomations.forEach(async (automation) => {
             try {
                 await deleteACItem(`${AC_AUTOMATION_ENDPOINT}/${automation.id}`)
                     .then(response => console.log(`delete response: `, response))
