@@ -17,6 +17,8 @@ import {
     resolveAbandonedOrder
 }  from './eComOrder'
 
+import { removeFromAutomations } from './automations'
+
 export { 
     requestJson,
     getObjectByFilters,
@@ -30,5 +32,6 @@ export {
     updateAbandonedOrder,
     setActiveCartStatus,
     deleteAndMakeComplete,
-    resolveAbandonedOrder
+    resolveAbandonedOrder,
+    removeFromAutomations
 }
