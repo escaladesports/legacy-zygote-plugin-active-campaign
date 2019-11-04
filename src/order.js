@@ -1,5 +1,4 @@
-import { completeAbandonedStateOrder } from './classes'
-import { removeFromAutomations } from './classes'
+import { completeAbandonedStateOrder, removeFromAutomations } from './classes'
 import acState from '../state'
 
 const postOrder = async ({response, info, preFetchData}) => {
