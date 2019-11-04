@@ -9,6 +9,7 @@ import { putACItem, postACItem, deleteACItem } from '../utils'
 const AC_ECOMORDER_JSON_PROP = `ecomOrder`
 const AC_ECOMORDER_PRODUCTS_JSON_PROP = `ecomOrderProducts`
 const AC_ECOMORDER_ENDPOINT = `ecomOrders`
+const AC_ECOMCUSTOMER_JSON_PROP = `ecomCustomer`
 
 export const setActiveCartStatus = (order = {}, props = {}) => {
 	// To activate a cart: 
@@ -110,7 +111,8 @@ export const completeAbandonedStateOrder = async () => {
 		if (ecomOrder) { // When final order is successfull
 			acState.setState({
 				[AC_ECOMORDER_PRODUCTS_JSON_PROP]: null, // Clear the product array object from state
-				[AC_ECOMORDER_JSON_PROP]: null // Clear the order object from state
+				[AC_ECOMORDER_JSON_PROP]: null, // Clear the order object from state
+				[AC_ECOMCUSTOMER_JSON_PROP]: null // Clear customer
 			})
 		}
 	}
