@@ -27,6 +27,25 @@ export const getFilteredACItem = async (type, filters) => {
 	return responseItem
 }
 
+export const getACItemById = async (type, id) => {
+	let responseItem = null
+
+	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
+
+	await fetch(`${url}${type}/${id}`, {
+		method: `GET`
+	})
+	.then(response => response.json())
+	.then(responseJson => {
+		console.log(`response from getACItemById: `, responseJson)
+		if (responseJson) { 
+			if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
+			else responseItem = responseJson[type]
+		}
+	})
+
+}
+
 export const postACItem = async (type, data) => {
 	console.log(`postACItem data: `, data)
 

@@ -1,4 +1,5 @@
 import { completeAbandonedStateOrder } from './classes'
+import { removeFromAutomations } from './classes'
 import acState from '../state'
 
 const postOrder = async ({response, info, preFetchData}) => {
@@ -13,7 +14,10 @@ const postOrder = async ({response, info, preFetchData}) => {
         console.log(`Response from postOrder api: `, response)
         console.log(`Info from postOrder api: `, info)
         console.log(`preFetchData from postOrder api: `, preFetchData)
-        if (success) completeAbandonedStateOrder()
+        if (success) {
+            completeAbandonedStateOrder()
+            removeFromAutomations()
+        }
     } catch (ex) {
         console.error(`Error!: `, ex)
     }
