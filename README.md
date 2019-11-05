@@ -99,6 +99,7 @@ Initialization Parameter objects description:
     | Property Name        | Data Type | Description                       |
     | -------------------- | --------- | ----------------------------------|
     | proxyDevUrl          | `string`  | url for the sanbox account        |
+    | devOrigin            | `string`  | url for the instance running dev  |
     | isDevMode            | `boolean` | sets plugin to run on dev mode    |
 
     <details><summary><b>View Example</b></summary>
@@ -106,6 +107,7 @@ Initialization Parameter objects description:
     ```js
     {
       proxyDevUrl: `https://mysandboxacct.netlify.com/dev/api/3/`,
+      devOrigin: `https://mydevinstance.netlify.com`,
       isDevMode: true
     }
     ```
