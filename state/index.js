@@ -23,13 +23,17 @@ export default new State({
 	},
 	defaultConfig: {
 		abandonOffset: 30
+	},
+	automationConfig: {
+		clearAutomations: false
 	}
 }, {
 	init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, isDevMode },
 		{ acceptsMarketing, color, text },
-		{ abandonOffset }
+		{ abandonOffset },
+		{ clearAutomations }
 	) {
 		this.setState({
 			...this.state,
@@ -51,6 +55,9 @@ export default new State({
 			},
 			defaultConfig: {
 				abandonOffset: abandonOffset || this.state.defaultConfig.abandonOffset
+			},
+			automationConfig: {
+				clearAutomations: clearAutomations || this.state.automationConfig.clearAutomations
 			}
 		})
 	}
