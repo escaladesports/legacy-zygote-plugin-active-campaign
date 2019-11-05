@@ -64,7 +64,7 @@ On `componentDidMount()` initialize the AC plugin by sending in the configuratio
 
 ```js
 componentDidMount() {
-  ZygoteAC.init(config, devConfig, pluginConfig, defaultConfig)
+  ZygoteAC.init(config, devConfig, pluginConfig, defaultConfig, automationConfig)
 }
 ```
 
