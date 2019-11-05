@@ -40,7 +40,7 @@ export const getACItemById = async (type, id) => {
 		console.log(`response from getACItemById: `, responseJson)
 		if (responseJson) { 
 			if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
-			else responseItem = responseJson[type]
+			else responseItem = responseJson
 		}
 	})
 	return responseItem
