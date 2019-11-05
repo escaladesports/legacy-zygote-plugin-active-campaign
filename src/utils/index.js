@@ -17,6 +17,7 @@ export {
 
 export {
     getFilteredACItem,
+    getACItemById,
     postACItem,
     putACItem,
     deleteACItem

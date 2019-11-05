@@ -19,7 +19,7 @@ export const removeFromAutomations = async () => {
                 await deleteACItem(`${AC_AUTOMATION_ENDPOINT}/${automation.id}`)
                     .then(response => console.log(`delete response: `, response))
             } catch(e) {
-		        console.log('error deleting order: ', e)
+		        console.log('error deleting automation: ', e)
             }
         })
     }
