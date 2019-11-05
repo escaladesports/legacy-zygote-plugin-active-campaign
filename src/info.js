@@ -16,7 +16,8 @@ const init = async (
 	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 	{ proxyDevUrl, isDevMode },
 	{ acceptsMarketing, color, text },
-	{ abandonOffset }
+	{ abandonOffset },
+	{ clearAutomations }
 ) => {
 	
 	console.log(`config initializing.....`)
@@ -25,7 +26,8 @@ const init = async (
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, isDevMode },
 		{ acceptsMarketing, color, text },
-		{ abandonOffset }
+		{ abandonOffset },
+		{ clearAutomations }
 	)
 	console.log(`acState POST: `, acState.state)
 	try {
