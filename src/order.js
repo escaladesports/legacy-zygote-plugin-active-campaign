@@ -15,7 +15,7 @@ const postOrder = async ({response, info, preFetchData}) => {
         console.log(`preFetchData from postOrder api: `, preFetchData)
         if (success) {
             completeAbandonedStateOrder()
-            removeFromAutomations()
+            if (acState.state.automationConfig.clearAutomations) removeFromAutomations()
         }
     } catch (ex) {
         console.error(`Error!: `, ex)

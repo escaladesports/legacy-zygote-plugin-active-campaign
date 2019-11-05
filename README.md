@@ -148,6 +148,21 @@ Initialization Parameter objects description:
 
     </details>
 
+5. `automationConfig` - custom configuration for automations
+    | Property Name        | Data Type | Description                              |
+    | -------------------- | --------- | --------------------------------------------------------------|
+    | clearAutomations     | `boolean` | clear contact from all automations after checkout is completed|
+
+    <details><summary><b>View Example</b></summary>
+
+    ```js
+    {
+        clearAutomations: true
+    }
+    ```
+
+    </details>
+
 ---
 
 ## Proxy Setup
