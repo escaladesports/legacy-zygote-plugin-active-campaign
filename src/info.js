@@ -45,8 +45,6 @@ const preInfo = async ({ preFetchData, info }) => {
 	// If user selects the opt in for marketing send `1` else send `0`
 	const acceptsMarketing = acState.state.pluginConfig.acceptsMarketing ? `1` : `0`
 	console.log(`Accepts Marketing: `, acceptsMarketing)
-	console.log(`preInfo preinfo:`, info)
-	console.log(`prefetchdata preinfo: `, preFetchData)
 
 	const sendData = async () => { 
 		try {

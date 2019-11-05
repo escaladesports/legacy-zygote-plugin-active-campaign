@@ -138,7 +138,9 @@ export function EComOrder(props = {}) {
 				sku: ``,
 				description: product.description || ``,
 				imageUrl: product.image || ``,
-				productUrl: acState.state.devConfig.isDevMode ? `${acState.state.devConfig.devOrigin}/product/${product.id}` : `${acState.state.config.origin}/product/${product.id}`
+				// TODO: Update when data is available
+				// productUrl: acState.state.devConfig.isDevMode ? `${acState.state.devConfig.devOrigin}/product/${product.id}` : `${acState.state.config.origin}/product/${product.id}`
+				productUrl: acState.state.devConfig.isDevMode ? acState.state.devConfig.devOrigin : acState.state.config.origin
 			}
 		})
 		: []
