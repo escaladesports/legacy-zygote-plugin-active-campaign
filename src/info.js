@@ -14,7 +14,7 @@ import {
 
 const init = async (
 	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
-	{ proxyDevUrl, isDevMode },
+	{ proxyDevUrl, devOrigin, isDevMode },
 	{ acceptsMarketing, color, text },
 	{ abandonOffset },
 	{ clearAutomations }
@@ -24,7 +24,7 @@ const init = async (
 	console.log(`acState PRE: `, acState.state)
 	acState.init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
-		{ proxyDevUrl, isDevMode },
+		{ proxyDevUrl, devOrigin, isDevMode },
 		{ acceptsMarketing, color, text },
 		{ abandonOffset },
 		{ clearAutomations }
@@ -45,7 +45,9 @@ const preInfo = async ({ preFetchData, info }) => {
 	// If user selects the opt in for marketing send `1` else send `0`
 	const acceptsMarketing = acState.state.pluginConfig.acceptsMarketing ? `1` : `0`
 	console.log(`Accepts Marketing: `, acceptsMarketing)
-	
+	console.log(`preInfo preinfo:`, info)
+	console.log(`prefetchdata preinfo: `, preFetchData)
+
 	const sendData = async () => { 
 		try {
 

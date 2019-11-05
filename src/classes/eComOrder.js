@@ -120,7 +120,7 @@ export const completeAbandonedStateOrder = async () => {
 }
 
 export function EComOrder(props = {}) {
-
+	console.log(`EcomOrder props available: `, props)
 	this.email = props.email
 	this.totalPrice = props.totalPrice || 0
 	this.orderNumber = props.orderNumber
@@ -138,7 +138,7 @@ export function EComOrder(props = {}) {
 				sku: ``,
 				description: product.description || ``,
 				imageUrl: product.image || ``,
-				productUrl: ``
+				productUrl: acState.state.devConfig.isDevMode ? `${acState.state.devConfig.devOrigin}/product/${product.id}` : `${acState.state.config.origin}/product/${product.id}`
 			}
 		})
 		: []
@@ -148,7 +148,7 @@ export function EComOrder(props = {}) {
 
 	// optional properties (have default values)
 	this.source = props.source || `1`
-	this.orderUrl = props.orderUrl || ``
+	this.orderUrl = acState.state.devConfig.isDevMode ? acState.state.devConfig.devOrigin : acState.state.config.origin
 	this.shippingMethod = props.shippingMethod || `UPS Ground`
 	this.shippingAmount = props.shippingAmount || 0
 	this.taxAmount = props.taxAmount || 0
