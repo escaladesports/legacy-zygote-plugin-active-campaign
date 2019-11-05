@@ -22,7 +22,7 @@ export const removeFromAutomations = async () => {
     }
 
     // filter automations to get all that are in progress
-    activeAutomations = (contact.contactAutomations && contact.contactAutomations.length) ? contact.contactAutomations.filter(automation => automation.completeValue !== 100) : null
+    activeAutomations = (contact && contact.contactAutomations.length) ? contact.contactAutomations.filter(automation => automation.completeValue !== 100) : null
     console.log(`activeAutomations: `, activeAutomations)
 
     // Remove contact from automation queue

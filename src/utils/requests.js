@@ -43,7 +43,7 @@ export const getACItemById = async (type, id) => {
 			else responseItem = responseJson[type]
 		}
 	})
-
+	return responseItem
 }
 
 export const postACItem = async (type, data) => {
