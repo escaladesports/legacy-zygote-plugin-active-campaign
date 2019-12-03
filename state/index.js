@@ -15,6 +15,7 @@ export default new State({
 		proxyDevUrl: `https://ac-dev-mode--victorytailgate.netlify.com/dev/api/3/`,
 		devOrigin: `https://ac-preview--victorytailgate.netlify.com`,
 		isDevMode: false,
+		isLogging: false,
 	},
 	pluginConfig: {
 		acceptsMarketing: true,
@@ -31,7 +32,7 @@ export default new State({
 }, {
 	init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
-		{ proxyDevUrl, devOrigin, isDevMode },
+		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
 		{ acceptsMarketing, color, text },
 		{ abandonOffset },
 		{ clearAutomations }
@@ -49,6 +50,7 @@ export default new State({
 				proxyDevUrl: proxyDevUrl || this.state.devConfig.proxyDevUrl,
 				devOrigin: devOrigin || this.state.devConfig.devOrigin,
 				isDevMode: isDevMode || this.state.devConfig.isDevMode,
+				isLogging: isLogging || this.state.isLogging,
 			},
 			pluginConfig: {
 				acceptsMarketing: acceptsMarketing || this.state.pluginConfig.acceptsMarketing,

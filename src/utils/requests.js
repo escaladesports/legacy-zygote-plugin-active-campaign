@@ -1,28 +1,25 @@
 import fetch from 'isomorphic-fetch'
-import { buildFiltersString } from '../utils'
+import { buildFiltersString, logger } from '../utils'
 import acState from '../../state'
 
 export const getFilteredACItem = async (type, filters) => {
-	console.log(`getFilteredACItem filters: `, filters)
+	logger(`getFilteredACItem filters: `, filters)
 
 	let responseItem = null
 	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
-	console.log(`getFilteredACItem url: `, `${url}${type}${buildFiltersString(filters)}`)
-	console.log(`current state: `, acState.state)
+	logger(`getFilteredACItem url: `, `${url}${type}${buildFiltersString(filters)}`)
+	logger(`current state: `, acState.state)
 	await fetch(`${url}${type}${buildFiltersString(filters)}`, { 
 		method: `GET`
 	})
 		.then(response => response.json())
 		.then(responseJson => {
-			console.log(`response from getFilteredACItem: `, responseJson)
+			logger(`response from getFilteredACItem: `, responseJson)
 			if (responseJson) { 
-				if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
+				if (responseJson.errors) logger(`API Errors: `, responseJson.errors)
 				else responseItem = responseJson[type]
 			}
 		})
-		/* .then(response => {
-			// console.log(response)
-		}) */
 
 	return responseItem
 }
@@ -37,9 +34,9 @@ export const getACItemById = async (type, id) => {
 	})
 	.then(response => response.json())
 	.then(responseJson => {
-		console.log(`response from getACItemById: `, responseJson)
+		logger(`response from getACItemById: `, responseJson)
 		if (responseJson) { 
-			if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
+			if (responseJson.errors) logger(`API Errors: `, responseJson.errors)
 			else responseItem = responseJson
 		}
 	})
@@ -47,12 +44,12 @@ export const getACItemById = async (type, id) => {
 }
 
 export const postACItem = async (type, data) => {
-	console.log(`postACItem data: `, data)
+	logger(`postACItem data: `, data)
 
 	let responseItem = null
 	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
-	console.log(`postACItem url: `, `${url}${type}`)
-	console.log(`current state: `, acState.state)
+	logger(`postACItem url: `, `${url}${type}`)
+	logger(`current state: `, acState.state)
 	await fetch(`${url}${type}`, {
 		method: `POST`,
 		headers: { 'Content-Type': 'application/json' },
@@ -63,23 +60,20 @@ export const postACItem = async (type, data) => {
 			return response.json()
 		})
 		.then(responseJson => {
-			console.log(`response from postACItem: `, responseJson)
+			logger(`response from postACItem: `, responseJson)
 			if (responseJson) responseItem = responseJson
 		})
-		/* .then(response => {
-			// console.log(response)
-		}) */
 
 	return responseItem
 }
 
 export const putACItem = async (type, data) => {
-	console.log(`putACItem data: `, data)
+	logger(`putACItem data: `, data)
 
 	let responseItem = null
 	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
-	console.log(`putACItem url: `, `${url}${type}`)
-	console.log(`current state: `, acState)
+	logger(`putACItem url: `, `${url}${type}`)
+	logger(`current state: `, acState)
 	await fetch(`${url}${type}`, {
 		method: `PUT`,
 		headers: { 'Content-Type': 'application/json' },
@@ -90,37 +84,31 @@ export const putACItem = async (type, data) => {
 			return response.json()
 		})
 		.then(responseJson => {
-			console.log(`response from putACItem: `, responseJson)
+			logger(`response from putACItem: `, responseJson)
 			if (responseJson) responseItem = responseJson
 		})
-	/* .then(response => {
-		// console.log(response)
-	}) */
 
 	return responseItem
 }
 
 export const deleteACItem = async (type) => {
-	console.log(`deleteACItem type: `, type)
+	logger(`deleteACItem type: `, type)
 
 	let responseItem = null
 	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
-	console.log(`deleteACItem url: `, `${url}${type}`)
-	console.log(`current state: `, acState.state)
+	logger(`deleteACItem url: `, `${url}${type}`)
+	logger(`current state: `, acState.state)
 	await fetch(`${url}${type}`, {
 		method: `DELETE`
 	})
 		.then(response => response.json())
 		.then(responseJson => {
-			console.log(`response from deleteACItem: `, responseJson)
+			logger(`response from deleteACItem: `, responseJson)
 			if (responseJson) {
-				if (responseJson.errors) console.log(`API Errors: `, responseJson.errors)
+				if (responseJson.errors) logger(`API Errors: `, responseJson.errors)
 				else responseItem = responseJson[type]
 			}
 		})
-	/* .then(response => {
-		// console.log(response)
-	}) */
 
 	return responseItem
 }

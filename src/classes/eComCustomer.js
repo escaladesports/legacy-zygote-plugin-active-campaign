@@ -5,6 +5,8 @@ import {
 	init
 } from './base'
 
+import { logger } from '../utils'
+
 // Static data identifying this AC objects endpoints and object property name
 const AC_ECOMCUSTOMER_JSON_PROP = `ecomCustomer`
 const AC_ECOMCUSTOMER_ENDPOINT = `ecomCustomers`
@@ -27,7 +29,7 @@ export default function (props = {}) {
 	this.requestJson = function () { return requestJson(AC_ECOMCUSTOMER_JSON_PROP, this) }
 
 	this.getObjectByFilters = async () => {
-		console.log(`getObjectByFilters...`)
+		logger(`getObjectByFilters...`)
 		return await getObjectByFilters({
 			acEndpoint: AC_ECOMCUSTOMER_ENDPOINT,
 			filters: acEComCustomerfilters(this)
@@ -35,7 +37,7 @@ export default function (props = {}) {
 	}
 
 	this.createObject = async () => {
-		console.log(`createObject...`)
+		logger(`createObject...`)
 		return await createObject({
 			acEndpoint: AC_ECOMCUSTOMER_ENDPOINT,
 			bodyJson: this.requestJson(),
@@ -44,7 +46,7 @@ export default function (props = {}) {
 	}
 
 	this.init = async () => {
-		console.log(`init...`)
+		logger(`init...`)
 		return await init(
 			AC_ECOMCUSTOMER_JSON_PROP,
 			this.getObjectByFilters,

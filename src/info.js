@@ -9,27 +9,28 @@ import acState from '../state'
 import {
 	getContactProps,
 	getCustomerProps,
-	getOrderProps
+	getOrderProps,
+	logger
 } from './utils'
 
 const init = async (
 	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
-	{ proxyDevUrl, devOrigin, isDevMode },
+	{ proxyDevUrl, devOrigin, isDevMode, isLogging },
 	{ acceptsMarketing, color, text },
 	{ abandonOffset },
 	{ clearAutomations }
 ) => {
 	
-	console.log(`config initializing.....`)
-	console.log(`acState PRE: `, acState.state)
+	logger(`config initializing.....`)
+	logger(`acState PRE: `, acState.state)
 	acState.init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
-		{ proxyDevUrl, devOrigin, isDevMode },
+		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
 		{ acceptsMarketing, color, text },
 		{ abandonOffset },
 		{ clearAutomations }
 	)
-	console.log(`acState POST: `, acState.state)
+	logger(`acState POST: `, acState.state)
 	try {
 		// init an active campaign connection
 		// this saves time during checkout
@@ -44,7 +45,7 @@ const preInfo = async ({ preFetchData, info }) => {
 
 	// If user selects the opt in for marketing send `1` else send `0`
 	const acceptsMarketing = acState.state.pluginConfig.acceptsMarketing ? `1` : `0`
-	console.log(`Accepts Marketing: `, acceptsMarketing)
+	logger(`Accepts Marketing: `, acceptsMarketing)
 
 	const sendData = async () => { 
 		try {
@@ -52,7 +53,7 @@ const preInfo = async ({ preFetchData, info }) => {
 			// init an active campaign connection
 			let acConnection = new Connection()
 			acConnection = await acConnection.init()
-			console.log(`acConnection: `, acConnection)
+			logger(`acConnection: `, acConnection)
 			if (!acConnection) return info
 
 			// init an active campaign contact
@@ -60,7 +61,7 @@ const preInfo = async ({ preFetchData, info }) => {
 				getContactProps(info)
 			)
 			acContact = await acContact.init()
-			console.log(`acContact: `, acContact)
+			logger(`acContact: `, acContact)
 			if (!acContact) return info
 
 			// init an active campaign e-commerce customer
@@ -68,7 +69,7 @@ const preInfo = async ({ preFetchData, info }) => {
 				getCustomerProps(info, acConnection, acceptsMarketing)
 			)
 			acCustomer = await acCustomer.init()
-			console.log(`acCustomer: `, acCustomer)
+			logger(`acCustomer: `, acCustomer)
 			if (!acCustomer) return info
 
 			// init an active campaign e-commerce order
@@ -76,7 +77,7 @@ const preInfo = async ({ preFetchData, info }) => {
 				getOrderProps(info, acConnection, acCustomer)
 			)
 			acOrder = await acOrder.createAbandonedOrder()
-			console.log(`acOrder: `, acOrder)
+			logger(`acOrder: `, acOrder)
 			if (!acOrder) return info
 
 		} catch (ex) {
