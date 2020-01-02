@@ -1,5 +1,5 @@
 import { getACItemById, deleteACItem, logger } from '../utils'
-import acState from '../../state'
+import acState from '../state'
 
 
 const AC_AUTOMATION_ENDPOINT = `contactAutomations`
@@ -26,7 +26,7 @@ export const removeFromAutomations = async () => {
     logger(`activeAutomations: `, activeAutomations)
 
     // Remove contact from automation queue
-    if(activeAutomations && activeAutomations.length) {
+    if (activeAutomations && activeAutomations.length) {
         activeAutomations.forEach(async (automation) => {
             try {
                 await deleteACItem(`${AC_AUTOMATION_ENDPOINT}/${automation.id}`)

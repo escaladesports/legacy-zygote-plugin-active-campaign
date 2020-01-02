@@ -2,7 +2,7 @@ import {
 	requestJson
 } from './base'
 import moment from 'moment'
-import acState from '../../state'
+import acState from '../state'
 import { putACItem, postACItem, deleteACItem, logger } from '../utils'
 
 // Static data identifying this AC objects endpoints and object property name
@@ -200,7 +200,7 @@ export function EComOrder(props = {}) {
 		
 		// If order has an id associated then we only update
 		let acOrderData, orderData = this.requestJson()
-		if(this.id) {
+		if (this.id) {
 			acOrderData = await updateOrder(orderData)
 		// Else we create a new abandoned order
 		} else {

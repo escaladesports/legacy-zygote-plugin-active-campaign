@@ -1,6 +1,6 @@
 import { completeAbandonedStateOrder, removeFromAutomations } from './classes'
 import { logger } from './utils'
-import acState from '../state'
+import acState from './state'
 
 const postOrder = async ({response, info, preFetchData}) => {
 

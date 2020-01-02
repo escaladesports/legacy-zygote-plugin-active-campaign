@@ -4,7 +4,7 @@ import {
 	EComCustomer,
 	EComOrder
 } from './classes'
-import acState from '../state'
+import acState from './state'
 
 import {
 	getContactProps,

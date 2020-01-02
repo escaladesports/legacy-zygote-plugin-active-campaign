@@ -5,7 +5,7 @@ import {
 	init
 } from './base'
 import { logger } from '../utils'
-import acState from '../../state'
+import acState from '../state'
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONNECTION_JSON_PROP = `connection`

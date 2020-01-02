@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { buildFiltersString, logger } from '../utils'
-import acState from '../../state'
+import acState from '../state'
 
 export const getFilteredACItem = async (type, filters) => {
 	logger(`getFilteredACItem filters: `, filters)
