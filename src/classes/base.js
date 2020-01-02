@@ -1,5 +1,5 @@
-import acState from '../../state'
-import { getFilteredACItem, postACItem } from '../utils'
+import acState from '../state'
+import { getFilteredACItem, postACItem, logger } from '../utils'
 
 
 export function requestJson(propName, obj) {
@@ -7,7 +7,7 @@ export function requestJson(propName, obj) {
 }
 
 export async function getObjectByFilters({ acEndpoint, filters }) {
-    console.log(`getObject ${acEndpoint} running...`)
+    logger(`getObject ${acEndpoint} running...`)
 
     let acItem
     await getFilteredACItem(acEndpoint, filters)
@@ -15,24 +15,24 @@ export async function getObjectByFilters({ acEndpoint, filters }) {
             if (itemJson && itemJson.length) acItem = itemJson[0]
         })
 
-    console.log(`getObject ${acEndpoint} returning: `, acItem)
+    logger(`getObject ${acEndpoint} returning: `, acItem)
     return acItem
 }
 
 export async function createObject({ acEndpoint, bodyJson, propName }) {
-    console.log(`createObject ${acEndpoint} running...`)
+    logger(`createObject ${acEndpoint} running...`)
 
     let acItem
     await postACItem(acEndpoint, bodyJson)
         .then(response => acItem = response ? response[propName] : null)
 
-    console.log(`createObject ${acEndpoint} returning: `, acItem)
+    logger(`createObject ${acEndpoint} returning: `, acItem)
     return acItem
 }
     
     
 export async function init(propName, getFunc, createFunc) {
-    console.log(`${propName}.init running...`)
+    logger(`${propName}.init running...`)
 
     let acItem = acState.state[propName] || null
     if (!acItem) {
@@ -45,7 +45,7 @@ export async function init(propName, getFunc, createFunc) {
         }
         acState.setState({ [propName]: acItem })
     }
-    console.log(`${propName}.init returning: `, acItem)
+    logger(`${propName}.init returning: `, acItem)
     return acItem
 }
 

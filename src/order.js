@@ -1,5 +1,6 @@
 import { completeAbandonedStateOrder, removeFromAutomations } from './classes'
-import acState from '../state'
+import { logger } from './utils'
+import acState from './state'
 
 const postOrder = async ({response, info, preFetchData}) => {
 
@@ -8,11 +9,11 @@ const postOrder = async ({response, info, preFetchData}) => {
     try {
         // update current order as unabandoned
         // don't await - let it run in background
-        console.log(`completing AC order...`)
-        console.log(`Complete order data in state: `, acState.state)
-        console.log(`Response from postOrder api: `, response)
-        console.log(`Info from postOrder api: `, info)
-        console.log(`preFetchData from postOrder api: `, preFetchData)
+        logger(`completing AC order...`)
+        logger(`Complete order data in state: `, acState.state)
+        logger(`Response from postOrder api: `, response)
+        logger(`Info from postOrder api: `, info)
+        logger(`preFetchData from postOrder api: `, preFetchData)
         if (success) {
             completeAbandonedStateOrder()
             if (acState.state.automationConfig.clearAutomations) removeFromAutomations()

@@ -16,6 +16,10 @@ export {
 } from './dataFormatter'
 
 export {
+    logger
+} from './helpers'
+
+export {
     getFilteredACItem,
     getACItemById,
     postACItem,

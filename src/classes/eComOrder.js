@@ -2,8 +2,8 @@ import {
 	requestJson
 } from './base'
 import moment from 'moment'
-import acState from '../../state'
-import { putACItem, postACItem, deleteACItem } from '../utils'
+import acState from '../state'
+import { putACItem, postACItem, deleteACItem, logger } from '../utils'
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_ECOMORDER_JSON_PROP = `ecomOrder`
@@ -25,21 +25,21 @@ export const setActiveCartStatus = (order = {}, props = {}) => {
 		delete order.id
 	}
 
-	console.log(`setActiveCartStatus order: `, order)
-	console.log(`setActiveCartStatus props: `, props)
+	logger(`setActiveCartStatus order: `, order)
+	logger(`setActiveCartStatus props: `, props)
 	return order
 }
 
 export const deleteAndMakeComplete = async (order = {}, props = {}) => {
-	console.log(`deleteAndMakeComplete running...`)
+	logger(`deleteAndMakeComplete running...`)
 
 	let ecomOrder, ecomProducts, errors = false
 	try {
 		await deleteACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`)
-			.then(response => console.log(`delete response: `, response))
+			.then(response => logger(`delete response: `, response))
 	} catch (e) {
 		errors = true
-		console.log('error deleting order: ', e)
+		logger('error deleting order: ', e)
 	}
 
 	if (!errors) {
@@ -48,20 +48,20 @@ export const deleteAndMakeComplete = async (order = {}, props = {}) => {
 				if (response) {
 					ecomOrder = response.ecomOrder
 					ecomProducts = response.ecomOrderProducts
-					console.log(`Response from post complete order: `, response)
+					logger(`Response from post complete order: `, response)
 				}
 			})
 
-		console.log(`deleteAndMakeComplete returning order: `, ecomOrder)
-		console.log(`deleteAndMakeComplete returning products: `, ecomProducts)
+		logger(`deleteAndMakeComplete returning order: `, ecomOrder)
+		logger(`deleteAndMakeComplete returning products: `, ecomProducts)
 	}
 
-	console.log(`deleteAndMakeComplete returning: `, ecomOrder)
+	logger(`deleteAndMakeComplete returning: `, ecomOrder)
 	return ecomOrder
 }
 
 export const updateAbandonedOrder = async (order, props = {}) => {
-	console.log(`updateAbandonedOrder running...`)
+	logger(`updateAbandonedOrder running...`)
 
 	let ecomOrder
 
@@ -70,13 +70,13 @@ export const updateAbandonedOrder = async (order, props = {}) => {
   	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order.id}`, { [AC_ECOMORDER_JSON_PROP]: order })
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
-	console.log(`updateAbandonedOrder returning: `, ecomOrder)
+	logger(`updateAbandonedOrder returning: `, ecomOrder)
 	return ecomOrder
 }
 
 
 export const updateOrder = async (order, props = {}) => {
-	console.log(`updateOrder running...`)
+	logger(`updateOrder running...`)
 
 	let ecomOrder
 
@@ -85,12 +85,12 @@ export const updateOrder = async (order, props = {}) => {
   	await putACItem(`${AC_ECOMORDER_ENDPOINT}/${order[AC_ECOMORDER_JSON_PROP].id}`, order)
 		.then(response => ecomOrder = response ? response[AC_ECOMORDER_JSON_PROP] : null)
 
-	console.log(`updateOrder returning: `, ecomOrder)
+	logger(`updateOrder returning: `, ecomOrder)
 	return ecomOrder
 }
 
 export const resolveAbandonedOrder = async (order = {}, props = {}) => {
-	console.log(`resolveAbandonedOrder running...`)
+	logger(`resolveAbandonedOrder running...`)
 
 	if (order[AC_ECOMORDER_JSON_PROP]) order = order[AC_ECOMORDER_JSON_PROP]
 
@@ -120,7 +120,7 @@ export const completeAbandonedStateOrder = async () => {
 }
 
 export function EComOrder(props = {}) {
-	console.log(`EcomOrder props available: `, props)
+	logger(`EcomOrder props available: `, props)
 	this.email = props.email
 	this.totalPrice = props.totalPrice || 0
 	this.orderNumber = props.orderNumber
@@ -186,7 +186,7 @@ export function EComOrder(props = {}) {
 	} */
 
 	this.createAbandonedOrder = async () => {
-		console.log(`createAbandonedOrder running...`)
+		logger(`createAbandonedOrder running...`)
 
 		// first check state to see if we have an order
 		// if so, get id and abandoned_date
@@ -200,7 +200,7 @@ export function EComOrder(props = {}) {
 		
 		// If order has an id associated then we only update
 		let acOrderData, orderData = this.requestJson()
-		if(this.id) {
+		if (this.id) {
 			acOrderData = await updateOrder(orderData)
 		// Else we create a new abandoned order
 		} else {
@@ -208,12 +208,12 @@ export function EComOrder(props = {}) {
 			.then(response => {
 				if (response) {
 					orderData[AC_ECOMORDER_JSON_PROP].id = response[AC_ECOMORDER_JSON_PROP].id
-					console.log(`Response from post abandoned order: `, response)
+					logger(`Response from post abandoned order: `, response)
 				}
 			})
 		}
 
-		console.log(`createAbandonedOrder returning order: `, orderData)
+		logger(`createAbandonedOrder returning order: `, orderData)
 		// after cart abandonment is created then we set the data response to state
 		acState.setState({
 			[AC_ECOMORDER_JSON_PROP]: orderData // only add the ecomOrderId to state 

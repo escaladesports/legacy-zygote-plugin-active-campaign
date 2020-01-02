@@ -1,14 +1,12 @@
 import React from 'react'
 import { Subscribe } from 'statable'
 import { css, keyframes } from 'emotion'
-import activeCampaignState from '../../state'
-
+import activeCampaignState from '../state'
 
 function setMarketingState() {
 	let pluginConfig = { ...activeCampaignState.state.pluginConfig }
 	pluginConfig.acceptsMarketing = !pluginConfig.acceptsMarketing
 	activeCampaignState.setState({ pluginConfig })
-	console.log(`setMarketingState: `, activeCampaignState)
 }
 
 const Info = () => {

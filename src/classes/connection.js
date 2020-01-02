@@ -4,7 +4,8 @@ import {
 	createObject,
 	init
 } from './base'
-import acState from '../../state'
+import { logger } from '../utils'
+import acState from '../state'
 
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONNECTION_JSON_PROP = `connection`
@@ -35,7 +36,7 @@ export default function (props = {}) {
 	this.requestJson = function () { return requestJson(AC_CONNECTION_JSON_PROP, this) }
 
 	this.getObjectByFilters = async () => {
-		console.log(`getObjectByFilters...`)
+		logger(`getObjectByFilters...`)
 		return await getObjectByFilters({
 			acEndpoint: AC_CONNECTION_ENDPOINT,
 			filters: acConnectionFilters(host)
@@ -43,7 +44,7 @@ export default function (props = {}) {
 	}
 
 	this.createObject = async () => {
-		console.log(`createObject...`)
+		logger(`createObject...`)
 		return await createObject({
 			acEndpoint: AC_CONNECTION_ENDPOINT,
 			bodyJson: this.requestJson(),
@@ -52,7 +53,7 @@ export default function (props = {}) {
 	}
 
 	this.init = async () => {
-		console.log(`init...`)
+		logger(`init...`)
 		return await init(
 			AC_CONNECTION_JSON_PROP,
 			this.getObjectByFilters,

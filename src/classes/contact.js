@@ -5,6 +5,8 @@ import {
 	init
 } from './base'
 
+import { logger } from '../utils'
+
 // Static data identifying this AC objects endpoints and object property name
 const AC_CONTACT_JSON_PROP = `contact`
 const AC_CONTACT_ENDPOINT = `contacts`
@@ -26,7 +28,7 @@ export default function (props = {}) {
 	this.requestJson = function () { return requestJson(AC_CONTACT_JSON_PROP, this) }
 
 	this.getObjectByFilters = async () => {
-		console.log(`getObjectByFilters...`)
+		logger(`getObjectByFilters...`)
 		return await getObjectByFilters({
 			acEndpoint: AC_CONTACT_ENDPOINT,
 			filters: acContactFilters(this)
@@ -34,7 +36,7 @@ export default function (props = {}) {
 	}
 
 	this.createObject = async () => {
-		console.log(`createObject...`)
+		logger(`createObject...`)
 		return await createObject({
 			acEndpoint: AC_CONTACT_ENDPOINT,
 			bodyJson: this.requestJson(),
@@ -43,7 +45,7 @@ export default function (props = {}) {
 	}
 
 	this.init = async () => {
-		console.log(`init...`)
+		logger(`init...`)
 		return await init(
 			AC_CONTACT_JSON_PROP,
 			this.getObjectByFilters,
