@@ -17,11 +17,11 @@ module.exports = {
   },
 
   getContactProps: (info = {}) => {
-    const { infoEmail, infoName, infoPhone } = info
+    const { infoEmail, infoName, infoFirstName, infoLastName, infoPhone } = info
     return {
       email: infoEmail,
-      firstName: module.exports.getFirstName(infoName),
-      lastName: module.exports.getLastName(infoName),
+      firstName: (typeof infoFirstName === `undefined`) ? module.exports.getFirstName(infoName) : infoFirstName,
+      lastName: (typeof infoLastName === `undefined`) ? module.exports.getLastName(infoName) : infoLastName,
       phone: infoPhone
     }
   },
