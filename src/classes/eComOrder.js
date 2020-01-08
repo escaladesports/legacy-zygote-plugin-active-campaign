@@ -121,6 +121,12 @@ export const completeAbandonedStateOrder = async () => {
 
 export function EComOrder(props = {}) {
 	logger(`EcomOrder props available: `, props)
+	
+	// url to point to, whether on dev mode for specific instance or prod
+	const siteUrl = acState.state.devConfig.isDevMode ? 
+	acState.state.devConfig.devOrigin 
+	: acState.state.config.origin
+
 	this.email = props.email
 	this.totalPrice = props.totalPrice || 0
 	this.orderNumber = props.orderNumber
@@ -137,10 +143,10 @@ export function EComOrder(props = {}) {
 				category: ``,
 				sku: ``,
 				description: product.description || ``,
-				imageUrl: product.image || ``,
+				imageUrl: acState.state.pluginConfig.hasFullImageUrl ? product.image || `` : `${siteUrl}${product.image}` || ``,
 				// TODO: Update when data is available
 				// productUrl: acState.state.devConfig.isDevMode ? `${acState.state.devConfig.devOrigin}/product/${product.id}` : `${acState.state.config.origin}/product/${product.id}`
-				productUrl: acState.state.devConfig.isDevMode ? acState.state.devConfig.devOrigin : acState.state.config.origin
+				productUrl: siteUrl
 			}
 		})
 		: []

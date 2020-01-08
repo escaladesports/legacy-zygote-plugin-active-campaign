@@ -21,7 +21,7 @@ export default new State({
 		acceptsMarketing: true,
 		color: `#182A42`,
 		text: `I would like to receive emails and updates about my order and special promotions`,
-
+		hasFullImageUrl: true,
 	},
 	defaultConfig: {
 		abandonOffset: 30
@@ -33,7 +33,7 @@ export default new State({
 	init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-		{ acceptsMarketing, color, text },
+		{ acceptsMarketing, color, text, hasFullImageUrl },
 		{ abandonOffset },
 		{ clearAutomations }
 	) {
@@ -56,6 +56,7 @@ export default new State({
 				acceptsMarketing: acceptsMarketing || this.state.pluginConfig.acceptsMarketing,
 				color: color || this.state.pluginConfig.color,
 				text: text || this.state.pluginConfig.text,
+				hasFullImageUrl: hasFullImageUrl || this.state.hasFullImageUrl,
 			},
 			defaultConfig: {
 				abandonOffset: abandonOffset || this.state.defaultConfig.abandonOffset
