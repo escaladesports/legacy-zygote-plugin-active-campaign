@@ -16,7 +16,7 @@ import {
 const init = async (
 	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 	{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-	{ acceptsMarketing, color, text },
+	{ acceptsMarketing, color, text, hasFullImageUrl },
 	{ abandonOffset },
 	{ clearAutomations }
 ) => {
@@ -26,7 +26,7 @@ const init = async (
 	acState.init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-		{ acceptsMarketing, color, text },
+		{ acceptsMarketing, color, text, hasFullImageUrl },
 		{ abandonOffset },
 		{ clearAutomations }
 	)
