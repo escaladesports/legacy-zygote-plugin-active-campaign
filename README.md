@@ -72,13 +72,13 @@ Initialization Parameter objects description:
 
 1. `config` - Active Campaign account configuration specifications:
 
-    | Property Name        | Data Type | Description                       |
-    | -------------------- | --------- | ----------------------------------|
-    | serviceName          | `string`  | Name of the service               |
-    | serviceLogoUrl       | `string`  | url to logo of service            |
-    | proxyUrl             | `string`  | url that points to proxy          |
-    | origin               | `string`  | origin of requests                |
-    | host                 | `string`  | hosting site                      |
+    | Property Name        | Data Type | Description                        |
+    | -------------------- | --------- | ---------------------------------- |
+    | serviceName          | `string`  | Name of the service                |
+    | serviceLogoUrl       | `string`  | url to logo of service             |
+    | proxyUrl             | `string`  | url that points to proxy           |
+    | origin               | `string`  | origin of requests                 |
+    | host                 | `string`  | hosting site                       |
 
     <details><summary><b>View Example</b></summary>
 
@@ -118,11 +118,12 @@ Initialization Parameter objects description:
 
 3. `pluginConfig` - displaying and styling of plugin
 
-    | Property Name        | Data Type | Description                              |
-    | -------------------- | --------- | -----------------------------------------|
-    | acceptsMarketing     | `boolean` | Set checkbox to start  checked/unchecked |
-    | color                | `string`  | HEX value of the checkbox                |
-    | text                 | `string`  | Display text for the opt-in              |
+    | Property Name    | Data Type | Description                                                                                                      |
+    | ---------------- | --------- | ---------------------------------------------------------------------------------------------------------------- |
+    | acceptsMarketing | `boolean` | Set checkbox to start  checked/unchecked                                                                         |
+    | color            | `string`  | HEX value of the checkbox                                                                                        |
+    | text             | `string`  | Display text for the opt-in                                                                                      |
+    | hasFullImageUrl  | `boolean` | Set to true if products have a full url, else it will auto concat the site url or devurl if it is on `isDevMode` |
 
     <details><summary><b>View Example</b></summary>
 
@@ -131,6 +132,7 @@ Initialization Parameter objects description:
         acceptsMarketing: true,
         color: `#182A42`,
         text: `I would like to receive emails and updates about my order and special promotions`,
+        hasFullImageUrl: true
     }
     ```
 
@@ -138,8 +140,8 @@ Initialization Parameter objects description:
 
 4. `defaultConfig` - default configurations for the plugin to run based on
 
-    | Property Name        | Data Type | Description                              |
-    | -------------------- | --------- | -----------------------------------------|
+    | Property Name        | Data Type | Description                                                                    |
+    | -------------------- | --------- | ------------------------------------------------------------------------------ |
     | abandonOffset        | `number`  | Offset time in _minutes_ from current time that a cart is flagged as abandoned |
 
     <details><summary><b>View Example</b></summary>
@@ -154,9 +156,9 @@ Initialization Parameter objects description:
 
 5. `automationConfig` - custom configuration for automations
 
-    | Property Name        | Data Type | Description                              |
-    | -------------------- | --------- | --------------------------------------------------------------|
-    | clearAutomations     | `boolean` | clear contact from all automations after checkout is completed|
+    | Property Name        | Data Type | Description                                                    |
+    | -------------------- | --------- | -------------------------------------------------------------- |
+    | clearAutomations     | `boolean` | clear contact from all automations after checkout is completed |
 
     <details><summary><b>View Example</b></summary>
 
