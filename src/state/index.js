@@ -56,7 +56,7 @@ export default new State({
 				acceptsMarketing: acceptsMarketing || this.state.pluginConfig.acceptsMarketing,
 				color: color || this.state.pluginConfig.color,
 				text: text || this.state.pluginConfig.text,
-				hasFullImageUrl: hasFullImageUrl || this.state.hasFullImageUrl,
+				hasFullImageUrl: hasFullImageUrl || this.state.pluginConfig.hasFullImageUrl,
 			},
 			defaultConfig: {
 				abandonOffset: abandonOffset || this.state.defaultConfig.abandonOffset
