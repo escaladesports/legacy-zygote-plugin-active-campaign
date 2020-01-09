@@ -18,8 +18,8 @@ export default new State({
 		isLogging: false,
 	},
 	pluginConfig: {
-		hasFullImageUrl: true,
-		acceptsMarketing: true,
+		hasFullImageUrl: false,
+		acceptsMarketing: false,
 		color: `#182A42`,
 		text: `I would like to receive emails and updates about my order and special promotions`
 	},
