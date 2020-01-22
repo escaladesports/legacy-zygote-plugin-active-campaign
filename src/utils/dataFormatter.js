@@ -26,6 +26,21 @@ module.exports = {
     }
   },
 
+  getTagProps: (tag, tagType = ``, description) => {
+    return {
+      tag,
+      tagType,
+      description
+    }
+  },
+
+  getContactTagProps: (contact = {}, tag = {}) => {
+    return {
+      contact: contact.id,
+      tag: tag.id
+    }
+  },
+
   getCustomerProps: (info = {}, connection = {}, acceptsMarketing) => {
     const { infoEmail } = info
     return {

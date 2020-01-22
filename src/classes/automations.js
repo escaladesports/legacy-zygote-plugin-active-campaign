@@ -13,7 +13,7 @@ export const removeFromAutomations = async () => {
 
     try {
         await getACItemById(`contacts`, contactId)
-            .then((response) =>{
+            .then((response) => {
                 logger(`getACItemById response: `, response)
                 contact = response
             })

@@ -1,8 +1,10 @@
 import {
 	Connection,
 	Contact,
+	Tag,
+	ContactTag,
 	EComCustomer,
-	EComOrder
+	EComOrder,
 } from './classes'
 import acState from './state'
 
@@ -10,13 +12,15 @@ import {
 	getContactProps,
 	getCustomerProps,
 	getOrderProps,
+	getTagProps,
+	getContactTagProps,
 	logger
 } from './utils'
 
 const init = async (
 	{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 	{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-	{ acceptsMarketing, color, text, hasFullImageUrl },
+	{ acceptsMarketing, color, text, hasFullImageUrl, addAbandonedTag },
 	{ abandonOffset },
 	{ clearAutomations }
 ) => {
@@ -26,7 +30,7 @@ const init = async (
 	acState.init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-		{ acceptsMarketing, color, text, hasFullImageUrl },
+		{ acceptsMarketing, color, text, hasFullImageUrl, addAbandonedTag },
 		{ abandonOffset },
 		{ clearAutomations }
 	)
@@ -39,6 +43,7 @@ const init = async (
 	} catch (e) {
 		console.error(`ZygoteAC Error!: `, e)
 	}
+
 }
 
 const preInfo = async ({ preFetchData, info }) => {
@@ -65,6 +70,23 @@ const preInfo = async ({ preFetchData, info }) => {
 			acContact = await acContact.init()
 			logger(`acContact: `, acContact)
 			if (!acContact) return info
+			
+			// attaches an abandoned tag to the contact
+			if(acState.state.pluginConfig.addAbandonedTag) {
+				// Creates / retrieves abandoned tag
+				let acAbandonedTag = new Tag(
+					getTagProps(`${acState.state.config.serviceName}-abandoned-order`, `contact`, `Abandoned cart tag.`)
+				)
+				acAbandonedTag = await acAbandonedTag.init()
+				if(!acAbandonedTag) return info
+
+				// Attaches / retrieves contact abandoned tag
+				let acContactAbandonedTag = new ContactTag(
+					getContactTagProps(acContact, acAbandonedTag)
+				)
+				acContactAbandonedTag = await acContactAbandonedTag.init()
+				if(!acContactAbandonedTag) return info
+			}
 
 			// init an active campaign e-commerce customer
 			let acCustomer = new EComCustomer(
@@ -89,9 +111,10 @@ const preInfo = async ({ preFetchData, info }) => {
 
 	// dont `await`, let it run in the background
 	sendData()
-	
+
+	logger(`acState on info completed: `, acState.state)
+
 	return info
 }
 
-/* export { preInfo, init } */
 export { preInfo, init }

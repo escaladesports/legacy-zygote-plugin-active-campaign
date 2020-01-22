@@ -48,5 +48,3 @@ export async function init(propName, getFunc, createFunc) {
     logger(`${propName}.init returning: `, acItem)
     return acItem
 }
-
-

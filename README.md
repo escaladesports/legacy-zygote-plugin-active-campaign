@@ -116,14 +116,15 @@ Initialization Parameter objects description:
 
     </details>
 
-3. `pluginConfig` - displaying and styling of plugin
+3. `pluginConfig` - displaying, styling and custom configurations of plugin
 
-    | Property Name    | Data Type | Description                                                                                                      |
-    | ---------------- | --------- | ---------------------------------------------------------------------------------------------------------------- |
-    | acceptsMarketing | `boolean` | Set checkbox to start  checked/unchecked                                                                         |
-    | color            | `string`  | HEX value of the checkbox                                                                                        |
-    | text             | `string`  | Display text for the opt-in                                                                                      |
-    | hasFullImageUrl  | `boolean` | Set to true if products have a full url, else it will auto concat the site url or devurl if it is on `isDevMode` |
+    | Property Name    | Data Type | Description                                                                                                             |
+    | ---------------- | --------- | ----------------------------------------------------------------------------------------------------------------------- |
+    | acceptsMarketing | `boolean` | Set checkbox to start  checked/unchecked                                                                                |
+    | color            | `string`  | HEX value of the checkbox                                                                                               |
+    | text             | `string`  | Display text for the opt-in                                                                                             |
+    | hasFullImageUrl  | `boolean` | Set to true if products have a full url, else it will auto concat the site url or devurl if it is on `isDevMode`        |
+    | addAbandonedTag  | `boolean` | Automatically adds an abandoned tag to the contact when a cart is abandoned, and removes it when the order is completed |
 
     <details><summary><b>View Example</b></summary>
 
@@ -132,7 +133,8 @@ Initialization Parameter objects description:
         acceptsMarketing: true,
         color: `#182A42`,
         text: `I would like to receive emails and updates about my order and special promotions`,
-        hasFullImageUrl: true
+        hasFullImageUrl: true,
+        addAbandonedTag: true
     }
     ```
 
