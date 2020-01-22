@@ -5,6 +5,8 @@ import {
     init
 } from './base'
 
+import { logger } from '../utils'
+
 const AC_TAG_JSON_PROP = `tag`
 const AC_TAG_ENDPOINT = `tags`
 
