@@ -42,7 +42,7 @@ export default function (props = {}) {
         })
     }
 
-    this.getObjectByFilters = (tagName) => {
+    this.getObjectByFilters = async (tagName) => {
         logger(`Getting object by filter in abandoned tag...`)
         return await getObjectByFilters({
 			acEndpoint: AC_TAG_ENDPOINT,
