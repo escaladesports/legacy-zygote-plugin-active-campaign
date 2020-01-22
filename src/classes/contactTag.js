@@ -32,7 +32,7 @@ export default function (props = {}) {
     }
 
     this.getObjectByFilters = async () => {
-         return await getACItemById(`tags`, acState.state.contact.id, AC_CONTACTTAGS_ENDPOINT)
+         return await getACItemById(`contacts`, acState.state.contact.id, AC_CONTACTTAGS_ENDPOINT)
                         .then(response => response[AC_CONTACTTAGS_ENDPOINT]
                             .find(tag => { tag === acState.state.tag.id }))
     }

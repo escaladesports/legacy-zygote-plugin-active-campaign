@@ -71,23 +71,6 @@ const preInfo = async ({ preFetchData, info }) => {
 			acContact = await acContact.init()
 			logger(`acContact: `, acContact)
 			if (!acContact) return info
-			
-			// attaches an abandoned tag to the contact
-			if(acState.state.pluginConfig.addAbandonedTag) {
-				// Creates / retrieves abandoned tag
-				let acAbandonedTag = new Tag(
-					getTagProps(`${acState.state.config.serviceName}-abandoned-order`, `contact`, `Abandoned cart tag.`)
-				)
-				acAbandonedTag = await acAbandonedTag.init()
-				if(!acAbandonedTag) return info
-
-				// Attaches / retrieves contact abandoned tag
-				let acContactAbandonedTag = new ContactTag(
-					getContactTagProps(acContact, acAbandonedTag)
-				)
-				acContactAbandonedTag = await acContactAbandonedTag.init()
-				if(!acContactAbandonedTag) return info
-			}
 
 			// init an active campaign e-commerce customer
 			let acCustomer = new EComCustomer(
@@ -104,6 +87,23 @@ const preInfo = async ({ preFetchData, info }) => {
 			acOrder = await acOrder.createAbandonedOrder()
 			logger(`acOrder: `, acOrder)
 			if (!acOrder) return info
+
+			// attaches an abandoned tag to the contact
+			if(acState.state.pluginConfig.addAbandonedTag) {
+				// Creates / retrieves abandoned tag
+				let acAbandonedTag = new Tag(
+					getTagProps(`${acState.state.config.serviceName}-abandoned-order`, `contact`, `Abandoned cart tag.`)
+				)
+				acAbandonedTag = await acAbandonedTag.init()
+				if(!acAbandonedTag) return info
+
+				// Attaches / retrieves contact abandoned tag
+				let acContactAbandonedTag = new ContactTag(
+					getContactTagProps(acContact, acAbandonedTag)
+				)
+				acContactAbandonedTag = await acContactAbandonedTag.init()
+				if(!acContactAbandonedTag) return info
+			}
 
 		} catch (ex) {
 			console.error(`ZygoteAC Error!: `, ex)
