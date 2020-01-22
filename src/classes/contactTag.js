@@ -1,27 +1,58 @@
-// import {
-// 	requestJson,
-// 	getObjectByFilters,
-// 	createObject,
-// 	init
-// } from './base'
+import {
+	requestJson,
+	createObject,
+	init
+} from './base'
 
-import { logger } from '../utils'
+import acState from '../state'
+
+import { 
+        getACItemById, 
+        deleteACItem,
+        logger
+} from '../utils'
+
+const AC_CONTACTTAGS_JSON_PROP = `contactTag`
+const AC_CONTACTTAGS_ENDPOINT = `contactTags`
 
 export default function (props = {}) {
 
-    this.retrieveContactTag = () => {
-        // Gets tags attached to a contact
-        // TODO:
-        // From here pull all the contact tags associated with this contact
-        // /api/3/contacts/<CONTACTIDHERE>/contactTags
-        logger(`Retrieve contact tag`)
+    this.contact = props.contact || '' // ID of current contact
+    this.tag = props.tag || '' // ID of abandoned tag
+
+    this.requestJson = function () { return requestJson(AC_CONTACTTAGS_JSON_PROP, this) }
+
+    this.init = async () => {
+        logger(`init contactTag...`)
+        return await init(
+            AC_CONTACTTAGS_JSON_PROP,
+            this.getObjectByFilters,
+            this.createObject
+        )
     }
 
-    this.addTag = () => {
-        logger(`Add contact tag`)
+    this.getObjectByFilters = async () => {
+         return await getACItemById(`tags`, acState.state.contact.id, AC_CONTACTTAGS_ENDPOINT)
+                        .then(response => response[AC_CONTACTTAGS_ENDPOINT]
+                            .find(tag => { tag === acState.state.tag.id }))
     }
 
-    this.removeTag = () => {
-        logger(`Remove contact tag`)
+    // Attaches tag to contact
+    this.createObject = async () => {
+        logger(`Attaching abandoned tag...`)
+        return await createObject({
+            acEndpoint: AC_CONTACTTAGS_ENDPOINT,
+            bodyJson: this.requestJson(),
+            propName: AC_CONTACTTAGS_JSON_PROP
+        })
+    }
+
+    this.deleteItem = async () => {
+        try {
+            await deleteACItem(`${AC_CONTACTTAGS_ENDPOINT}/${acState.state[AC_CONTACTTAGS_JSON_PROP].id}`)
+                .then(response => logger(`delete response: `, response))
+        } catch(e) {
+            logger('error deleting contact tag: ', e)
+        }
     }
 }

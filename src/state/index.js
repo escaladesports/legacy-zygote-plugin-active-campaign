@@ -18,10 +18,11 @@ export default new State({
 		isLogging: false,
 	},
 	pluginConfig: {
-		hasFullImageUrl: false,
 		acceptsMarketing: false,
 		color: `#182A42`,
-		text: `I would like to receive emails and updates about my order and special promotions`
+		text: `I would like to receive emails and updates about my order and special promotions`,
+		hasFullImageUrl: false,
+		addAbandonedTag: false,
 	},
 	defaultConfig: {
 		abandonOffset: 30
@@ -33,7 +34,7 @@ export default new State({
 	init(
 		{ serviceName, serviceLogoUrl, proxyUrl, origin, host },
 		{ proxyDevUrl, devOrigin, isDevMode, isLogging },
-		{ hasFullImageUrl, acceptsMarketing, color, text },
+		{ acceptsMarketing, color, text, hasFullImageUrl, addAbandonedTag },
 		{ abandonOffset },
 		{ clearAutomations }
 	) {
@@ -53,10 +54,11 @@ export default new State({
 				isLogging: isLogging || this.state.isLogging,
 			},
 			pluginConfig: {
-				hasFullImageUrl: hasFullImageUrl || this.state.pluginConfig.hasFullImageUrl,
 				acceptsMarketing: acceptsMarketing || this.state.pluginConfig.acceptsMarketing,
 				color: color || this.state.pluginConfig.color,
-				text: text || this.state.pluginConfig.text
+				text: text || this.state.pluginConfig.text,
+				hasFullImageUrl: hasFullImageUrl || this.state.pluginConfig.hasFullImageUrl,
+				addAbandonedTag: addAbandonedTag || this.state.pluginConfig.addAbandonedTag,
 			},
 			defaultConfig: {
 				abandonOffset: abandonOffset || this.state.defaultConfig.abandonOffset

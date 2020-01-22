@@ -7,8 +7,10 @@ import {
 
 import Connection from './connection'
 import Contact from './contact'
+import Tag from './tag'
 import ContactTag from './contactTag'
 import EComCustomer from './eComCustomer'
+
 import {
     EComOrder,
     completeAbandonedStateOrder,
@@ -27,6 +29,7 @@ export {
     init,
     Connection,
     Contact,
+    Tag,
     ContactTag,
     EComCustomer,
     EComOrder,

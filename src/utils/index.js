@@ -11,6 +11,8 @@ export {
     getLastName,
     buildFiltersString,
     getContactProps,
+    getTagProps,
+    getContactTagProps,
     getCustomerProps,
     getOrderProps
 } from './dataFormatter'

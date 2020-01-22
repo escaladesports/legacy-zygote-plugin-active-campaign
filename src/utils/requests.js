@@ -24,12 +24,12 @@ export const getFilteredACItem = async (type, filters) => {
 	return responseItem
 }
 
-export const getACItemById = async (type, id) => {
+export const getACItemById = async (type, id, subQuery = ``) => {
 	let responseItem = null
 
 	let url = acState.state.devConfig.isDevMode ? acState.state.devConfig.proxyDevUrl : acState.state.config.proxyUrl
 
-	await fetch(`${url}${type}/${id}`, {
+	await fetch(`${url}${type}/${id}/${subQuery}`, {
 		method: `GET`
 	})
 	.then(response => response.json())
