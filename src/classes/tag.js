@@ -7,6 +7,8 @@ import {
 
 import { logger } from '../utils'
 
+import acState from '../state'
+
 const AC_TAG_JSON_PROP = `tag`
 const AC_TAG_ENDPOINT = `tags`
 
