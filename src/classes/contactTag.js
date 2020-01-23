@@ -47,7 +47,7 @@ export default function (props = {}) {
         })
     }
 
-    this.deleteItem = async () => {
+    this.deleteContactTag = async () => {
         try {
             await deleteACItem(`${AC_CONTACTTAGS_ENDPOINT}/${acState.state[AC_CONTACTTAGS_JSON_PROP].id}`)
                 .then(response => logger(`delete response: `, response))
