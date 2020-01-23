@@ -43,8 +43,11 @@ export async function init(propName, getFunc, createFunc) {
             await createFunc()
                 .then(itemJson => acItem = itemJson)
         }
-        acState.setState({ [propName]: acItem })
+
+        acState.setState({ [propName]: { ...acState.state[propName], ...acItem }})
     }
+
     logger(`${propName}.init returning: `, acItem)
+    logger(`${propName} init state: `, acState.state[propName])
     return acItem
 }

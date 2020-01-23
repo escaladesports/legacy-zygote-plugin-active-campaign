@@ -5,8 +5,6 @@ import moment from 'moment'
 import acState from '../state'
 import { putACItem, postACItem, deleteACItem, logger } from '../utils'
 
-import { deleteContactTag } from './contactTag'
-
 // Static data identifying this AC objects endpoints and object property name
 const AC_ECOMORDER_JSON_PROP = `ecomOrder`
 const AC_ECOMORDER_PRODUCTS_JSON_PROP = `ecomOrderProducts`
@@ -118,7 +116,7 @@ export const completeAbandonedStateOrder = async () => {
 			})
 			
 			// If the abandoned tag contact mode is active -> delete remove the abandoned tag from the contact
-			if (acState.state.pluginConfig.addAbandonedTag) deleteContactTag()
+			if (acState.state.pluginConfig.addAbandonedTag) acState.state.contactTag.deleteACItem()
 
 		}
 	}
