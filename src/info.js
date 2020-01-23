@@ -41,6 +41,16 @@ const init = async (
 		// this saves time during checkout
 		let acConnection = new Connection()
 		acConnection = await acConnection.init()
+
+		// attaches an abandoned tag to the contact
+		if(acState.state.pluginConfig.addAbandonedTag) {
+			// Creates / retrieves abandoned tag
+			let acAbandonedTag = new Tag(
+				getTagProps(`${acState.state.config.serviceName}-abandoned-order`, `contact`, `Abandoned cart tag.`)
+			)
+			acAbandonedTag = await acAbandonedTag.init()
+			if(!acAbandonedTag) return info
+		}
 	} catch (e) {
 		console.error(`ZygoteAC Error!: `, e)
 	}
