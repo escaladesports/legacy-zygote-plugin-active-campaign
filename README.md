@@ -183,6 +183,15 @@ For *Netlify* you can setup a proxy on your `netlify.toml` file ([docs](https://
 Add the following to your `netlify.toml` file:
 
 ```toml
+
+[[redirects]]
+  from = "/api/3/:params/:id/:subquery"
+  to = "https://<account-name>.api-us1.com/api/3/:params/:id/:subquery"
+  status = 200
+  force = true
+  [redirects.headers]
+    Api-Token = "<AC-API-KEY>"
+
 [[redirects]]
   from = "/api/3/:params/:id"
   to = "https://<account-name>.api-us1.com/api/3/:params/:id"
@@ -200,6 +209,14 @@ Add the following to your `netlify.toml` file:
     Api-Token = "<AC-API-KEY>"
 
 # Optional if you want to be able to run pointing to a Sand Box
+[[redirects]]
+  from = "/dev/api/3/:params/:id/:subquery"
+  to = "https://<account-name>.api-us1.com/api/3/:params/:id/:subquery"
+  status = 200
+  force = true
+  [redirects.headers]
+    Api-Token = "<AC-SANDBOX-API-KEY>"
+
 [[redirects]]
   from = "/dev/api/3/:params/:id"
   to = "https://<sandbox-account-name>.api-us1.com/api/3/:params/:id"
