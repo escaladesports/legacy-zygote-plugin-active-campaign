@@ -8,8 +8,13 @@ import {
 import Connection from './connection'
 import Contact from './contact'
 import Tag from './tag'
-import ContactTag from './contactTag'
-import EComCustomer from './eComCustomer'
+
+import { 
+    ContactTag,
+    removeContactTag 
+} from './contactTag'
+
+    import EComCustomer from './eComCustomer'
 
 import {
     EComOrder,
@@ -31,6 +36,7 @@ export {
     Contact,
     Tag,
     ContactTag,
+    removeContactTag,
     EComCustomer,
     EComOrder,
     completeAbandonedStateOrder,

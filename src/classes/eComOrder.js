@@ -114,9 +114,6 @@ export const completeAbandonedStateOrder = async () => {
 				[AC_ECOMORDER_JSON_PROP]: null, // Clear the order object from state
 				[AC_ECOMCUSTOMER_JSON_PROP]: null // Clear customer
 			})
-			
-			// If the abandoned tag contact mode is active -> delete remove the abandoned tag from the contact
-			if (acState.state.pluginConfig.addAbandonedTag) acState.state.contactTag.deleteACItem()
 
 		}
 	}

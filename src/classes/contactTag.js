@@ -15,7 +15,7 @@ import {
 const AC_CONTACTTAGS_JSON_PROP = `contactTag`
 const AC_CONTACTTAGS_ENDPOINT = `contactTags`
 
-export default function (props = {}) {
+export function ContactTag(props = {}) {
 
     this.contact = props.contact || '' // ID of current contact
     this.tag = props.tag || '' // ID of abandoned tag
@@ -47,12 +47,13 @@ export default function (props = {}) {
         })
     }
 
-    this.deleteContactTag = async () => {
-        try {
-            await deleteACItem(`${AC_CONTACTTAGS_ENDPOINT}/${acState.state[AC_CONTACTTAGS_JSON_PROP].id}`)
-                .then(response => logger(`delete response: `, response))
-        } catch(e) {
-            logger('error deleting contact tag: ', e)
-        }
+}
+
+export const removeContactTag = async () => {
+    try {
+        await deleteACItem(`${AC_CONTACTTAGS_ENDPOINT}/${acState.state[AC_CONTACTTAGS_JSON_PROP].id}`)
+            .then(response => logger(`delete response: `, response))
+    } catch(e) {
+        logger('error deleting contact tag: ', e)
     }
 }

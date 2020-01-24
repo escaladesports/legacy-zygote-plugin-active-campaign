@@ -1,4 +1,4 @@
-import { completeAbandonedStateOrder, removeFromAutomations } from './classes'
+import { completeAbandonedStateOrder, removeFromAutomations, removeContactTag } from './classes'
 import { logger } from './utils'
 import acState from './state'
 
@@ -17,6 +17,7 @@ const postOrder = async ({response, info, preFetchData}) => {
         if (success) {
             completeAbandonedStateOrder()
             if (acState.state.automationConfig.clearAutomations) removeFromAutomations()
+            if (acState.state.pluginConfig.addAbandonedTag) removeContactTag()
         }
     } catch (ex) {
         console.error(`Error!: `, ex)
