@@ -101,7 +101,7 @@ export const deleteACItem = async (type) => {
 	await fetch(`${url}${type}`, {
 		method: `DELETE`
 	})
-		.then(response => response.json())
+		.then(response => response ? response.json() : response)
 		.then(responseJson => {
 			logger(`response from deleteACItem for ${type}: `, responseJson)
 			if (responseJson) {
