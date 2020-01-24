@@ -103,7 +103,7 @@ export const deleteACItem = async (type) => {
 	})
 		.then(response => response.json())
 		.then(responseJson => {
-			logger(`response from deleteACItem: `, responseJson)
+			logger(`response from deleteACItem for ${type}: `, responseJson)
 			if (responseJson) {
 				if (responseJson.errors) logger(`API Errors: `, responseJson.errors)
 				else responseItem = responseJson[type]

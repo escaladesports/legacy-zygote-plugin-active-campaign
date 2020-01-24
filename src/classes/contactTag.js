@@ -52,7 +52,9 @@ export function ContactTag(props = {}) {
 export const removeContactTag = async () => {
     try {
         await deleteACItem(`${AC_CONTACTTAGS_ENDPOINT}/${acState.state[AC_CONTACTTAGS_JSON_PROP].id}`)
-            .then(response => logger(`delete response: `, response))
+            .then(response => {
+                    if (response) logger(`delete tag response: `, response)
+                })
     } catch(e) {
         logger('error deleting contact tag: ', e)
     }
